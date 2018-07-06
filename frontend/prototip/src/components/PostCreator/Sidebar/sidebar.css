@@ -1,0 +1,7 @@
+.SideBar {
+    width: 12vw;
+    display: inline-block;
+    height: 100vh;
+    background-color: #6c6c70;
+    position: fixed;
+}

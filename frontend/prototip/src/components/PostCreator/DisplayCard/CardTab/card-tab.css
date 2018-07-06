@@ -1,0 +1,33 @@
+.card__tab:first-child {
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+.card__tab:last-of-type {
+    padding-bottom: 15px;
+    padding-top: 0px;
+}
+
+.card__tab {
+    padding-bottom: 15px;
+    display: flex;
+    width: 95%;
+    position: relative;
+}
+
+.display__input {
+    flex: 1;
+    display: block;
+    min-width: 0;
+    background-color: white;
+    border-style: solid;
+    border-color: #b9b8b8;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.display__title {
+    margin-left: 20px;
+}

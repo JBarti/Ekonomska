@@ -1,0 +1,35 @@
+.creator__card {
+    position: relative;
+    display: inline-block;
+    width: 50vw;
+    height: fit-content;
+    background-color: white;
+    margin-left: 30%;
+    top: 25%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.card__button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
+    background-color: #1abc9c;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+    font-size: 20px;
+    color: aliceblue;
+    user-select: none;
+}
+
+.card__button:first-child {
+    border-right: 1px;
+    border-right-style: solid;
+    border-right-color: aliceblue;
+}
+
+.card__button:hover {
+    background-color: #16a085;
+}
