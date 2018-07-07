@@ -5,16 +5,12 @@ import './tab.css'
 
 const Tab = (props) => {
     return (
-        <div className='tag'>
+        <div className='tag' onClick={(e) => props.onClick(e, props.element)}>
             <div className='tag_name'>
                 {props.text}
             </div>
         </div>
     )
-}
-
-Tab.propTypes = {
-    text: PropTypes.string.isRequired
 }
 
 export default Tab

@@ -1,18 +1,20 @@
-.card__tab:first-child {
-    padding-top: 10px;
-    padding-bottom: 0px;
+.card__tab:hover {
+    background-color: rgba(128, 128, 128, 0.575);
 }
 
-.card__tab:last-of-type {
-    padding-bottom: 15px;
-    padding-top: 0px;
+.card__tab::after {
+    width: 5%;
+    height: auto;
+    content: ''
 }
 
 .card__tab {
-    padding-bottom: 15px;
+    padding-top: 12px;
+    padding-bottom: 20px;
     display: flex;
-    width: 95%;
+    width: 100%;
     position: relative;
+    height: 30px;
 }
 
 .display__input {
@@ -30,4 +32,13 @@
 
 .display__title {
     margin-left: 20px;
+}
+
+.plus {
+    flex: 1;
+    display: block;
+    text-align: center;
+    padding-top: 3px;
+    color: gray;
+    font-size: 25px;
 }

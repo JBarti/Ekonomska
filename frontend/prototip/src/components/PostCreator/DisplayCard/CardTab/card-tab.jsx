@@ -4,11 +4,22 @@ import './card-tab.css'
 class CardTab extends Component {
     render() {
         return (
-            <div className='card__tab'>
+            <div className='card__tab' children={this.props.children} onClick={(e) => { this.props.onClick(e, this.props.id, this.props.children); }}>
                 {this.props.children}
-            </div>
-        );
+            </div >)
     }
 }
 
-export default CardTab;
+
+
+export { CardTab }
+
+const AddTab = props => (
+    <div className='card__tab add__tab' onClick={(e) => { props.onClick(e) }}>
+        <div className='plus'>
+            +
+        </div>
+    </div >
+)
+
+export { AddTab }
