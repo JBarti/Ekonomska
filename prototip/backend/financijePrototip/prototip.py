@@ -5,10 +5,11 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-mongo = PyMongo(app)
-
 app.config['DEBUG'] = True
 app.config['MONGO_DBNAME'] = 'prototypeServer'
+app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/prototip'
+
+mongo = PyMongo(app)
 
 
 from razred import generate_blueprint

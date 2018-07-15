@@ -24,6 +24,12 @@
     user-select: none;
 }
 
+.button__next {
+    text-align: right;
+    padding-left: 0px;
+    padding-right: 25px;
+}
+
 .card__button:first-child {
     border-right: 1px;
     border-right-style: solid;

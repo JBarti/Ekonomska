@@ -17,23 +17,6 @@
     height: 30px;
 }
 
-.display__input {
-    flex: 1;
-    display: block;
-    min-width: 0;
-    background-color: white;
-    border-style: solid;
-    border-color: #b9b8b8;
-    height: 30px;
-    border-radius: 5px;
-    font-size: 18px;
-    margin-left: 20px;
-}
-
-.display__title {
-    margin-left: 20px;
-}
-
 .plus {
     flex: 1;
     display: block;
