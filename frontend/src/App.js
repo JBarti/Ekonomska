@@ -75,8 +75,8 @@ class App extends Component {
 										heading='Notifikacija'
 										subheading='Profesor dodao novi test test3'
 										bodyText='Neki nasumican tekst'
-										onClick={this.expandTab('panel1')}
-										expanded={this.state.open == 'panel1'} >
+										onClick={this.expandTab('panel2')}
+										expanded={this.state.open == 'panel2'} >
 									</HarmonicaTab>
 								</Harmonica>
 							</ContentCard>
