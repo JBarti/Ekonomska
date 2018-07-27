@@ -8,13 +8,15 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
-        position: 'absolute',
-        display: 'inline',
-        width: 240,
+        position: 'relative',
+        width: 250,
     },
     drawerList: {
-        letterSpacing: 0.86,
-        width: 240,
+        width: '100%'
+    },
+    drawerPaper: {
+        width: '100%',
+        position: 'relative'
     }
 })
 
@@ -26,11 +28,12 @@ class Sidebar extends Component {
             <Drawer
                 anchor='left'
                 variant='permanent'
-                className={classes.root}>
+                className={classes.root}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}>
                 <List className={classes.drawerList}>
-                    <List className={classes.drawerList}>
-                        {this.props.children}
-                    </List>
+                    {this.props.children}
                 </List>
             </Drawer >
         );
@@ -39,7 +42,7 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
     classes: PropTypes.object.isRequired,
-    children: PropTypes.array
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
 export default withStyles(styles)(Sidebar);

@@ -8,13 +8,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 const styles = theme => ({
     text: {
-        letterSpacing: 0.2,
+        letterSpacing: 0.82,
+        alignText: 'left'
     },
     appBar: {
-        position: 'absolute',
-        marginLeft: 240,
-        width: `calc(100% - ${240}px)`,
-        paddingLeft: 20
+        position: 'fixed',
+        display: 'inline-block',
+        width: `calc(100% - 250px)`,
+        paddingLeft: 20,
+        height: 65
     },
 })
 
@@ -35,6 +37,7 @@ class Appbar extends Component {
 
 Appbar.propTypes = {
     classes: PropTypes.object.isRequired,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
 export default withStyles(styles)(Appbar);

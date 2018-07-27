@@ -13,18 +13,12 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 
 const styles = theme => ({
-    sidebarItemText: {
-        letterSpacing: 0.2,
+    listItemText: {
+        letterSpacing: 0.82,
     },
 })
 
-class Folder extends Component {
-
-    constructor(props) {
-        super(props)
-
-        console.log(this.props.children)
-    }
+class ListFolder extends Component {
 
     state = { open: false }
 
@@ -37,14 +31,14 @@ class Folder extends Component {
         return (
             <div>
                 <ListItem button onClick={this.open}>
-                    <ListItemIcon>
+                    <ListItemIcon >
                         <FileDownload />
                     </ListItemIcon>
                     <ListItemText
                         inset
                         primary={this.props.primary}
                         secondary={this.props.secondary}
-                        className={classes.sidebarItemText} />
+                        className={classes.listItemText} />
                     {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem >
                 <Collapse in={this.state.open} timeout="auto" unmountOnExit>
@@ -57,8 +51,11 @@ class Folder extends Component {
     }
 }
 
-Folder.propTypes = {
+ListFolder.propTypes = {
     classes: PropTypes.object.isRequired,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    primary: PropTypes.string.isRequired,
+    secondary: PropTypes.string,
 };
 
-export default withStyles(styles)(Folder);
+export default withStyles(styles)(ListFolder);
