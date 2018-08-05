@@ -33,9 +33,13 @@ const styles = theme => ({
 class ContentCard extends Component {
     render() {
         const { classes } = this.props;
+        let subheader = undefined
+        if (this.props.cardName) {
+            subheader = <ListSubheader component="div" className={classes.subheader}>{this.props.cardName}</ListSubheader>
+        }
         return (
             <Card className={classes.root} >
-                <List subheader={<ListSubheader component="div" className={classes.subheader}>{this.props.cardName}</ListSubheader>}>
+                <List subheader={subheader}>
                     {this.props.children}
                 </List>
             </Card>

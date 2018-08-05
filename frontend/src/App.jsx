@@ -7,20 +7,12 @@ import ListButton from './common/list-button/listButton'
 import Appbar from './common/appbar/appbar'
 import UserHeader from './common/sidebar/user-header/userHeader'
 import AirplanemodeActive from '@material-ui/icons/AirplanemodeActive'
-import purple from '@material-ui/core/colors/purple';
 import Content from './common/content/content'
 import Row from './common/content/row/row'
 import ContentCard from './common/content-card/contentCard'
 import Harmonica from './common/harmonica/harmonica'
 import HarmonicaTab from './common/harmonica/harmonica-tab/harmonicaTab'
-
-
-const theme = createMuiTheme({
-	palette: {
-		primary: { main: purple[500] }, // Purple and green play nicely together.
-		secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
-	},
-});
+import theme from './common/theme/theme'
 
 const styles = theme => ({
 	root: {
