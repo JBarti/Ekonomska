@@ -12,7 +12,7 @@ const styles = theme => ({
     listItemText: {
         letterSpacing: 0.82,
     },
-    sidebarItem: {
+    root: {
         position: 'relative',
         width: '100%',
     },
@@ -28,10 +28,10 @@ class ListButton extends Component {
         return (
             <ListItem
                 button
-                className={this.props.tabbed ? classes.sidebarItemTabbed : classes.sidebarItem}
+                className={this.props.tabbed ? classes.sidebarItemTabbed : classes.root}
                 onClick={this.props.onClick}>
                 <ListItemIcon>
-                    {!this.props.icon ? <FileDownload /> : this.props.icon}
+                    {!this.props.icon ? <div></div> : this.props.icon}
                 </ListItemIcon>
                 <ListItemText
                     inset

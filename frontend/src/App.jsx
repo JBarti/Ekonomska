@@ -40,46 +40,44 @@ class App extends Component {
 		const { classes } = this.props
 		return (
 			<div className={classes.root}>
-				<MuiThemeProvider theme={theme}>
-					<Appbar></Appbar>
+				<Appbar></Appbar>
 
-					<Sidebar>
-						<UserHeader avatarLetter='U' username='Mirko' status='ucenik'></UserHeader>
-						<ListButton primary='Botun'></ListButton>
-					</Sidebar>
+				<Sidebar>
+					<UserHeader avatarLetter='U' username='Mirko' status='ucenik'></UserHeader>
+					<ListButton primary='Botun'></ListButton>
+				</Sidebar>
 
-					<Content>
-						<Row>
-							<ContentCard cardName='Kartica'>
-							</ContentCard>
-						</Row>
-						<Row>
-							<ContentCard cardName='Kartica Dva'>
-								<Harmonica >
-									<HarmonicaTab
-										heading='Notifikacija'
-										subheading='Profesor dodao novi test test3'
-										bodyText='Neki nasumican tekst'
-										onClick={this.expandTab('panel1')}
-										expanded={this.state.open == 'panel1'} >
-									</HarmonicaTab>
-									<HarmonicaTab
-										heading='Notifikacija'
-										subheading='Profesor dodao novi test test3'
-										bodyText='Neki nasumican tekst'
-										onClick={this.expandTab('panel2')}
-										expanded={this.state.open == 'panel2'} >
-									</HarmonicaTab>
-								</Harmonica>
-							</ContentCard>
-							<ContentCard cardName='Test'></ContentCard>
-						</Row>
-						<Row>
-							<ContentCard cardName='Kartica'>
-							</ContentCard>
-						</Row>
-					</Content>
-				</MuiThemeProvider>
+				<Content>
+					<Row>
+						<ContentCard cardName='Kartica'>
+						</ContentCard>
+					</Row>
+					<Row>
+						<ContentCard cardName='Kartica Dva'>
+							<Harmonica >
+								<HarmonicaTab
+									heading='Notifikacija'
+									subheading='Profesor dodao novi test test3'
+									bodyText='Neki nasumican tekst'
+									onClick={this.expandTab('panel1')}
+									expanded={this.state.open == 'panel1'} >
+								</HarmonicaTab>
+								<HarmonicaTab
+									heading='Notifikacija'
+									subheading='Profesor dodao novi test test3'
+									bodyText='Neki nasumican tekst'
+									onClick={this.expandTab('panel2')}
+									expanded={this.state.open == 'panel2'} >
+								</HarmonicaTab>
+							</Harmonica>
+						</ContentCard>
+						<ContentCard cardName='Test'></ContentCard>
+					</Row>
+					<Row>
+						<ContentCard cardName='Kartica'>
+						</ContentCard>
+					</Row>
+				</Content>
 			</div>
 		);
 	}

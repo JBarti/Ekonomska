@@ -25,7 +25,7 @@ const styles = theme => ({
         backgroundColor: theme.palette.secondary.main,
         marginTop: -16,
         paddingTop: 20,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
 })
 

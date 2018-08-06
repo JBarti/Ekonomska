@@ -16,7 +16,7 @@ const styles = theme => ({
         display: 'inline-block',
         width: `calc(100% - 250px)`,
         paddingLeft: 20,
-        height: 65
+        height: 65,
     },
 })
 

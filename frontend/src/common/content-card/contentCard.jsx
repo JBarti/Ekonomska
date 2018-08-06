@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper'
 import ListButton from '../list-button/listButton'
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List'
@@ -16,7 +16,7 @@ const styles = theme => ({
         boxSizing: 'border-box',
         marginRight: '2vw',
         '&:last-child': {
-            marginRight: 0
+            marginTop: 0,
         },
         overflowY: 'auto',
     },
@@ -38,11 +38,11 @@ class ContentCard extends Component {
             subheader = <ListSubheader component="div" className={classes.subheader}>{this.props.cardName}</ListSubheader>
         }
         return (
-            <Card className={classes.root} >
+            <Paper elevation={1} className={classes.root} >
                 <List subheader={subheader}>
                     {this.props.children}
                 </List>
-            </Card>
+            </Paper>
         );
     }
 }
