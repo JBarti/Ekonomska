@@ -2,7 +2,7 @@
 var createError = require('http-errors')
 var express = require('express')
 var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+var logger = require('./logger')
 
 //Routes
 var indexRouter = require('./routes/index')
@@ -13,11 +13,11 @@ var app = express()
 //Databse models
 var { Controller } = require('./data/sequelize')
 
-app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+logger.logImportant('###################\n####APP STARTED####\n###################')
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
@@ -34,7 +34,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-  // render the error page
+  // render the error pageć
   res.status(err.status || 500)
   res.send(err)
 });

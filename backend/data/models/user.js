@@ -4,13 +4,32 @@ module.exports = (sequelize, types) => {
             type: types.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            allowNull: false,
         },
-        firstName: types.STRING,
-        lastName: types.STRING,
+        firstName: {
+            type: types.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: types.STRING,
+            allowNull: false,
+        },
         email: {
             type: types.STRING,
-            validate: { isEmail: true }
+            validate: { isEmail: true },
+            allowNull: false,
         },
-        password: types.STRING
+        password: {
+            type: types.STRING,
+            allowNull: false,
+        },
+        active: {
+            type: types.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        notifications: {
+            type: types.ARRAY(types.JSON),
+        }
     })
 }
