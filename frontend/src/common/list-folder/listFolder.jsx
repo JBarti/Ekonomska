@@ -7,15 +7,23 @@ import FileDownload from '@material-ui/icons/FileDownload'
 import List from '@material-ui/core/List'
 import Collapse from '@material-ui/core/Collapse'
 import ListItemText from '@material-ui/core/ListItemText'
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import Folder from '@material-ui/icons/Folder'
+import FolderOpen from '@material-ui/icons/FolderOpen'
 
 
 
 const styles = theme => ({
     listItemText: {
         letterSpacing: 0.82,
+        color: 'blue'
     },
+    expanded: {
+        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+        boxSizing: 'border-box',
+        color: theme.palette.secondary.main
+    }
 })
 
 class ListFolder extends Component {
@@ -30,12 +38,13 @@ class ListFolder extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <ListItem button onClick={this.open}>
-                    <ListItemIcon >
-                        <FileDownload />
+                <ListItem button onClick={this.open} className={this.state.open ? classes.expanded : null}>
+                    <ListItemIcon color='secondary'>
+                        {this.state.open ? <FolderOpen /> : <Folder />}
                     </ListItemIcon>
                     <ListItemText
                         inset
+                        primaryTypographyProps={{ color: this.state.open ? 'secondary' : 'default' }}
                         primary={this.props.primary}
                         secondary={this.props.secondary}
                         className={classes.listItemText} />

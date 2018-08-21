@@ -8,17 +8,16 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
-        position: 'relative',
         width: 250,
     },
-    drawerList: {
-        width: '100%'
-    },
+
     drawerPaper: {
         width: '100%',
         position: 'relative',
-        border: 0
-    }
+        border: 0,
+        marginTop: 65
+    },
+    toolbar: theme.mixins.toolbar
 })
 
 class Sidebar extends Component {
@@ -33,9 +32,11 @@ class Sidebar extends Component {
                 classes={{
                     paper: classes.drawerPaper,
                 }}>
-                <List className={classes.drawerList}>
-                    {this.props.children}
-                </List>
+                <div className={classes.toolbar}>
+                    <List className={classes.drawerList}>
+                        {this.props.children}
+                    </List>
+                </div>
             </Drawer >
         );
     }

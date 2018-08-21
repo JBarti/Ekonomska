@@ -10,6 +10,10 @@ import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
     root: {
+        overflowX: 'hidden',
+        boxSizing: 'content-box',
+        display: 'flex',
+        flexDirection: 'column',
         flexGrow: 0,
         width: '100%',
         height: '100%',
@@ -27,7 +31,16 @@ const styles = theme => ({
         borderBottomStyle: 'solid',
         borderBottomWidth: 1,
         backgroundColor: '#fff'
-    }
+    },
+    children: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    subheaderList: {
+        marginBottom: -8
+    },
 })
 
 class ContentCard extends Component {
@@ -38,10 +51,12 @@ class ContentCard extends Component {
             subheader = <ListSubheader component="div" className={classes.subheader}>{this.props.cardName}</ListSubheader>
         }
         return (
-            <Paper elevation={1} className={classes.root} >
-                <List subheader={subheader}>
-                    {this.props.children}
+            <Paper elevation={1} className={classes.root}>
+                <List subheader={subheader} className={classes.subheaderList}>
                 </List>
+                <div className={classes.children}>
+                    {this.props.children}
+                </div>
             </Paper>
         );
     }

@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import FileDownload from '@material-ui/icons/FileDownload'
 import Typography from '@material-ui/core/Typography'
+import Android from '@material-ui/icons/Android'
 
 
 const styles = theme => ({
@@ -24,6 +25,7 @@ const styles = theme => ({
 class ListButton extends Component {
 
     render() {
+        console.log(this.props.icon)
         const { classes } = this.props;
         return (
             <ListItem
@@ -31,7 +33,7 @@ class ListButton extends Component {
                 className={this.props.tabbed ? classes.sidebarItemTabbed : classes.root}
                 onClick={this.props.onClick}>
                 <ListItemIcon>
-                    {!this.props.icon ? <div></div> : this.props.icon}
+                    {this.props.icon ? <Android /> : this.props.icon}
                 </ListItemIcon>
                 <ListItemText
                     inset

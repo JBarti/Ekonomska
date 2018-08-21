@@ -9,14 +9,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 const styles = theme => ({
     text: {
         letterSpacing: 0.82,
-        alignText: 'left'
+        textAlign: 'left',
+        width: '100%'
     },
-    appBar: {
+    root: {
+        zIndex: theme.zIndex.drawer + 1,
         position: 'fixed',
-        display: 'inline-block',
-        width: `calc(100% - 250px)`,
-        paddingLeft: 20,
+        width: `100%`,
         height: 65,
+    },
+    toolbar: {
+        display: 'flex',
+        flexDirection: 'row',
     },
 })
 
@@ -24,11 +28,12 @@ class Appbar extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <AppBar className={classes.appBar}>
-                <Toolbar>
+            <AppBar className={classes.root}>
+                <Toolbar className={classes.toolbar}>
                     <Typography variant="title" color="inherit" className={classes.text}>
                         Financijska Pismenost
                     </Typography>
+                    {this.props.children}
                 </Toolbar>
             </AppBar>
         );

@@ -6,7 +6,8 @@ import List from '@material-ui/core/List'
 
 const styles = theme => ({
     root: {
-        width: '100%'
+        width: '100%',
+        marginTop: -9
     },
 })
 
