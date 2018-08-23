@@ -33,7 +33,7 @@ class ListButton extends Component {
                 className={this.props.tabbed ? classes.sidebarItemTabbed : classes.root}
                 onClick={this.props.onClick}>
                 <ListItemIcon>
-                    {this.props.icon ? <Android /> : this.props.icon}
+                    {this.props.icon || <Android />}
                 </ListItemIcon>
                 <ListItemText
                     inset

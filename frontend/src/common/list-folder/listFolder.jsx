@@ -20,9 +20,12 @@ const styles = theme => ({
         color: 'blue'
     },
     expanded: {
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
         boxSizing: 'border-box',
-        color: theme.palette.secondary.main
+        color: theme.palette.secondary.main,
+
+    },
+    notExpanded: {
+
     }
 })
 
@@ -38,7 +41,7 @@ class ListFolder extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <ListItem button onClick={this.open} className={this.state.open ? classes.expanded : null}>
+                <ListItem button onClick={this.open} className={this.state.open ? classes.expanded : classes.notExpanded}>
                     <ListItemIcon color='secondary'>
                         {this.state.open ? <FolderOpen /> : <Folder />}
                     </ListItemIcon>

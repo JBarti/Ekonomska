@@ -9,12 +9,11 @@ import ContentCard from '../content-card/contentCard'
 const styles = theme => ({
     root: {
         display: 'inline-block',
-        position: 'absolute',
-        width: `calc(100% - 250px)`,
-        height: 'calc(100% - 65px)',
+        marginTop: 65,
+        width: `100%`,
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        bottom: 0,
         right: 0,
         overflowY: 'auto',
     },
@@ -23,8 +22,11 @@ const styles = theme => ({
 class Content extends Component {
     render() {
         const { classes } = this.props;
+
+
         return (
-            <div className={classes.root}>
+            <div
+                className={classes.root} >
                 {this.props.children}
             </div>
         );

@@ -9,6 +9,8 @@ import Row from '../../common/content/row/row'
 import UcenikAppBar from './components/appbar'
 import NotificationCard from './components/notificationCard'
 import GradesCard from './components/gradesCard'
+import FileDisplay from '../../common/file-display/FileDisplay'
+import { List } from '@material-ui/core';
 
 
 const styles = theme => {
@@ -26,28 +28,53 @@ const styles = theme => {
     })
 }
 
+
 class Ucenik extends Component {
-    state = { open: null }
+
+    defaultContent = <Content>
+        < Row >
+            <NotificationCard />
+        </Row >
+        <Row>
+            <GradesCard />
+        </Row>
+    </Content>
+
+    testDocument = <Content><FileDisplay src='https://docs.google.com/document/d/1SKC4V38DPn7OGQztxRRwzSr1WytqNm5_0QDafKekLbs/edit' /></Content>
+
+    testPdf = <Content><FileDisplay src='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' /></Content>
+
+    state = { open: true, fullscreen: false, content: this.defaultContent }
+
+    expandContent = () => {
+        this.setState({ fullscreen: !this.state.fullscreen })
+    }
+
+    showMenu = () => {
+        this.setState({ open: !this.state.open })
+    }
+
+    changeContent = content => {
+        this.setState({ content })
+    }
+
+
     render() {
         const { classes } = this.props
         return (
             <div className={classes.root}>
 
-                <UcenikAppBar></UcenikAppBar>
+                <UcenikAppBar onFullscreen={this.expandContent} onMenu={this.showMenu} />
 
-                <Sidebar>
-                    <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}></ListFolder>
+                <Sidebar open={this.state.open}>
+                    <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}>
+                        <ListButton onClick={() => { this.changeContent(this.testPdf) }} tabbed={true} primary='PDF-file'></ListButton>
+                        <ListButton onClick={() => { this.changeContent(this.testDocument) }} tabbed={true} primary='Document'></ListButton>
+                    </ListFolder>
                     <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}></ListFolder>
                 </Sidebar>
+                {this.state.content}
 
-                <Content>
-                    <Row>
-                        <NotificationCard />
-                    </Row>
-                    <Row>
-                        <GradesCard />
-                    </Row>
-                </Content>
             </div >
         );
     }

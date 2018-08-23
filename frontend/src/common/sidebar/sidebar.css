@@ -2,3 +2,7 @@
     width: auto;
     background-color: black;
 }
+
+.back {
+    z-index: 2
+}

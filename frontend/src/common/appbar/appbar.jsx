@@ -4,13 +4,15 @@ import { withStyles, createMuiTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar';
+import { Menu } from '@material-ui/core';
 
 
 const styles = theme => ({
     text: {
         letterSpacing: 0.82,
         textAlign: 'left',
-        width: '100%'
+        width: '100%',
+        marginLeft: 16
     },
     root: {
         zIndex: theme.zIndex.drawer + 1,
@@ -30,6 +32,7 @@ class Appbar extends Component {
         return (
             <AppBar className={classes.root}>
                 <Toolbar className={classes.toolbar}>
+                    {this.props.beforeTitle}
                     <Typography variant="title" color="inherit" className={classes.text}>
                         Financijska Pismenost
                     </Typography>
