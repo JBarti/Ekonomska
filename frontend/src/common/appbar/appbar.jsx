@@ -8,13 +8,19 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 const styles = theme => ({
     text: {
-        letterSpacing: 0.2,
+        letterSpacing: 0.82,
+        textAlign: 'left',
+        width: '100%'
     },
-    appBar: {
-        position: 'absolute',
-        marginLeft: 240,
-        width: `calc(100% - ${240}px)`,
-        paddingLeft: 20
+    root: {
+        zIndex: theme.zIndex.drawer + 1,
+        position: 'fixed',
+        width: `100%`,
+        height: 65,
+    },
+    toolbar: {
+        display: 'flex',
+        flexDirection: 'row',
     },
 })
 
@@ -22,11 +28,12 @@ class Appbar extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <AppBar className={classes.appBar}>
-                <Toolbar>
+            <AppBar className={classes.root}>
+                <Toolbar className={classes.toolbar}>
                     <Typography variant="title" color="inherit" className={classes.text}>
                         Financijska Pismenost
                     </Typography>
+                    {this.props.children}
                 </Toolbar>
             </AppBar>
         );
@@ -35,6 +42,7 @@ class Appbar extends Component {
 
 Appbar.propTypes = {
     classes: PropTypes.object.isRequired,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
 export default withStyles(styles)(Appbar);
