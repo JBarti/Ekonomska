@@ -4,13 +4,18 @@ import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 import Sidebar from '../../common/sidebar/sidebar'
 import ListButton from '../../common/list-button/listButton'
 import ListFolder from '../../common/list-folder/listFolder'
+import IconButton from '@material-ui/core/IconButton'
+import Home from '@material-ui/icons/Home'
+import ArrowBack from '@material-ui/icons/ArrowBack'
 import Content from '../../common/content/content'
 import Row from '../../common/content/row/row'
 import UcenikAppBar from './components/appbar'
 import NotificationCard from './components/notificationCard'
 import GradesCard from './components/gradesCard'
 import FileDisplay from '../../common/file-display/FileDisplay'
-import { List } from '@material-ui/core';
+import Slide from '@material-ui/core/Slide'
+import Grow from '@material-ui/core/Grow'
+import { List, Typography } from '@material-ui/core';
 
 
 const styles = theme => {
@@ -25,26 +30,53 @@ const styles = theme => {
             position: 'relative',
             display: 'flex',
         },
+        sidebarNav: {
+            display: 'flex',
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            flexWrap: 'wrap'
+
+        },
+        sidebarHeading: {
+            paddingLeft: 16
+        }
     })
 }
+
+const defaultContent = <div>
+    < Row >
+        <NotificationCard />
+    </Row >
+    <Row>
+        <GradesCard />
+    </Row>
+</div>
+
+var screens = [
+    {
+        name: 'Home',
+        data: defaultContent
+    },
+    {
+        name: 'RandomPdf',
+        data: <FileDisplay src='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' />
+    },
+    {
+        name: 'RandomDocs',
+        data: <FileDisplay src='https://docs.google.com/document/d/1Gqn3bFo1qUqCNuGxYOPeeKmPW3Fiex0BvKT0bb4ZB8k/edit?usp=sharing' />
+    }
+]
 
 
 class Ucenik extends Component {
 
-    defaultContent = <Content>
-        < Row >
-            <NotificationCard />
-        </Row >
-        <Row>
-            <GradesCard />
-        </Row>
-    </Content>
 
-    testDocument = <Content><FileDisplay src='https://docs.google.com/document/d/1SKC4V38DPn7OGQztxRRwzSr1WytqNm5_0QDafKekLbs/edit' /></Content>
+    testDocument = <FileDisplay src='https://docs.google.com/document/d/1SKC4V38DPn7OGQztxRRwzSr1WytqNm5_0QDafKekLbs/edit' />
 
-    testPdf = <Content><FileDisplay src='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' /></Content>
+    testPdf = <FileDisplay src='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' />
 
-    state = { open: true, fullscreen: false, content: this.defaultContent }
+    state = { fullscreen: false, content: screens[0].data, expanded: false, screens: screens, currentPage: 'Home', animate: true }
 
     expandContent = () => {
         this.setState({ fullscreen: !this.state.fullscreen })
@@ -52,28 +84,47 @@ class Ucenik extends Component {
 
     showMenu = () => {
         this.setState({ open: !this.state.open })
+        this.setState({ expanded: !this.state.expanded })
     }
 
-    changeContent = content => {
-        this.setState({ content })
+    changeContent = component => {
+        this.setState({ animate: false, content: component.data })
+        setTimeout(
+            () => { this.setState({ animate: true, currentPage: component.name, }) },
+            300
+        )
+
     }
 
+    animate = () => {
+        console.log('ANIMATEEEEE')
+    }
 
     render() {
         const { classes } = this.props
         return (
             <div className={classes.root}>
-
-                <UcenikAppBar onFullscreen={this.expandContent} onMenu={this.showMenu} />
-
-                <Sidebar open={this.state.open}>
+                <UcenikAppBar expanded={this.state.expanded} onFullscreen={this.expandContent} onMenu={this.showMenu} />
+                <Sidebar appbar={
+                    <div className={classes.sidebarNav}>
+                        <IconButton style={{ color: 'white' }} onClick={() => { this.changeContent(this.state.screens[0]) }}><ArrowBack /></IconButton>
+                        <Slide timeout={250} direction='down' in={this.state.animate}>
+                            <Typography className={classes.sidebarHeading} variant='subheading' style={{ color: 'white' }}>{this.state.currentPage}</Typography>
+                        </Slide>
+                    </div>
+                }
+                    open={!this.state.expanded}>
                     <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}>
-                        <ListButton onClick={() => { this.changeContent(this.testPdf) }} tabbed={true} primary='PDF-file'></ListButton>
-                        <ListButton onClick={() => { this.changeContent(this.testDocument) }} tabbed={true} primary='Document'></ListButton>
+                        {this.state.screens.slice(1).map(component => (
+                            <ListButton onClick={() => { this.changeContent(component) }} tabbed={true} primary={component.name} />
+                        ))}
+
                     </ListFolder>
                     <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}></ListFolder>
                 </Sidebar>
-                {this.state.content}
+                <Content expanded={this.state.expanded}>
+                    {this.state.content}
+                </Content>
 
             </div >
         );

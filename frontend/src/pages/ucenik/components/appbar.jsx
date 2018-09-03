@@ -36,6 +36,7 @@ class UcenikAppBar extends Component {
         const { classes } = this.props
         return (
             <Appbar
+                expanded={this.props.expanded}
                 beforeTitle={<IconButton style={{ color: 'white' }}
                     onClick={this.props.onMenu}>
                     <MenuIcon />

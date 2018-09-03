@@ -8,17 +8,17 @@ import { Menu } from '@material-ui/core';
 
 
 const styles = theme => ({
+    root: {
+        zIndex: theme.zIndex.drawer + 1,
+        position: 'fixed',
+        height: 65,
+        transitionDuration: '225ms'
+    },
     text: {
         letterSpacing: 0.82,
         textAlign: 'left',
         width: '100%',
         marginLeft: 16
-    },
-    root: {
-        zIndex: theme.zIndex.drawer + 1,
-        position: 'fixed',
-        width: `100%`,
-        height: 65,
     },
     toolbar: {
         display: 'flex',
@@ -30,7 +30,9 @@ class Appbar extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <AppBar className={classes.root}>
+            <AppBar
+                style={this.props.expanded ? { width: '100%' } : { width: `calc(100% - 250px)` }}
+                className={classes.root}>
                 <Toolbar className={classes.toolbar}>
                     {this.props.beforeTitle}
                     <Typography variant="title" color="inherit" className={classes.text}>

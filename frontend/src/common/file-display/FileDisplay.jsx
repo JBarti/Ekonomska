@@ -18,7 +18,9 @@ class FileDisplay extends Component {
         const { classes } = this.props
         return (
             <div className={classes.root}>
-                <embed src={this.props.src} height='100%' width='100%' />
+                <embed
+                    src={this.props.src}
+                    height='100%' width='100%' />
             </div>
         )
     }
