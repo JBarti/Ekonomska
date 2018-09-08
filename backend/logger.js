@@ -3,10 +3,10 @@ var colors = require('colors/safe');
 
 module.exports = {
     logError: message => {
-        console.log(`---${message}---`.red.inverse)
+        console.log(colors.red.inverse(`---${message}---`))
     },
     logTest: message => {
-        console.log(`___${message}___`.blue.inverse)
+        console.log(colors.blue.inverse(`___${message}___`))
     },
     logData: message => {
         console.log(colors.green(message))

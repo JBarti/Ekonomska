@@ -1,7 +1,7 @@
 const logger = require('../logger')
 const Sequelize = require('sequelize')
-const UserModel = require('./models/user')
-const RazredModel = require('./models/razred')
+const StudentModel = require('./models/student')
+const GradeModel = require('./models/grade')
 const test = require('./test')
 
 
@@ -11,61 +11,73 @@ const sequelize = new Sequelize('root', 'postgres', 'admin', {
     port: 5432,
 })
 
-const User = UserModel(sequelize, Sequelize)
-const Razred = RazredModel(sequelize, Sequelize)
-Razred.hasMany(User)
+const Student = StudentModel(sequelize, Sequelize)
+const Grade = GradeModel(sequelize, Sequelize)
+Grade.hasMany(Student)
 
 
 const Controller = {
-    user: {
-        createUser: (data) => {
-            return User.create(data)
+    student: {
+        create: ({ firstName, lastName, email, password }) => {
+            return Student.create({ firstName, lastName, email, password })
         },
 
-        getUser: (email, password, logingIn = true) => {
-            console.log(`Test getUser: \nentered email: ${email} \nentered password: ${password}`)
-            let user = User.find(
+        get: (email, password, logingIn = true) => {
+            console.log(`Test get: \nentered email: ${email} \nentered password: ${password}`)
+            let student = Student.find(
                 {
-                    attributes: ['id', 'firstName', 'lastName', 'email', 'notifications'],
+                    attributes: ['id', 'firstName', 'lastName', 'email', 'notifications', 'active'],
                     where: { email: email, password: password }
                 })
 
-            User.update({ active: true }, { where: { email: email, password: password } })
-                .then(() => { logger.logMessage(`User ${email} set to active`) })
-            return user
+            if (logingIn) {
+                Student.update({ active: true }, { where: { email: email, password: password } })
+                    .then(() => { logger.logMessage(`User ${email} set to active`) })
+            }
+            return student
         },
-
-        addNotification: (ucenikId, ucenikEmail, notification) => {
+        checkExistance: email => {
+            return Student.count({ where: { email: email } })
+        },
+        addNotification: (id, email, notification) => {
             if (notification.hasOwnProperty('from', 'description', 'text'))
-                return User.update(
+                return Student.update(
                     {
                         notifications: sequelize.fn(
                             'array_append',
                             sequelize.col('notifications'),
                             JSON.stringify(notification))
                     },
-                    { where: { id: ucenikId, email: ucenikEmail } })
+                    { where: { id: id, email: email } })
             else {
                 throw new Error(`Invalid notification object ${JSON.stringify(notification)} missing key`)
             }
+        },
+        makeInactive: (id, email) => {
+            return Student.update({ active: false }, { where: { email: email, id: id } })
         }
     },
 
-    razred: {
+    grade: {
         create: (data) => {
-            return Razred.create(data)
+            return Grade.create(data)
         },
-        get: (razredId) => {
-            return Razred.find({ where: { id: razredId }, include: { model: User } })
+        get: (gradeId) => {
+            return Grade.find({ where: { id: gradeId }, include: [{ model: Student }] })
         },
-        addUcenik: (ucenikId, ucenikEmail, razredId) => {
-            Controller.razred.get(razredId).then(razred => {
-                User.find({ where: { email: ucenikEmail, id: ucenikId } }).then(ucenik => {
-                    razred.addUser(ucenik)
+        addStudent: (studentId, studentEmail, gradeId) => {
+            return new Promise((resolve, reject) => {
+                Controller.grade.get(gradeId).then(razred => {
+                    Student.find({ where: { email: studentEmail, id: studentId } }).then(student => {
+                        grade.addStudent(student)
+                        resolve('added student to class')
+                    }).catch(err => {
+                        reject(err)
+                    })
+                }).catch(err => {
+                    reject(err)
                 })
             })
-
-
         }
     }
 }
@@ -84,7 +96,7 @@ sequelize.sync({ force: true })
 
 
 
-module.exports = { Controller }
+module.exports = Controller
 
 
 
