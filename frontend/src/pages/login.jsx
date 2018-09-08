@@ -33,72 +33,38 @@ const styles = theme => {
             backgroundSize: 'cover',
         },
         formCard: {
-            margin: 0,
-            width: 450,
-            height: 350,
+            width: 400,
+            height: '35%',
+            display: 'flex',
+            flexDirection: 'column'
         },
-        textField: {
-            position: 'relative',
-            width: '100%',
-            borderLeft: '80px solid white',
-            borderRight: '80px solid white',
-            boxSizing: 'border-box',
-            textAlign: 'left'
-        },
-        buttonSubmit: {
-            marginTop: 34,
-            width: '24%',
-            color: 'white',
-        },
-        primary: {
-            color: 'white',
-            textAlign: 'left',
-            paddingLeft: 0,
-            textAlign: 'left'
-        },
-        menuItem: {
-            margin: 0,
-            '&:focus': {
-                backgroundColor: theme.palette.primary.main
-            }
+        cardChildren: {
+            flexDirection: 'column',
         },
         loginTitleContainer: {
-            alignItems: 'center',
-            justifyContent: 'center',
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 24
+            width: '100%',
+            borderLeft: `4px ${theme.palette.primary.main} solid`,
+            marginTop: '4%',
         },
         loginTitle: {
-            borderLeft: '4px solid white',
-            borderLeftColor: theme.palette.primary.main,
-            textAlign: 'left',
             width: '100%',
-            paddingLeft: 24
+            textAlign: 'left',
+            paddingLeft: 32
         },
-        selector: {
-            width: '100%',
-            textAlign: 'left',
-            marginRight: 24,
-            marginBottom: 6,
-            paddingLeft: 5,
-            fontSize: theme.typography.display1.fontSize,
-            color: theme.palette.primary.main,
-            marginTop: 2,
-            '&::before': {
-                borderBottom: 'none'
-            },
-            '&:focus': {
-                color: theme.palette.primary.main,
-                outline: 1
-            },
-            border: '1px gray solid'
+        textField: {
+            marginLeft: '15%',
+            marginRight: '15%'
+        },
+        buttonSubmit: {
+            marginRight: '15%',
+            marginLeft: '60%',
+            marginTop: 24
         }
     }
 }
 
 class Login extends Component {
-    state = { korisnik: '' }
+    state = {}
 
 
     handleChange = (event) => {
@@ -110,14 +76,9 @@ class Login extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.page}>
-                <ContentCard classes={{ root: classes.formCard }}>
+                <ContentCard classes={{ root: classes.formCard, children: classes.cardChildren }}>
                     <div className={classes.loginTitleContainer}>
-                        <Typography color='primary' className={classes.loginTitle} variant='display1'>Prijava kao:</Typography>
-                        <Select className={classes.selector} id='korisnik' name='korisnik' onChange={this.handleChange} value={this.state.korisnik}>
-                            <MenuItem value={'gost'}>gost</MenuItem>
-                            <MenuItem value={'ucenik'}>učenik</MenuItem>
-                            <MenuItem value={'admin'}>admin</MenuItem>
-                        </Select>
+                        <Typography color='primary' className={classes.loginTitle} variant='display1'>Prijava:</Typography>
                     </div>
                     <TextField
                         label='e-mail'

@@ -13,7 +13,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 const styles = theme => ({
     root: {
         width: '100%',
-
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -35,19 +34,18 @@ const styles = theme => ({
         borderTopStyle: 'solid',
         borderTopWidth: 1,
     },
-    body: {
-        textAlign: 'left'
-    }
 })
 
 class HarmonicaTab extends Component {
     render() {
         const { classes } = this.props;
+        this.state = { message: '4px solid #283593', warning: '4px solid #C62828' }
 
         return (
             <ExpansionPanel
                 expanded={this.props.expanded}
                 onChange={this.props.onClick}
+                style={{ borderLeft: this.state[this.props.type] }}
                 classes={{ expanded: classes.expanded }}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading} variant='heading'>{this.props.heading}</Typography>
