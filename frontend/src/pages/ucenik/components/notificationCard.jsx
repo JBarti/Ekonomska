@@ -29,6 +29,7 @@ class NotifiactionCard extends Component {
             <ContentCard cardName='Kartica Dva' className={classes.root}>
                 <Harmonica >
                     <HarmonicaTab
+                        type='warning'
                         heading='Notifikacija'
                         subheading='Profesor dodao novi test test3'
                         bodyText='Neki nasumican tekst'
@@ -36,6 +37,7 @@ class NotifiactionCard extends Component {
                         expanded={this.state.open == 'panel1'} >
                     </HarmonicaTab>
                     <HarmonicaTab
+                        type='message'
                         heading='Notifikacija'
                         subheading='Profesor dodao novi test test3'
                         bodyText='Neki nasumican tekst'
