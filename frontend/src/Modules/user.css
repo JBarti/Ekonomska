@@ -1,0 +1,312 @@
+* {
+  box-sizing: border-box;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+html{
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background-color: #F6F6F6;
+    overflow-x: hidden;
+}
+#sidebar{
+    width: 15em;
+    z-index: 1;
+    height: 100vh;
+    color: #C62828;
+    padding-top: 5.5em;
+    display: inline-block;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+   -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+   transition-duration: 0.5s;
+   overflow: hidden;
+   background-color: white;
+   position: fixed;
+}
+#nameTag{
+   padding: 0.5em;
+   padding-left: 1.25em;
+   padding-right: 1.25em;
+   border-radius: 20px;
+   background-color: #1A237E;
+   display: inline;
+   transition: color 2s;
+   background: linear-gradient(132deg, #5C6BC0, #1A237E);
+  background-size: 400% 400%;
+  animation: BackgroundGradient 15s ease infinite;
+}
+
+#nameTag:hover{
+  background-color: #283593;
+  cursor: pointer;
+}
+
+#helpTab{
+    color: lightslategray;
+    font-size: 0.9em;
+    position: absolute;
+    bottom: 1em;
+}
+.htxt{
+    text-align: left;
+    padding: 0.75em;
+    margin-left: 0.5em;
+  background: none;
+  border: 0;
+  box-sizing: border-box;
+  color: lightslategray;
+  font-size: inherit;
+  position: relative;
+  vertical-align: middle;
+}
+.htxt::before, p::after {
+  box-sizing: inherit;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.htxt {
+  transition: color 0.25s;
+}
+.htxt::before, .htxt::after {
+  border: 1px solid transparent;
+  width: 0;
+  height: 0;
+}
+.htxt::before {
+  top: 0;
+  left: 0;
+}
+.htxt::after {
+  bottom: 0;
+  right: 0;
+}
+.htxt:hover {
+  color: gray;
+  cursor: pointer
+}
+.htxt:hover::before, .htxt:hover::after {
+  width: 100%;
+  height: 100%;
+}
+.htxt:hover::before {
+  border-top-color: lightgray;
+  border-right-color: lightgray;
+  transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+}
+.htxt:hover::after {
+  border-bottom-color: lightgray;
+  border-left-color: lightgray;
+  transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+}
+#statLink{
+    color: white;
+    display: inline;
+    margin-right:0.5em; 
+     
+}
+#mr{
+  position: absolute;
+  right: 1em;
+  display: inline;
+}
+#lessons{
+  width: 100%;
+    height: 83%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#lessons::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;  
+}
+
+@keyframes BackgroundGradient {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+.ho{
+  vertical-align: middle;
+}
+#main{
+  display: inline-block;
+  width: calc(100% - 15em);
+  float: right;
+  margin-top: 4em;
+}
+#stanje{
+ width: 80%;
+ height: 22.5em;
+ margin: 0 auto;
+ margin-top: 3em;
+ background-color: white;
+}
+#shead{
+  padding-left: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1.5em;
+}
+#totalbalance{
+   font-size: 270%;
+   vertical-align: middle;
+   text-align: center;
+   color: white;
+   background-color: #6a696c;
+   width: 80%;
+   margin-left: 10%;
+   margin-top: 15%;
+   padding-top: 25%;
+   padding-bottom: 25%;
+   -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,1);
+box-shadow: 0px 0px 2px 0px rgba(0,0,0,1);
+}
+#ciljevi{
+  width: 55%;
+  height: 80%;
+  float: left;
+
+}
+
+.ctext{
+  height: 45%;
+  width: 42.5%;
+  margin-left: 5%;
+  color: white;
+border-radius: 2px;
+display: inline-table;
+margin-top: 1%;
+font-size: 150%;
+-webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,1);
+box-shadow: 0px 0px 1px 0px rgba(0,0,0,1);
+}
+#prihodi{
+  background-color: green;
+  font-weight: 400;
+}
+#rashodi{
+  background-color: #C62828;
+
+}
+#cilj{
+  background-color: #283593;
+}
+#trenutno{
+  background-color: #5CA4FF;
+}
+
+#left{
+  width: 0%;
+  height: 100%;
+  float: left;
+}
+#tabs{
+  width: 100%;
+}
+#tab{
+  width: 45%;
+  height: 100%;
+  display: inline-block;
+  border-left: 1px solid lightgray;
+  float: right;
+}
+.prihoditab{
+  float: right;
+  color: green;
+}
+.rashoditab{
+  float: right;
+  color: darkred;
+}
+#notifikacije{
+   width: 37.5%;
+   height: 22.5em;
+   margin-left: 10%;
+   margin-top: 3.5%; 
+   overflow: scroll;
+   float: left;
+}
+#notifikacije::-webkit-scrollbar{
+  width: 0px;
+  background: transparent;  
+}
+.obicni{
+  border-left: 4px solid #283593;
+}
+.expansionhead{
+  font-weight: 900;
+}
+.upozorenje{
+  border-left: 4px solid #C62828;
+}
+#rezultati{
+  width: 37.5%;
+   height: 22.5em; 
+   display: inline-block;
+   margin-left:  5%;
+   margin-top: 3.5%; 
+   overflow-y: scroll;
+   overflow-x: hidden;
+}
+
+#reztabla{
+  max-width: 100%;
+}
+.bn{
+  font-size: 125%;
+  margin-left: 5%;
+  font-weight: 200;
+  padding-top: 25%;
+  display: inline-block;
+}
+.st{
+  font-size: 100%;
+  font-weight: 100;
+  margin-left: 5%;
+}
