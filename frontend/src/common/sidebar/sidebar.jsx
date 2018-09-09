@@ -9,7 +9,7 @@ import AppBar from '@material-ui/core/AppBar'
 import QuestionAnswer from '@material-ui/icons/QuestionAnswer'
 import HelpOutline from '@material-ui/icons/HelpOutline'
 import Settings from '@material-ui/icons/Settings'
-
+import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
 
 const styles = theme => ({
     root: {
@@ -38,7 +38,8 @@ const styles = theme => ({
         color: 'lightslategray',
         fontSize: '0.9em',
         position: 'absolute',
-        bottom: 65
+        bottom: 0,
+        zIndex: 2,
     }
 })
 
@@ -63,7 +64,6 @@ class Sidebar extends Component {
                     <List className={classes.drawerList}>
                         {this.props.children}
                     </List>
-
                     <div className={classes.helpTab}>
                         <p className="htxt"><HelpOutline className="ho" /> Pomoć </p>
                         <p className="htxt"><QuestionAnswer className="ho" /> Često postavljena pitanja </p>

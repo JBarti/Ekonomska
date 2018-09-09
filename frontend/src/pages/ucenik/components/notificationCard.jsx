@@ -6,7 +6,7 @@ import HarmonicaTab from '../../../common/harmonica/harmonica-tab/harmonicaTab'
 
 const styles = theme => ({
     root: {
-
+        overflow: 'hidden', 
     }
 })
 
@@ -26,7 +26,7 @@ class NotifiactionCard extends Component {
     render() {
         const { classes } = this.props
         return (
-            <ContentCard cardName='Kartica Dva' className={classes.root}>
+            <ContentCard cardName='Obavijesti' className={classes.root}>
                 <Harmonica >
                     <HarmonicaTab
                         type='warning'

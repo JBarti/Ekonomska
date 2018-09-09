@@ -5,18 +5,18 @@ import Appbar from '../../../common/appbar/appbar'
 import IconButton from '@material-ui/core/IconButton'
 import Fullscreen from '@material-ui/icons/Fullscreen'
 import MenuIcon from '@material-ui/icons/Menu'
+import './appbar.css'
 
 const styles = theme => ({
     avatar: {
         backgroundColor: theme.palette.secondary.light,
         color: theme.palette.common.white,
-        marginLeft: 16,
+        display: "inline"
 
     },
     username: {
         color: theme.palette.common.white,
-        textAlign: 'right',
-        marginLeft: 16
+        display: "inline"
     },
     root: {
         display: 'flex',
@@ -41,8 +41,8 @@ class UcenikAppBar extends Component {
                     onClick={this.props.onMenu}>
                     <MenuIcon />
                 </IconButton>}>
-                <div className={classes.root}>
-                    <Avatar className={classes.avatar}>3.D</Avatar>
+                < div id="nameTag">
+                    {/* <Avatar className={classes.avatar}>3.D</Avatar> */}
                     <div>
                         <Typography className={classes.username} variant='subheading'>Mate Mišo</Typography>
                     </div>
