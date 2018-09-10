@@ -1,7 +1,5 @@
 const logger = require('../logger')
 const Sequelize = require('sequelize')
-const StudentModel = require('./models/student')
-const GradeModel = require('./models/grade')
 const test = require('./test')
 
 
@@ -11,10 +9,17 @@ const sequelize = new Sequelize('root', 'postgres', 'admin', {
     port: 5432,
 })
 
-const Student = StudentModel(sequelize, Sequelize)
-const Grade = GradeModel(sequelize, Sequelize)
-Grade.hasMany(Student)
 
+const Student = require('./models/student')(sequelize, Sequelize)
+const Grade = require('./models/grade')(sequelize, Sequelize)
+const Revenue = require('./models/revenues')(sequelize, Sequelize)
+const Expense = require('./models/expenses')(sequelize, Sequelize)
+
+Grade.hasMany(Student)
+Student.belongsToMany(Revenue, { through: 'StudentRevenue' })
+Student.belongsToMany(Expense, { through: 'StudentExpense' })
+Revenue.belongsToMany(Student, { through: 'StudentRevenue' })
+Expense.belongsToMany(Student, { through: 'StudentExpense' })
 
 const Controller = {
     student: {
@@ -59,8 +64,8 @@ const Controller = {
     },
 
     grade: {
-        create: (data) => {
-            return Grade.create(data)
+        create: ({ name }) => {
+            return Grade.create({ name })
         },
         get: (gradeId) => {
             return Grade.find({ where: { id: gradeId }, include: [{ model: Student }] })
@@ -78,6 +83,16 @@ const Controller = {
                     reject(err)
                 })
             })
+        }
+    },
+    revenue: {
+        create: ({ name, money }) => {
+            return Revenue.create({ name, money })
+        }
+    },
+    expense: {
+        create: ({ name, money }) => {
+            return Expense.create({ name, money })
         }
     }
 }
