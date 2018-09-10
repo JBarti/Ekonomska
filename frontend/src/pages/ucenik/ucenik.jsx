@@ -16,6 +16,7 @@ import FileDisplay from '../../common/file-display/FileDisplay'
 import Slide from '@material-ui/core/Slide'
 import Grow from '@material-ui/core/Grow'
 import { List, Typography } from '@material-ui/core';
+import sidebar from '../../common/sidebar/sidebar';
 
 
 const styles = theme => {
@@ -40,11 +41,14 @@ const styles = theme => {
         },
         sidebarHeading: {
             paddingLeft: 16
+        },
+        content: {
+            height: '100%'
         }
     })
 }
 
-const defaultContent = <div>
+const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
     < Row >
         <NotificationCard />
     </Row >
@@ -96,32 +100,29 @@ class Ucenik extends Component {
 
     }
 
-    animate = () => {
-        console.log('ANIMATEEEEE')
-    }
-
     render() {
         const { classes } = this.props
+
+        let sidebarAppbar = <div className={classes.sidebarNav}>
+            <IconButton style={{ color: 'white' }} onClick={() => { this.changeContent(this.state.screens[0]) }}><ArrowBack /></IconButton>
+            <Slide timeout={250} direction='down' in={this.state.animate}>
+                <Typography className={classes.sidebarHeading} variant='subheading' style={{ color: 'white' }}>{this.state.currentPage}</Typography>
+            </Slide>
+        </div>
+
         return (
             <div className={classes.root}>
                 <UcenikAppBar expanded={this.state.expanded} onFullscreen={this.expandContent} onMenu={this.showMenu} />
-                <Sidebar appbar={
-                    <div className={classes.sidebarNav}>
-                        <IconButton style={{ color: 'white' }} onClick={() => { this.changeContent(this.state.screens[0]) }}><ArrowBack /></IconButton>
-                        <Slide timeout={250} direction='down' in={this.state.animate}>
-                            <Typography className={classes.sidebarHeading} variant='subheading' style={{ color: 'white' }}>{this.state.currentPage}</Typography>
-                        </Slide>
-                    </div>
-                }
-                    open={!this.state.expanded}>
+
+                <Sidebar appbar={sidebarAppbar} open={!this.state.expanded}>
                     <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}>
                         {this.state.screens.slice(1).map(component => (
                             <ListButton onClick={() => { this.changeContent(component) }} tabbed={true} primary={component.name} />
                         ))}
-
                     </ListFolder>
                     <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}></ListFolder>
                 </Sidebar>
+
                 <Content expanded={this.state.expanded}>
                     {this.state.content}
                 </Content>
