@@ -40,11 +40,14 @@ const styles = theme => {
         },
         sidebarHeading: {
             paddingLeft: 16
+        },
+        content: {
+            height: '100%'
         }
     })
 }
 
-const defaultContent = <div>
+const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
     < Row >
         <NotificationCard />
     </Row >

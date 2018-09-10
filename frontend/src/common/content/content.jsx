@@ -9,11 +9,10 @@ import ContentCard from '../content-card/contentCard'
 const styles = theme => ({
     root: {
         display: 'inline-block',
-        marginTop: 65,
         position: 'absolute',
-        bottom: 0,
+        bottom: -65,
         right: 0,
-        height: 'calc(100% - 65px)',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         right: 0,
