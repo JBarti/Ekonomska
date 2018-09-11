@@ -17,8 +17,9 @@ const Expense = require('./models/expenses')(sequelize, Sequelize)
 
 Grade.hasMany(Student)
 Student.belongsToMany(Revenue, { through: 'StudentRevenue' })
-Student.belongsToMany(Expense, { through: 'StudentExpense' })
 Revenue.belongsToMany(Student, { through: 'StudentRevenue' })
+
+Student.belongsToMany(Expense, { through: 'StudentExpense' })
 Expense.belongsToMany(Student, { through: 'StudentExpense' })
 
 const Controller = {
@@ -32,6 +33,9 @@ const Controller = {
             let student = Student.find(
                 {
                     attributes: ['id', 'firstName', 'lastName', 'email', 'notifications', 'active'],
+                    include: [
+                        { model: Expense },
+                        { model: Revenue }],
                     where: { email: email, password: password }
                 })
 
@@ -40,6 +44,9 @@ const Controller = {
                     .then(() => { logger.logMessage(`User ${email} set to active`) })
             }
             return student
+        },
+        getById: (id, email) => {
+            return Student.find({ where: { id: id, email: email } })
         },
         checkExistance: email => {
             return Student.count({ where: { email: email } })
@@ -57,6 +64,34 @@ const Controller = {
             else {
                 throw new Error(`Invalid notification object ${JSON.stringify(notification)} missing key`)
             }
+        },
+        addRevenue: (id, email, revenueId) => {
+            return new Promise((resolve, reject) => {
+                Controller.revenue.get(revenueId).then(revenue => {
+                    Controller.student.getById(id, email).then(student => {
+                        student.addRevenue(revenue)
+                        resolve('added revenue to student')
+                    }).catch(err => {
+                        reject(err)
+                    })
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        },
+        addExpense: (id, email, expenseId) => {
+            return new Promise((resolve, reject) => {
+                Controller.expense.get(expenseId).then(expense => {
+                    Controller.student.getById(id, email).then(student => {
+                        student.addExpense(expense)
+                        resolve('added expense to student')
+                    }).catch(err => {
+                        reject(err)
+                    })
+                }).catch(err => {
+                    reject(err)
+                })
+            })
         },
         makeInactive: (id, email) => {
             return Student.update({ active: false }, { where: { email: email, id: id } })
@@ -88,11 +123,17 @@ const Controller = {
     revenue: {
         create: ({ name, money }) => {
             return Revenue.create({ name, money })
+        },
+        get: id => {
+            return Revenue.find({ where: { id: id } })
         }
     },
     expense: {
         create: ({ name, money }) => {
             return Expense.create({ name, money })
+        },
+        get: id => {
+            return Expense.find({ where: { id: id } })
         }
     }
 }

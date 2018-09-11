@@ -54,4 +54,21 @@ module.exports = async (controller) => {
     logger.logMessage(`Email testtest@gmail.com exists: ${status}`)
     status = await controller.student.checkExistance('invalidmail@gmail.com')
     logger.logMessage(`Email invalidmail@gmail.com exists: ${status}`)
+
+    logger.logTest('Test create revenue')
+    let revenue = await controller.revenue.create({ name: 'testRevenue', money: 123 })
+    logger.logMessage('Created new revenue')
+    logger.logData(revenue.get({ plain: true }))
+
+    logger.logTest('Test create expense')
+    let expense = await controller.expense.create({ name: 'testExpense', money: 312 })
+    logger.logMessage('Created new expense')
+    logger.logData(expense.get({ plain: true }))
+
+    logger.logTest('Add revenue and expense to user')
+    status = await controller.student.addRevenue(1, 'testtest@gmail.com', 1)
+    logger.logMessage(status)
+    status = await controller.student.addExpense(1, 'testtest@gmail.com', 1)
+    logger.logMessage(status)
+
 }
