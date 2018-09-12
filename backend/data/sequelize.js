@@ -12,15 +12,12 @@ const sequelize = new Sequelize('root', 'postgres', 'admin', {
 
 const Student = require('./models/student')(sequelize, Sequelize)
 const Grade = require('./models/grade')(sequelize, Sequelize)
-const Revenue = require('./models/revenues')(sequelize, Sequelize)
-const Expense = require('./models/expenses')(sequelize, Sequelize)
+const Finance = require('./models/finance')(sequelize, Sequelize)
 
 Grade.hasMany(Student)
-Student.belongsToMany(Revenue, { through: 'StudentRevenue' })
-Revenue.belongsToMany(Student, { through: 'StudentRevenue' })
+Student.belongsToMany(Finance, { through: 'StudentFinance' })
+Finance.belongsToMany(Student, { through: 'StudentFinance' })
 
-Student.belongsToMany(Expense, { through: 'StudentExpense' })
-Expense.belongsToMany(Student, { through: 'StudentExpense' })
 
 const Controller = {
     student: {
@@ -34,8 +31,7 @@ const Controller = {
                 {
                     attributes: ['id', 'firstName', 'lastName', 'email', 'notifications', 'active'],
                     include: [
-                        { model: Expense },
-                        { model: Revenue }],
+                        { model: Finance },],
                     where: { email: email, password: password }
                 })
 
@@ -65,26 +61,12 @@ const Controller = {
                 throw new Error(`Invalid notification object ${JSON.stringify(notification)} missing key`)
             }
         },
-        addRevenue: (id, email, revenueId) => {
+        addFinance: (id, email, revenueId) => {
             return new Promise((resolve, reject) => {
-                Controller.revenue.get(revenueId).then(revenue => {
+                Controller.finance.get(revenueId).then(finance => {
                     Controller.student.getById(id, email).then(student => {
-                        student.addRevenue(revenue)
-                        resolve('added revenue to student')
-                    }).catch(err => {
-                        reject(err)
-                    })
-                }).catch(err => {
-                    reject(err)
-                })
-            })
-        },
-        addExpense: (id, email, expenseId) => {
-            return new Promise((resolve, reject) => {
-                Controller.expense.get(expenseId).then(expense => {
-                    Controller.student.getById(id, email).then(student => {
-                        student.addExpense(expense)
-                        resolve('added expense to student')
+                        student.addFinance(finance)
+                        resolve('added finance to student')
                     }).catch(err => {
                         reject(err)
                     })
@@ -120,22 +102,22 @@ const Controller = {
             })
         }
     },
-    revenue: {
-        create: ({ name, money }) => {
-            return Revenue.create({ name, money })
+    finance: {
+        financeTypes: ['revenue', 'expense', 'goal'],
+        create: ({ name, money, type }) => {
+            return new Promise((resolve, reject) => {
+
+                if (Controller.finance.financeTypes.includes(type))
+                    resolve(Finance.create({ name, money, type }))
+                else
+                    reject(new TypeError('Invalid finance type'))
+            })
         },
+
         get: id => {
-            return Revenue.find({ where: { id: id } })
+            return Finance.find({ where: { id: id } })
         }
     },
-    expense: {
-        create: ({ name, money }) => {
-            return Expense.create({ name, money })
-        },
-        get: id => {
-            return Expense.find({ where: { id: id } })
-        }
-    }
 }
 
 

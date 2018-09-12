@@ -1,5 +1,5 @@
 module.exports = (sequelize, types) => {
-    return sequelize.define('revenue', {
+    return sequelize.define('finance', {
         id: {
             type: types.INTEGER,
             primaryKey: true,
@@ -12,6 +12,10 @@ module.exports = (sequelize, types) => {
         },
         money: {
             type: types.INTEGER,
+            allowNull: false,
+        },
+        type: {
+            type: types.ENUM('revenue', 'expense', 'goal'),
             allowNull: false,
         }
     })

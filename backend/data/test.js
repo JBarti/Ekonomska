@@ -8,7 +8,7 @@ module.exports = async (controller) => {
         password: 'test'
     }
 
-    logger.logTest('Test get')
+    logger.logTest('Test create student')
     let student = await controller.student.create(testUser)
     logger.logData(student.get({ plain: true }))
 
@@ -21,8 +21,12 @@ module.exports = async (controller) => {
     logger.logData(`${status} added new notification`)
 
     logger.logTest('Test get')
-    student = await controller.student.get('testtest@gmail.com', 'test')
-    logger.logData(student.get({ plain: true }))
+    try {
+        student = await controller.student.get('testtest@gmail.com', 'test')
+        logger.logData(student.get({ plain: true }))
+    } catch (err) {
+        logger.logError(err)
+    }
 
     logger.logTest('Test createRazred')
     grade = await controller.grade.create({ name: '3D' })
@@ -56,19 +60,26 @@ module.exports = async (controller) => {
     logger.logMessage(`Email invalidmail@gmail.com exists: ${status}`)
 
     logger.logTest('Test create revenue')
-    let revenue = await controller.revenue.create({ name: 'testRevenue', money: 123 })
+    let revenue = await controller.finance.create({ name: 'testRevenue', money: 123, type: 'revenue' })
     logger.logMessage('Created new revenue')
     logger.logData(revenue.get({ plain: true }))
 
     logger.logTest('Test create expense')
-    let expense = await controller.expense.create({ name: 'testExpense', money: 312 })
+    let expense = await controller.finance.create({ name: 'testExpense', money: 312, type: 'expense' })
     logger.logMessage('Created new expense')
     logger.logData(expense.get({ plain: true }))
 
-    logger.logTest('Add revenue and expense to user')
-    status = await controller.student.addRevenue(1, 'testtest@gmail.com', 1)
+    logger.logTest('Test create goal')
+    let goal = await controller.finance.create({ name: 'testGoal', money: 312, type: 'goal' })
+    logger.logMessage('Created new goal')
+    logger.logData(goal.get({ plain: true }))
+
+    logger.logTest('Add revenue, expense and goal to user')
+    status = await controller.student.addFinance(1, 'testtest@gmail.com', 1)
     logger.logMessage(status)
-    status = await controller.student.addExpense(1, 'testtest@gmail.com', 1)
+    status = await controller.student.addFinance(1, 'testtest@gmail.com', 2)
+    logger.logMessage(status)
+    status = await controller.student.addFinance(1, 'testtest@gmail.com', 3)
     logger.logMessage(status)
 
 }
