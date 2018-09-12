@@ -14,6 +14,7 @@ import NotificationCard from './components/notificationCard'
 import GradesCard from './components/gradesCard'
 import FileDisplay from '../../common/file-display/FileDisplay'
 import Slide from '@material-ui/core/Slide'
+import WalletCard from './components/walletCard'
 import Grow from '@material-ui/core/Grow'
 import { List, Typography } from '@material-ui/core';
 import sidebar from '../../common/sidebar/sidebar';
@@ -49,12 +50,13 @@ const styles = theme => {
 }
 
 const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
-    < Row >
-        <NotificationCard />
-    </Row >
     <Row>
         <GradesCard />
     </Row>
+    < Row >
+        <NotificationCard />
+        <WalletCard/>
+    </Row >
 </div>
 
 var screens = [

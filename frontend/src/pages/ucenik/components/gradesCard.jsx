@@ -22,7 +22,8 @@ const styles = theme => ({
         width: '100%',
         boxSizing: 'content-box',
         overflow: 'hidden', 
-        padding: '2%'
+        padding: '1%',
+        zIndex: 0
     },
 })
 
