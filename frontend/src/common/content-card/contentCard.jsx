@@ -22,7 +22,9 @@ const styles = theme => ({
         '&:last-child': {
             marginTop: 0,
         },
-        overflowY: 'auto',
+        margin: '0 auto',
+        marginTop: 30,
+        overflowY: 'hidden',
     },
     subheader: {
         textAlign: 'left',
