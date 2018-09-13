@@ -18,6 +18,7 @@ import WalletCard from './components/walletCard'
 import Grow from '@material-ui/core/Grow'
 import { List, Typography } from '@material-ui/core';
 import sidebar from '../../common/sidebar/sidebar';
+import ContentCard from '../../common/content-card/contentCard';
 
 
 const styles = theme => {
@@ -52,10 +53,11 @@ const styles = theme => {
 const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
     <Row>
         <GradesCard />
+        <NotificationCard />
     </Row>
     < Row >
-        <NotificationCard />
-        <WalletCard/>
+        <WalletCard />
+        <ContentCard />
     </Row >
 </div>
 

@@ -19,11 +19,7 @@ const styles = theme => ({
         height: '100%',
         boxSizing: 'border-box',
         marginRight: '2vw',
-        '&:last-child': {
-            marginTop: 0,
-        },
         margin: '0 auto',
-        marginTop: 30,
         overflowY: 'hidden',
     },
     subheader: {
