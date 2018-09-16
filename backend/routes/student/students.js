@@ -1,8 +1,8 @@
 var express = require('express');
-var logger = require('../logger')
-var controller = require('../data/sequelize')
+var logger = require('../../../logger')
+var controller = require('../../../data/sequelize')
 var router = express.Router();
-var { passport, session } = require('../auth')
+var { passport, session } = require('../../../auth')
 
 router.get('/test', function (req, res, next) {
 	return res.send('api working');
