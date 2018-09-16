@@ -6,7 +6,7 @@ import HarmonicaTab from '../../../common/harmonica/harmonica-tab/harmonicaTab'
 
 const styles = theme => ({
     root: {
-        overflow: 'hidden', 
+        overflow: 'hidden',
     }
 })
 

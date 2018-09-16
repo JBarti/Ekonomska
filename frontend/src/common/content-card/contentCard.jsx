@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
     root: {
+        overflowY: 'scroll',
         overflowX: 'hidden',
         boxSizing: 'content-box',
         display: 'flex',
@@ -19,11 +20,8 @@ const styles = theme => ({
         height: '100%',
         boxSizing: 'border-box',
         marginRight: '2vw',
-        '&:last-child': {
-            marginTop: 0,
-        },
+        marginTop: 0,
         margin: '0 auto',
-        marginTop: 30,
         overflowY: 'hidden',
     },
     subheader: {
@@ -38,7 +36,9 @@ const styles = theme => ({
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        overflowY: 'auto',
+        overflowX: 'hidden'
     },
     subheaderList: {
         marginBottom: -8
