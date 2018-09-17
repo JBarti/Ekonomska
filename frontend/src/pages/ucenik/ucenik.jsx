@@ -51,7 +51,7 @@ const styles = theme => {
 
 const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
     <Row>
-        <GradesCard />
+        <GradesCard/>
     </Row>
     < Row >
         <NotificationCard />
@@ -65,11 +65,11 @@ var screens = [
         data: defaultContent
     },
     {
-        name: 'RandomPdf',
+        name: 'Pdf',
         data: <FileDisplay src='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' />
     },
     {
-        name: 'RandomDocs',
+        name: 'Doc',
         data: <FileDisplay src='https://docs.google.com/document/d/1Gqn3bFo1qUqCNuGxYOPeeKmPW3Fiex0BvKT0bb4ZB8k/edit?usp=sharing' />
     }
 ]
@@ -78,7 +78,7 @@ var screens = [
 class Ucenik extends Component {
 
 
-    testDocument = <FileDisplay src='https://docs.google.com/document/d/1SKC4V38DPn7OGQztxRRwzSr1WytqNm5_0QDafKekLbs/edit' />
+    testDocument = <FileDisplay src='https://docs.google.com/document/d/1SKC4V38DPn7OGQztxRRwzSr1WytqNm5_0QDafKekLbs/' />
 
     testPdf = <FileDisplay src='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' />
 

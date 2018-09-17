@@ -2,42 +2,86 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import ContentCard from '../../../common/content-card/contentCard'
 import './walletCard.css'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 
 
 const styles = theme => ({
     root: {
-        overflowY: 'hidden', 
+      color: "white"
     }
 })
+var topPrihodiName = ['Prihodi', 'Džeparac','Stipendija', 'Poklon']
+var topPrihodiValue = [ 5000 , 1000, 600, 200]
 
+var topRashodiName = ['Rashodi', 'Režije','Najam','Auto']
+var topRashodiValue = [4500, 2500, 1000, 1000]
 class walletCard extends Component {
 
     render() {
         const { classes } = this.props
         return (
-            <ContentCard className={classes.root}>
+        
 <div className="wallet">
  <div className="card" id="card1" style={{bottom: "0px"}}>
-   <h1>0000 0000 0000 0000</h1>
-   <p>Card Holder</p>
-   <p>Expiration Date</p>
-   <h2>Daniel Putzer</h2>
-   <h2>02/22</h2>
+    <List>
+          <ListItem>
+            <ListItemText><span className={classes.root}>Trenutno stanje: </span><span className="walletvalue"> 2.500,00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}>Cilj:</span> <span className="walletvalue"> 10.000,00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}> Prihodi:</span> <span className="walletvalue"> 5.000,00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}> Rashodi:</span> <span className="walletvalue"> 4.500,00kn</span></ListItemText>
+          </ListItem>
+     </List>
  </div>
  <div className="card" id="card2" style={{bottom: "50px"}}>
-  <h1>0000 0000 0000 0000</h1>
-  <p>Card Holder</p>
-  <p>Expiration Date</p>
-  <h2>Daniel Putzer</h2>
-  <h2>03/33</h2>
+ <List>
+          <ListItem>
+            <ListItemText><span className={classes.root}>{topRashodiName[0]}: </span><span className="walletvalue"> {topRashodiValue[0]},00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}>{topRashodiName[1]}:</span> <span className="walletvalue"> {topRashodiValue[1]},00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}> {topRashodiName[2]}:</span> <span className="walletvalue"> {topRashodiValue[2]},00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}> {topRashodiName[3]}:</span> <span className="walletvalue">{topRashodiValue[3]},00kn</span></ListItemText>
+          </ListItem>
+     </List>
  </div>
  <div className="card" id="card3" style={{bottom: "100px"}}>
-  <h1>0000 0000 0000 0000</h1>
-  <p>Card Holder</p>
-  <p>Expiration Date</p>
-  <h2>Daniel Putzer</h2>
-  <h2>04/44</h2>
+ <List>
+          <ListItem>
+            <ListItemText><span className={classes.root}>{topPrihodiName[0]}: </span><span className="walletvalue"> {topPrihodiValue[0]},00kn</span></ListItemText>
+          </ListItem>
+          <Divider light={true} />
+          <ListItem>
+            <ListItemText><span className={classes.root}>{topPrihodiName[1]}:</span> <span className="walletvalue"> {topPrihodiValue[1]},00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}> {topPrihodiName[2]}:</span> <span className="walletvalue"> {topPrihodiValue[2]},00kn</span></ListItemText>
+          </ListItem>
+          <Divider/>
+          <ListItem>
+            <ListItemText><span className={classes.root}>{topPrihodiName[3]}:</span> <span className="walletvalue">{topPrihodiValue[3]},00kn</span></ListItemText>
+          </ListItem>
+     </List>
  </div>
 
  <div className="department" id="one"></div>
@@ -46,7 +90,7 @@ class walletCard extends Component {
 
  <img id="logo" src="https://www.sccu.com.au/images/sccu/category_icons/cards_header_icon.png"/>
 </div>
-</ContentCard>
+
         )
     }
 

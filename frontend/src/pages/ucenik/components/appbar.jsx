@@ -44,7 +44,7 @@ class UcenikAppBar extends Component {
                 < div id="nameTag">
                     {/* <Avatar className={classes.avatar}>3.D</Avatar> */}
                     <div>
-                        <Typography className={classes.username} variant='subheading'>Mate Mišo</Typography>
+                        <Typography className={classes.username} variant='subheading'>Ante Horvat</Typography>
                     </div>
                 </div>
             </Appbar>

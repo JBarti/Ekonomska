@@ -1,13 +1,16 @@
 .wallet {
     
     display: block;
-    width: 100%;
+    width: 80%;
     height: 340px;
     background: #444;
     border-radius: 15px;
     box-shadow: 0px 0px 120px rgba(40,40,40,0.8);
     z-index: 900;
     transform: translateY(-10px);
+    margin-right:2vw;
+    margin-top: 2vw; 
+    color: white;
   }
   
   #logo {
@@ -53,7 +56,7 @@
   /* ----- Cards ----- */
   
   .card {
-    position: absolute;
+    position: absolute; 
     display: block;
     width: 80%;
     height: 210px;
@@ -64,63 +67,28 @@
     bottom: 0;
     border-radius: 10px;
     transition: transform 1s;
+    color: white;
   }
   .card:hover{
     transform: translateY(-150px);
   }
   
-  #visa {
-    position: absolute;
-    display: block;
-    width: 60px;
-    top: 12px;
-    right: 20px;
-  }
-  
-  .card h1 {
-    display: inline-block;
-    font-family: 'Oswald';
-    font-weight: 300;
-    font-size: 26px;
-    color: #FFF;
-    width: 100%;
-    margin: 85px 0px 0px 50px;
-    text-decoration: none;
-  }
-  
-  .card h2 {
-    display: inline-block;
-    font-family: 'Oswald';
-    font-weight: 300;
-    font-size: 18px;
-    color: #FFF;
-    margin: 0;
-    width: 30%;
-    margin: 0px 0px 0px 50px;
-  }
-  
-  .card p {
-    display: inline-block;
-    font-family: 'Lato';
-    font-weight: 900;
-    font-size: 12px;
-    color: #FFF;
-    margin: 0;
-    width: 30%;
-    margin: 15px 0px 0px 50px;
-  }
   
   #card1 {
-    background: #7533FF;
+    background: #283593;
     z-index: 100;
   }
   
   #card2{
-    background: #FF473B;
+    background: #C62828;
     z-index: 40;
   }
   
   #card3{
-    background: #5BB6FF;
+    background: #515FB5;
     z-index: 0;
+  }
+  .walletvalue{
+    float: right;
+    color: white;
   }
