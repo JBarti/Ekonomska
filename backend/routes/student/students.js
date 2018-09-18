@@ -1,8 +1,8 @@
 var express = require('express');
-var logger = require('../../../logger')
-var controller = require('../../../data/sequelize')
+var logger = require('../../logger')
+var StudentController = require('../../controllers/student')
 var router = express.Router();
-var { passport, session } = require('../../../auth')
+var { passport, session } = require('../../auth')
 
 router.get('/test', function (req, res, next) {
 	return res.send('api working');
@@ -36,7 +36,7 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
 	if (req.user) {
 		logger.logMessage('Logging out, user set to inactive')
-		controller.user.makeInactive(req.user.id, req.user.email)
+		StudentController.user.makeInactive(req.user.id, req.user.email)
 		req.logout()
 		return res.send('Successfully logged out')
 	}
@@ -53,9 +53,9 @@ router.post('/register', async (req, res, next) => {
 
 	if (props.every(val => (val in req.body))) {
 		logger.logMessage('Request has all neded properties')
-		if (!(await controller.user.checkExistance(req.body.email))) {
+		if (!(await StudentController.user.checkExistance(req.body.email))) {
 			logger.logMessage('User doesnt exist')
-			let user = await controller.user.create(req.body)
+			let user = await StudentController.user.create(req.body)
 			logger.logMessage('Created user')
 			logger.logData(user.get({ plain: true }))
 			return res.send(user.get({ plain: true }))

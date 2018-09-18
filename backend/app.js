@@ -3,7 +3,6 @@ var createError = require('http-errors')
 var express = require('express')
 var cookieParser = require('cookie-parser')
 var logger = require('./logger')
-var controller = require('./data/sequelize')
 var bodyParser = require('body-parser')
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
@@ -13,15 +12,20 @@ var { passport, session } = require('./auth')
 
 
 //Routes
-var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/students')
+var studentIndexRouter = require('./routes/student/index')
+var studentRouter = require('./routes/student/students')
 
 var app = express()
 
-//Databse models
-var { Controller } = require('./data/sequelize')
-
 app.disable('x-powered-by')
+
+var { setup } = require('./controllers/config')
+
+setup().then(data => {
+	logger.logMessage('Created databse')
+	require('./controllers/test')()
+})
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -35,8 +39,8 @@ app.use(passport.session())
 
 logger.logImportant('###################\n####APP STARTED####\n###################')
 
-app.use('/', indexRouter)
-app.use('/students', usersRouter)
+app.use('/', studentIndexRouter)
+app.use('/students', studentRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
