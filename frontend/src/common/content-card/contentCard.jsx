@@ -52,7 +52,7 @@ class ContentCard extends Component {
             subheader = <ListSubheader component="div" className={classes.subheader}>{this.props.cardName}</ListSubheader>
         }
         return (
-            <Paper elevation={1} className={classes.root}>
+            <Paper elevation={0} className={classes.root}>
                 <List subheader={subheader} className={classes.subheaderList}>
                 </List>
                 <div className={classes.children}>

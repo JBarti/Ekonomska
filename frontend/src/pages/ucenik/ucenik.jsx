@@ -51,11 +51,11 @@ const styles = theme => {
 
 const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
     <Row>
-        <GradesCard/>
+        <GradesCard />
     </Row>
     < Row >
         <NotificationCard />
-        <WalletCard/>
+        <WalletCard />
     </Row >
 </div>
 
