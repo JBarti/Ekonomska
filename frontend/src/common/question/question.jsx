@@ -12,176 +12,8 @@ import Button from '@material-ui/core/Button/Button'
 import Icon from '@material-ui/core/Icon'
 import Fade from '@material-ui/core/Fade'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import './question.css'
-
-
-var answerStyle = {
-    position: 'relative',
-    flexGrow: 0.5,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    paddingLeft: 60,
-    marginRight: 40,
-    paddingBottom: 20,
-    paddingTop: 20,
-    alignItems: 'center',
-    borderBottom: '1px white solid',
-    transition: 'background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    '&:last-child': {
-        borderBottom: 'none'
-    },
-}
-
-const styles = theme => ({
-    radioGroup: {
-        paddingLeft: 12,
-        marginTop: 8
-    },
-    root: {
-        marginTop: '10%',
-        width: '60%',
-        height: '50%',
-        padding: 0,
-    },
-    card: {
-        flexDirection: 'row',
-    },
-    questionCard: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-    },
-    questionText: {
-        fontSize: 20,
-        width: '70%'
-    },
-    answerCard: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: theme.palette.secondary.light,
-        position: 'relative',
-        display: 'flex',
-    },
-    answerContainer: {
-        width: '100%',
-        height: 'calc(100% - 142.5px)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        marginTop: 50
-    },
-    questionNumber: {
-        width: 'fit-content',
-        paddingLeft: 5,
-        paddingRight: 5,
-        borderBottom: '2px red solid',
-        color: theme.palette.secondary.light,
-        borderBottomColor: theme.palette.secondary.light,
-        paddingBottom: 5,
-        marginTop: 40
-    },
-    timer: {
-        marginTop: 60,
-        marginBottom: -25
-    },
-    time: {
-        position: 'relative',
-        top: '-50%',
-        fontSize: 70,
-        color: theme.palette.grey[700]
-    },
-    answer: {
-        '&:-moz-any(div)': answerStyle,
-        '&:hover': {
-            boxShadow: theme.shadows[2],
-            backgroundColor: 'white',
-            '& > h1:first-child': {
-                backgroundColor: theme.palette.secondary.light,
-                color: 'white',
-                boxShadow: 'none'
-            },
-            '& > h1:last-child': {
-                color: theme.palette.secondary.light,
-            }
-        },
-        '&:active': {
-            boxShadow: theme.shadows[0],
-        }
-    },
-    answerSelected: {
-        '&:-moz-any(div)': answerStyle,
-        boxShadow: theme.shadows[1],
-        backgroundColor: 'white',
-        '&:hover': {
-            boxShadow: theme.shadows[4]
-        },
-        '&:last-child': {
-            borderBottom: 'none'
-        },
-        '& > h1:first-child': {
-            backgroundColor: theme.palette.secondary.light,
-            color: 'white',
-            boxShadow: 'none'
-        },
-        '& > h1:last-child': {
-            color: theme.palette.secondary.light,
-        }
-    },
-    answerNum: {
-        fontSize: 22,
-        backgroundColor: 'white',
-        borderRadius: 900,
-        width: 33,
-        height: 33,
-        padding: '4px 3px 0 3px',
-        textAlign: 'center',
-        color: theme.palette.secondary.light,
-        boxShadow: theme.shadows[2],
-        userSelect: 'none',
-    },
-    answerText: {
-        fontSize: 20,
-        color: 'white',
-        paddingTop: 5,
-        textAlign: 'center',
-        marginLeft: 20,
-        letterSpacing: 1,
-        fontWeight: 500,
-        userSelect: 'none'
-    },
-    answerNavbar: {
-        width: '100%',
-        position: 'absolute',
-        bottom: 0,
-        display: 'flex',
-        flexDirection: 'row',
-
-    },
-    answerNavButton: {
-        flexGrow: 1,
-        color: 'white',
-        backgroundColor: theme.palette.secondary.dark,
-        borderRadius: 0,
-        marginRight: 1,
-        paddingTop: 15,
-        paddingBottom: 15,
-        '&:hover': {
-            backgroundColor: 'white',
-            color: theme.palette.secondary.light
-        }
-    },
-    answerOverlay: {
-        marginLeft: -60,
-        position: 'absolute',
-        width: '100%',
-        height: '100%'
-    }
-
-
-})
+import styles from './questionStyle'
+import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple'
 
 
 class Question extends Component {
@@ -189,12 +21,45 @@ class Question extends Component {
         super(props)
 
         let questionsIterator = props.questions[Symbol.iterator]()
+        let currentTime = new Date()
+
+        setInterval(() => {
+            if (this.state.duration) {
+                let currentTime = (new Date()).getTime() - this.state.startTime
+                let endTime = (this.state.endTime - this.state.startTime)
+                console.log((currentTime / endTime) * 100)
+                let percent = (currentTime / endTime) * 100
+                this.setState({ progressValue: percent })
+            }
+        }, 1000)
+
+        setInterval(() => {
+            if (this.state.duration)
+                this.setState({ duration: this.state.duration - 1 })
+        }, 60000)
+
 
         this.state = {
             value: 'denis',
             fade: true,
             questions: props.questions,
-            currentQuestionIndex: 0
+            currentQuestionIndex: 0,
+            startTime: currentTime.getTime(),
+            endTime: currentTime.getTime() + props.duration * 60 * 1000,
+            duration: props.duration,
+            nextButton: (classes) =>
+                <Button
+                    className={classes.answerNavButton}
+                    onClick={this.changeQuestion(true)} >
+                    Next
+                </Button>,
+            submitButton: (classes) =>
+                <Button
+                    className={classes.answerNavButton}
+                    onClick={this.submit} >
+                    Submit
+                </Button>
+
         }
     }
 
@@ -209,9 +74,9 @@ class Question extends Component {
         })
     }
 
-    answerOption = (classes, sign, answer) => {
+    answerOption = (classes, sign, answer, currentQuestionIndex) => {
         return (
-            <div className={this.state[sign] ? classes.answerSelected : classes.answer}>
+            <div className={this.state[sign + currentQuestionIndex] ? classes.answerSelected : classes.answer}>
                 <div name={sign} onClick={this.answerClick} className={classes.answerOverlay} />
                 <Typography className={classes.answerNum} variant='headline'>{sign}</Typography>
                 <Typography className={classes.answerText} variant='headline' >{answer}</Typography>
@@ -221,8 +86,9 @@ class Question extends Component {
 
     answerClick = (ev) => {
         let targetName = ev.target.getAttribute('name')
-        let targetState = this.state[targetName]
-        this.setState({ [targetName]: !targetState })
+        let currentQuestionIndex = this.state.currentQuestionIndex
+        let targetState = this.state[targetName + currentQuestionIndex]
+        this.setState({ [targetName + currentQuestionIndex]: !targetState })
         console.log(targetName)
     }
 
@@ -246,18 +112,28 @@ class Question extends Component {
         const { classes } = this.props;
         const signGen = this.signGen()
         const { questions } = this.state
-        let currentQuestion = this.state.questions[this.state.currentQuestionIndex]
+        let currentQuestionIndex = this.state.currentQuestionIndex
+        let currentQuestion = this.state.questions[currentQuestionIndex]
+        console.log(TouchRipple)
 
         return (
             <div className={classes.root}>
                 <ContentCard classes={{ children: classes.card }}>
                     <div className={classes.questionCard}>
                         <Typography variant='headline' className={classes.questionNumber}>
-                            Pitanje 1/{questions.length}
+                            Pitanje {currentQuestionIndex + 1}/{questions.length}
                         </Typography>
                         <div className={classes.timer}>
-                            <CircularProgress color='secondary' thickness={1} size={175} variant='static' value={50} className={classes.circle} />
-                            <div className={classes.time}>90</div>
+                            <CircularProgress
+                                color='secondary'
+                                thickness={1}
+                                size={175}
+                                variant='static'
+                                value={100 - this.state.progressValue}
+                                className={classes.circle} />
+                            <div className={classes.time}>
+                                {this.state.duration}
+                            </div>
                         </div>
                         <Typography variant='subheading' className={classes.questionText}>
                             {currentQuestion.question}
@@ -271,18 +147,17 @@ class Question extends Component {
                                         return this.answerOption(
                                             classes,
                                             signGen(),
-                                            data.answer
+                                            data.answer,
+                                            currentQuestionIndex
                                         )
                                     })}
                             </div>
                         </Fade>
                         <div className={classes.answerNavbar}>
-                            <Button className={classes.answerNavButton} onClick={this.changeQuestion(false)}>
+                            <Button className={classes.answerNavButton} disabled={currentQuestionIndex === 0} onClick={this.changeQuestion(false)}>
                                 Previous
                             </Button>
-                            <Button className={classes.answerNavButton} onClick={this.changeQuestion(true)}>
-                                Next
-                            </Button>
+                            {currentQuestionIndex + 1 === questions.length || !this.state.duration ? this.state.submitButton(classes) : this.state.nextButton(classes)}
                         </div>
                     </div>
 

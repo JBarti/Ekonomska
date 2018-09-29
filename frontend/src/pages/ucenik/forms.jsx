@@ -98,7 +98,7 @@ class Forms extends Component {
                 </Sidebar>
 
                 <Content expanded={this.state.expanded} classes={{ root: classes.content }}>
-                    <Question questions={this.questions} />
+                    <Question questions={this.questions} duration={10} />
                 </Content>
             </div>
         );
