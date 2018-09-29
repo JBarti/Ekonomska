@@ -12,7 +12,8 @@ const styles = theme => ({
         zIndex: theme.zIndex.drawer + 1,
         position: 'fixed',
         height: 65,
-        transitionDuration: '225ms'
+        transitionDuration: '225ms',
+        backgroundColor: '#404040'
     },
     text: {
         letterSpacing: 0.82,

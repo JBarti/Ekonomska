@@ -7,21 +7,22 @@ import TableHead from '@material-ui/core/TableHead'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
-import {LineChart, Line, XAxis, YAxis, Tooltip, Legend,ResponsiveContainer} from 'recharts';
+import { XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ComposedChart, Area, Bar, CartesianGrid } from 'recharts';
 
 let dataline = [
-    {name: 'Test 1', Postotak: 0},
-    {name: 'Test 2', Postotak: 70},
-    {name: 'Test 3', Postotak: 90},
-    {name: 'Test 4', Postotak: 40},
-    {name: 'Test 5', Postotak: 100},
+    { name: 'Page A', uv: 590, pv: 800, amt: 1400 },
+    { name: 'Page B', uv: 868, pv: 967, amt: 1506 },
+    { name: 'Page C', uv: 1397, pv: 1098, amt: 989 },
+    { name: 'Page D', uv: 1480, pv: 1200, amt: 1228 },
+    { name: 'Page E', uv: 1520, pv: 1108, amt: 1100 },
+    { name: 'Page F', uv: 1400, pv: 680, amt: 1700 }
 ];
 
 const styles = theme => ({
     cardDiv: {
         width: '100%',
         boxSizing: 'content-box',
-        overflow: 'hidden', 
+        overflow: 'hidden',
         padding: '1%',
         zIndex: 0
     },
@@ -42,61 +43,66 @@ class GradesCard extends Component {
 
     render() {
         const { classes } = this.props
-        const { value } = this.state; 
+        const { value } = this.state;
         let id = 0;
-      function createData(name, postotak, ocjena, rank) {
-        id += 1;
-        return { id,name, postotak, ocjena, rank };
-      }
-      
-      const rows = [
-        createData('Test 1', 59, 68, 80),
-        createData('Test 2', 2, 3, 4),
-        createData('Test 3', 20., 13.,7.),
-        createData('Test 4', 20., 13.,7.),
-        createData('Test 5', 20., 13.,7.),
-      ];
+        function createData(name, postotak, ocjena, rank) {
+            id += 1;
+            return { id, name, postotak, ocjena, rank };
+        }
+
+        const rows = [
+            createData('Test 1', 59, 68, 80),
+            createData('Test 2', 2, 3, 4),
+            createData('Test 3', 20., 13., 7.),
+            createData('Test 4', 20., 13., 7.),
+            createData('Test 5', 20., 13., 7.),
+        ];
         return (
             <ContentCard cardName='Moji rezultati' classes={{ root: classes.customCard }}>
-                 <div className={classes.cardDiv}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart width={600} height={300}  data={dataline}>
-                     <Line type="linear" dataKey="Postotak" stroke="#283593" />
-                     <XAxis dataKey="name" />
-                     <YAxis type="number" domain={[0, 100]}/>
-                     <Tooltip />
-                    </LineChart>
-                   </ResponsiveContainer>
-                 </div>
+                <div className={classes.cardDiv}>
+                    <ResponsiveContainer width="90%" height="100%">
+                        <ComposedChart layout="vertical" width={600} height={350} data={dataline}
+                            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                            <CartesianGrid stroke='#f5f5f5' />
+                            <XAxis type="number" />
+                            <YAxis dataKey="name" type="category" />
+                            <Tooltip />
+                            <Legend />
 
+                            <Bar dataKey='pv' barSize={20} fill='#413ea0' />
 
-                 <div className={classes.cardDiv}>
-                 <Table>
-                  <TableHead>
-                   <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell numeric>Postotak</TableCell>
-                    <TableCell numeric>Ocjena</TableCell>
-                    <TableCell numeric>Rang</TableCell>
-                   </TableRow>
-                  </TableHead>
-                  <TableBody>
-                   {rows.map(row => {
-                     return (
-                     <TableRow key={row.id}>
-                     <TableCell component="th" scope="row">
-                      {row.name}
-                     </TableCell>
-                     <TableCell numeric>{row.postotak}</TableCell>
-                     <TableCell numeric>{row.ocjena}</TableCell>
-                     <TableCell numeric>{row.rank}</TableCell>
-                    </TableRow>
-                    );
-                   })}
-                   </TableBody>
-                 </Table>
+                        </ComposedChart>
+                    </ResponsiveContainer>
                 </div>
-             </ContentCard>
+
+
+                <div className={classes.cardDiv}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell numeric>Postotak</TableCell>
+                                <TableCell numeric>Ocjena</TableCell>
+                                <TableCell numeric>Rang</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map(row => {
+                                return (
+                                    <TableRow key={row.id}>
+                                        <TableCell component="th" scope="row">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell numeric>{row.postotak}</TableCell>
+                                        <TableCell numeric>{row.ocjena}</TableCell>
+                                        <TableCell numeric>{row.rank}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </div>
+            </ContentCard>
         )
     }
 

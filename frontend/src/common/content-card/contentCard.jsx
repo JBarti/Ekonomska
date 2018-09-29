@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
     root: {
-        overflowY: 'scroll',
+        overflowY: 'auto',
         overflowX: 'hidden',
         boxSizing: 'content-box',
         display: 'flex',
@@ -20,7 +20,6 @@ const styles = theme => ({
         height: '100%',
         boxSizing: 'border-box',
         marginRight: '2vw',
-        marginTop: 0,
         margin: '0 auto',
         overflowY: 'hidden',
     },
@@ -53,9 +52,9 @@ class ContentCard extends Component {
             subheader = <ListSubheader component="div" className={classes.subheader}>{this.props.cardName}</ListSubheader>
         }
         return (
-            <Paper elevation={1} className={classes.root}>
 
-                {subheader ? <List subheader={subheader} className={classes.subheaderList} /> : null}
+            <Paper elevation={1} className={classes.root}>
+                {subheader ? <List subheader={subheader} className={classes.subheaderList} /> : null}    
                 <div className={classes.children}>
                     {this.props.children}
                 </div>

@@ -20,6 +20,9 @@ const styles = theme => ({
     drawerPaper: {
         position: 'relative',
         border: 0,
+        backgroundColor: '#34495E',
+        overflowX: 'hidden',
+        backgroundColor: 'white'
     },
     appbar: {
         display: 'flex',
@@ -29,7 +32,7 @@ const styles = theme => ({
         height: 65,
         width: '100%',
         position: 'relative',
-        backgroundColor: theme.palette.primary.dark
+        backgroundColor: '#383838'
     },
 
     toolbar: theme.mixins.toolbar,
@@ -40,6 +43,14 @@ const styles = theme => ({
         position: 'absolute',
         bottom: 0,
         zIndex: 2,
+        width: '100%',
+        marginBottom: 16
+    },
+    serviceButton: {
+        width: '100%',
+    },
+    serviceButtonIcon: {
+
     }
 })
 
@@ -65,9 +76,10 @@ class Sidebar extends Component {
                         {this.props.children}
                     </List>
                     <div className={classes.helpTab}>
-                        <p className="htxt"><HelpOutline className="ho" /> Pomoć </p>
-                        <p className="htxt"><QuestionAnswer className="ho" /> Često postavljena pitanja </p>
-                        <p className="htxt"> <Settings className="ho" /> Postavke</p>
+                        <ListButton primary='Pomoć' className={classes.serviceButton} icon={<HelpOutline className={classes.serviceButtonIcon} />} />
+                        <ListButton primary='FAQ' icon={<QuestionAnswer className={classes.serviceButtonIcon} />} />
+                        <ListButton primary='Postavke' icon={<Settings className={classes.serviceButtonIcon} />} />
+
                     </div>
                 </div>
             </Drawer >
