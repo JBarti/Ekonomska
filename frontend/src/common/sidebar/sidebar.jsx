@@ -9,13 +9,12 @@ import AppBar from '@material-ui/core/AppBar'
 import QuestionAnswer from '@material-ui/icons/QuestionAnswer'
 import HelpOutline from '@material-ui/icons/HelpOutline'
 import Settings from '@material-ui/icons/Settings'
-import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
-import ListButton from '../list-button/listButton'
 
 const styles = theme => ({
     root: {
         width: 250,
-        position: 'relative'
+        position: 'relative',
+        zIndex: 900,
     },
 
     drawerPaper: {

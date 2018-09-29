@@ -10,6 +10,9 @@ import Divider from '@material-ui/core/Divider';
 
 
 const styles = theme => ({
+    root: {
+        overflowY: 'hidden',
+    }
   root: {
     color: "white"
   }
@@ -21,6 +24,7 @@ var topRashodiName = ['Rashodi', 'Režije', 'Najam', 'Auto']
 var topRashodiValue = [4500, 2500, 1000, 1000]
 class walletCard extends Component {
 
+  
   render() {
     const { classes } = this.props
     return (

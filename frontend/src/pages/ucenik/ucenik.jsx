@@ -45,7 +45,8 @@ const styles = theme => {
         },
         content: {
             height: '100%'
-        }
+        },
+
     })
 }
 
@@ -117,7 +118,7 @@ class Ucenik extends Component {
                 <UcenikAppBar expanded={this.state.expanded} onFullscreen={this.expandContent} onMenu={this.showMenu} />
 
                 <Sidebar appbar={sidebarAppbar} open={!this.state.expanded}>
-                    <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}>
+                    <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }} className={classes.sidebarContent}>
                         {this.state.screens.slice(1).map(component => (
                             <ListButton onClick={() => { this.changeContent(component) }} tabbed={true} primary={component.name} />
                         ))}

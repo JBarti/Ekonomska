@@ -17,7 +17,8 @@ const styles = theme => ({
         flexDirection: 'column',
         right: 0,
         overflowY: 'auto',
-        transitionDuration: '225ms'
+        transitionDuration: '225ms',
+        backgroundColor: '#fafafa',
     },
 })
 
