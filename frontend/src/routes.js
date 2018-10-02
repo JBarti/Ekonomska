@@ -1,18 +1,16 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom'
-import { Route, Switch } from 'react-router'
-import App from './App.jsx'
+import { Route, Switch, Router } from 'react-router'
+import App from './App'
 import Login from './pages/login'
 import Ucenik from './pages/ucenik/ucenik'
-import Form from './pages/ucenik/forms'
+
+
 
 export default (
     <BrowserRouter>
-        <Switch>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/test' component={App} />
-            <Route exact path='/ucenik' component={Ucenik} />
-            <Route exact path='/ucenik/forms' component={Form} />
-        </Switch>
+        <div>
+            <Route path='/ucenik' component={Ucenik} />
+        </div>
     </BrowserRouter>
 )
