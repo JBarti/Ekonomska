@@ -15,6 +15,7 @@ import WalletCard from './components/walletCard'
 import { Typography } from '@material-ui/core';
 import Dashboard from './components/dashboard';
 import External from './components/external'
+import Forms from './components/forms'
 
 
 const styles = theme => {

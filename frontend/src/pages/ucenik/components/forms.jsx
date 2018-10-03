@@ -68,9 +68,7 @@ class Forms extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Content expanded={this.props.location.state.expanded} classes={{ root: classes.content }}>
-                <Question questions={this.questions} duration={10} />
-            </Content>
+            <Question questions={this.questions} duration={10} />
 
         );
     }
