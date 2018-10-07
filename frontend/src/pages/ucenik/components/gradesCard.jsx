@@ -7,15 +7,14 @@ import TableHead from '@material-ui/core/TableHead'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
-import { XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ComposedChart, Area, Bar, CartesianGrid } from 'recharts';
+import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
-let dataline = [
-    { name: 'Page A', uv: 590, pv: 800, amt: 1400 },
-    { name: 'Page B', uv: 868, pv: 967, amt: 1506 },
-    { name: 'Page C', uv: 1397, pv: 1098, amt: 989 },
-    { name: 'Page D', uv: 1480, pv: 1200, amt: 1228 },
-    { name: 'Page E', uv: 1520, pv: 1108, amt: 1100 },
-    { name: 'Page F', uv: 1400, pv: 680, amt: 1700 }
+let data = [
+    { name: 'Test 1', Postotak: 66 },
+    { name: 'Test 2', Postotak: 76 },
+    { name: 'Test 3', Postotak: 86 },
+    { name: 'Test 4', Postotak: 56 },
+    { name: 'Test 5', Postotak: 96 },
 ];
 
 const styles = theme => ({
@@ -61,17 +60,14 @@ class GradesCard extends Component {
             <ContentCard cardName='Moji rezultati' classes={{ root: classes.customCard }}>
                 <div className={classes.cardDiv}>
                     <ResponsiveContainer width="90%" height="100%">
-                        <ComposedChart layout="vertical" width={600} height={350} data={dataline}
-                            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                            <CartesianGrid stroke='#f5f5f5' />
-                            <XAxis type="number" />
-                            <YAxis dataKey="name" type="category" />
-                            <Tooltip />
-                            <Legend />
-
-                            <Bar dataKey='pv' barSize={20} fill='#413ea0' />
-
-                        </ComposedChart>
+                    <BarChart width={600} height={300} data={data}
+                     margin={{top: 5, right: 30, left: 20, bottom: 5}} maxBarSize={40} >
+                     <CartesianGrid strokeDasharray="3 3"/>
+                     <XAxis dataKey="name"/>
+                     <YAxis domain={[0, 100]}/>
+                     <Tooltip/>
+                     <Bar dataKey="Postotak" fill="#404040" />
+                     </BarChart>
                     </ResponsiveContainer>
                 </div>
 

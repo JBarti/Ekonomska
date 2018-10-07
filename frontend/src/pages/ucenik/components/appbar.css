@@ -7,7 +7,7 @@
    background-color: #1A237E;
    display: inline;
    transition: color 2s;
-   background: linear-gradient(132deg, #5C6BC0, #1A237E);
+   background: linear-gradient(132deg, #585858, #080808);
   background-size: 400% 400%;
   animation: BackgroundGradient 15s ease infinite;
   position: absolute;
