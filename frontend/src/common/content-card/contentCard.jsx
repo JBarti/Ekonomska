@@ -19,7 +19,6 @@ const styles = theme => ({
         width: '100%',
         height: '100%',
         boxSizing: 'border-box',
-        marginRight: '2vw',
         margin: '0 auto',
         overflowY: 'hidden',
     },
@@ -54,7 +53,7 @@ class ContentCard extends Component {
         return (
 
             <Paper elevation={1} className={classes.root}>
-                {subheader ? <List subheader={subheader} className={classes.subheaderList} /> : null}    
+                {subheader ? <List subheader={subheader} className={classes.subheaderList} /> : null}
                 <div className={classes.children}>
                     {this.props.children}
                 </div>

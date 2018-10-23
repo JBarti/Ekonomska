@@ -18,16 +18,15 @@ const styles = theme => {
 class Dashboard extends Component {
     render() {
         const { classes } = this.props;
-        console.log("LOKACIJA")
-        console.log(this.props.location)
         return (
             <div style={{ height: 'calc(100% - 65px)' }}>
                 <Row>
-                    <GradesCard />
+                    <GradesCard solutions={this.props.solutions} tests={this.props.tests} />
                 </Row>
+
                 < Row >
-                    <NotificationCard />
-                    <WalletCard />
+                    <NotificationCard notifications={this.props.notifications} />
+                    <WalletCard finance={this.props.finance} />
                 </Row >
             </div>
 

@@ -1,19 +1,13 @@
-import React, { Component } from "react";
-import { withStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import RadioGroup from '@material-ui/core/RadioGroup'
-import Radio from '@material-ui/core/Radio'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Check from '@material-ui/icons/RadioButtonChecked'
-import Uncheck from '@material-ui/icons/RadioButtonUnchecked'
+import React, { Component } from "react"
+import { withStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
 import ContentCard from '../content-card/contentCard'
 import Button from '@material-ui/core/Button/Button'
-import Icon from '@material-ui/core/Icon'
 import Fade from '@material-ui/core/Fade'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styles from './questionStyle'
 import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple'
+import ucenikApi from '../../data/apiController/ucenik'
 
 
 class Question extends Component {
@@ -47,22 +41,9 @@ class Question extends Component {
             startTime: currentTime.getTime(),
             endTime: currentTime.getTime() + props.duration * 60 * 1000,
             duration: props.duration,
-            nextButton: (classes) =>
-                <Button
-                    className={classes.answerNavButton}
-                    onClick={this.changeQuestion(true)} >
-                    Next
-                </Button>,
-            submitButton: (classes) =>
-                <Button
-                    className={classes.answerNavButton}
-                    onClick={this.submit} >
-                    Submit
-                </Button>
-
+            answers: {}
         }
     }
-
 
     signGen = () => {
         var sign = '@'
@@ -75,8 +56,9 @@ class Question extends Component {
     }
 
     answerOption = (classes, sign, answer, currentQuestionIndex) => {
+        let answers = this.state.answers
         return (
-            <div className={this.state[sign + currentQuestionIndex] ? classes.answerSelected : classes.answer}>
+            <div className={answers[sign + currentQuestionIndex] ? classes.answerSelected : classes.answer}>
                 <div name={sign} onClick={this.answerClick} className={classes.answerOverlay} />
                 <Typography className={classes.answerNum} variant='headline'>{sign}</Typography>
                 <Typography className={classes.answerText} variant='headline' >{answer}</Typography>
@@ -84,11 +66,72 @@ class Question extends Component {
         )
     }
 
+    submitButton = (classes) =>
+        <Button
+            className={classes.answerNavButton}
+            onClick={this.submit} >
+            Submit
+                </Button>
+
+    nextButton = (classes) => <Button
+        className={classes.answerNavButton}
+        onClick={this.changeQuestion(true)} >
+        Next
+                </Button>
+
+    submit = () => {
+        let { answers } = this.state
+        let points = 0
+
+        let testPoints = 0
+        for (let question in this.state.questions) {
+            console.log({ WUT: this.state.questions[question] })
+            console.log(this.state.questions[question].answers)
+            for (let answer in this.state.questions[question].answers) {
+                if (this.state.questions[question].answers[answer].isCorrect) {
+                    testPoints += 1
+                }
+            }
+        }
+
+        for (let answerKey in answers) {
+            let answerNumber = answerKey.charCodeAt(0) - 65
+            let questionNumber = answerKey.charCodeAt(1) - 48
+            if (this.state.questions[questionNumber].answers[answerNumber].isCorrect) {
+                points += 1
+            } else {
+                points -= 1
+            }
+        }
+
+        for (let questionIndex = 0; questionIndex < this.state.questions.length; questionIndex++) {
+            for (let answerIndex = 0; answerIndex < this.state.questions[questionIndex].answers.length; answerIndex++) {
+                if (this.state.questions[questionIndex].answers[answerIndex].isCorrect) {
+                    let answerCode = String.fromCharCode(answerIndex + 65) + questionIndex
+                    if (!this.state.answers[answerCode]) {
+                        points -= 1
+                    }
+                }
+            }
+        }
+        ucenikApi.solveTest({
+            studentId: this.props.studentId,
+            testId: this.props.testId,
+            solution: this.state.answers,
+            studentsPoints: points,
+            testPoints: testPoints,
+        }).then(data => {
+            console.log(data)
+        })
+    }
+
     answerClick = (ev) => {
         let targetName = ev.target.getAttribute('name')
         let currentQuestionIndex = this.state.currentQuestionIndex
-        let targetState = this.state[targetName + currentQuestionIndex]
-        this.setState({ [targetName + currentQuestionIndex]: !targetState })
+        let currentAnswers = this.state.answers
+        let targetState = currentAnswers[targetName + currentQuestionIndex]
+        currentAnswers[targetName + currentQuestionIndex] = !targetState
+        this.setState({ answers: currentAnswers })
         console.log(targetName)
     }
 
@@ -96,11 +139,8 @@ class Question extends Component {
         return () => {
             let { currentQuestionIndex } = this.state
             currentQuestionIndex += next ? 1 : -1
-
             this.setState({ fade: false, })
-
             setTimeout(
-
                 () => this.setState({
                     currentQuestionIndex,
                     fade: true
@@ -114,7 +154,6 @@ class Question extends Component {
         const { questions } = this.state
         let currentQuestionIndex = this.state.currentQuestionIndex
         let currentQuestion = this.state.questions[currentQuestionIndex]
-        console.log(TouchRipple)
 
         return (
             <div className={classes.root}>
@@ -136,7 +175,7 @@ class Question extends Component {
                             </div>
                         </div>
                         <Typography variant='subheading' className={classes.questionText}>
-                            {currentQuestion.question}
+                            {currentQuestion.text}
                         </Typography>
                     </div>
                     <div className={classes.answerCard} >
@@ -154,10 +193,18 @@ class Question extends Component {
                             </div>
                         </Fade>
                         <div className={classes.answerNavbar}>
-                            <Button className={classes.answerNavButton} disabled={currentQuestionIndex === 0} onClick={this.changeQuestion(false)}>
+                            <Button
+                                className={classes.answerNavButton}
+                                disabled={currentQuestionIndex === 0}
+                                onClick={this.changeQuestion(false)}>
                                 Previous
                             </Button>
-                            {currentQuestionIndex + 1 === questions.length || !this.state.duration ? this.state.submitButton(classes) : this.state.nextButton(classes)}
+                            {
+                                currentQuestionIndex + 1 === questions.length ||
+                                    !this.state.duration ?
+                                    this.submitButton(classes) :
+                                    this.nextButton(classes)
+                            }
                         </div>
                     </div>
 

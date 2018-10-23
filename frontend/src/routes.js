@@ -10,6 +10,7 @@ import Ucenik from './pages/ucenik/ucenik'
 export default (
     <BrowserRouter>
         <div>
+            <Route exact path='/' component={Login} />
             <Route path='/ucenik' component={Ucenik} />
         </div>
     </BrowserRouter>

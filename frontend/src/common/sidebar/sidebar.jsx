@@ -23,7 +23,8 @@ const styles = theme => ({
         border: 0,
         backgroundColor: '#34495E',
         overflowX: 'hidden',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        boxShadow: theme.shadows[1]
     },
     appbar: {
         display: 'flex',

@@ -28,8 +28,7 @@ class External extends Component {
 
     render() {
         const { classes } = this.props
-        const { location } = this.props
-        console.log("PAKICA")
+
         return (
             <div className={classes.root}>
                 <iframe

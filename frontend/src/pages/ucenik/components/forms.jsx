@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createMuiTheme } from '@material-ui/core/styles';
-import UcenikAppBar from './appbar'
-import Sidebar from '../../../common/sidebar/sidebar'
-import Slide from '@material-ui/core/Slide'
-import ArrowBack from '@material-ui/icons/ArrowBack'
-import IconButton from '@material-ui/core/IconButton'
-import { List, Typography } from '@material-ui/core';
-import Content from '../../../common/content/content'
-import Row from '../../../common/content/row/row'
-import ContentCard from '../../../common/content-card/contentCard'
 import Question from '../../../common/question/question'
 
 
@@ -24,11 +15,11 @@ const styles = theme => {
             overflow: 'hidden',
             position: 'relative',
             display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center'
+
         },
-        content: {
-            height: '100%',
-            alignItems: 'center',
-        },
+
         questionContainer: {
             marginTop: 80,
             paddingLeft: 160
@@ -39,37 +30,27 @@ const styles = theme => {
 
 class Forms extends Component {
 
-    constructor(props) {
-        super(props)
-        console.log("WTF")
-        console.log(this.props)
-        this.state = { fullscreen: false, currentPage: 'Home', animate: true }
-        console.log("WTF")
-        console.log(this.state)
+    state = { fullscreen: false, expanded: false, currentPage: 'Home', animate: true }
+
+
+    expandContent = () => {
+        this.setState({ fullscreen: !this.state.fullscreen })
     }
 
+    showMenu = () => {
+        this.setState({ open: !this.state.open, expanded: !this.state.expanded })
+    }
 
-    questions = [
-        {
-            question: 'Tko je prvi hrvacki predsjednik', answers: [
-                { answer: 'Tito', isSolution: false },
-                { answer: 'Ivo Sanader', isSolution: true }
-            ]
-        },
-        {
-            question: 'Is there an app that you hate but use anyways?', answers: [
-                { answer: 'Whatsapp', isSolution: true },
-                { answer: 'Whatsapp', isSolution: true },
-                { answer: 'Whatsapp', isSolution: true },
-                { answer: 'Facebook', isSolution: false }
-            ]
-        }
-    ]
     render() {
-        const { classes } = this.props;
+        const { classes } = this.props
+        const { questions } = this.props
+        console.log("PITANJA")
+        console.log({ test: this.props.studentId })
+        console.log({ student: this.props.testId })
         return (
-            <Question questions={this.questions} duration={10} />
-
+            <div className={classes.root}>
+                <Question questions={questions} duration={10} testId={this.props.testId} studentId={this.props.studentId} />
+            </div>
         );
     }
 }

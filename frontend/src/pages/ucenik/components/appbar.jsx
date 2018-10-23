@@ -43,7 +43,7 @@ class UcenikAppBar extends Component {
                 </IconButton>}>
                 < div id="nameTag">
                     <div>
-                        <Typography className={classes.username} variant='subheading'>Ante Horvat</Typography>
+                        <Typography className={classes.username} variant='subheading'>{this.props.ucenikName || "Ante Horvat"} </Typography>
                     </div>
                 </div>
             </Appbar>
