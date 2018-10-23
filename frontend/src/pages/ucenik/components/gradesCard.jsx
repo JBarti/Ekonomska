@@ -112,9 +112,9 @@ class GradesCard extends Component {
                                     })[0].name}
                                 </Typography>
                                 <Typography variant='display1' style={{ lineHeight: '1em', verticalAlign: 'middle', fontSize: 14, position: "absolute", right: 60 }}>
-                                    {this.props.tests.filter(test => {
+                                    {Date(this.props.tests.filter(test => {
                                         return test.id === solution.testId
-                                    })[0].createdAt}
+                                    })[0].createdAt).slice(0, -16)}
                                 </Typography>
                             </ListItem>)
                     })}
