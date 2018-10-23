@@ -14,7 +14,9 @@ const styles = theme => ({
 class NotifiactionCard extends Component {
 
     state = { open: null }
+
     expandTab = panel => (event, expanded) => {
+        console.log(panel)
         if (panel === this.state.open) {
             this.setState({ open: null })
         }
@@ -23,27 +25,28 @@ class NotifiactionCard extends Component {
         }
     }
 
+    genHarmonicaTab = (notification, id) => {
+        return < HarmonicaTab
+            type={notification.important ? 'warning' : 'message'}
+            heading={notification.from}
+            subheading={notification.description}
+            bodyText={notification.text}
+            onClick={this.expandTab(id)}
+            expanded={this.state.open == id} >
+        </HarmonicaTab >
+    }
+
+
     render() {
         const { classes } = this.props
+        const { notifications } = this.props
+        console.log({ notifications })
         return (
             <ContentCard cardName='Obavijesti' className={classes.root}>
                 <Harmonica >
-                    <HarmonicaTab
-                        type='warning'
-                        heading='Notifikacija'
-                        subheading='Profesor dodao novi test test3'
-                        bodyText='Neki nasumican tekst'
-                        onClick={this.expandTab('panel1')}
-                        expanded={this.state.open == 'panel1'} >
-                    </HarmonicaTab>
-                    <HarmonicaTab
-                        type='message'
-                        heading='Notifikacija'
-                        subheading='Profesor dodao novi test test3'
-                        bodyText='Neki nasumican tekst'
-                        onClick={this.expandTab('panel2')}
-                        expanded={this.state.open == 'panel2'} >
-                    </HarmonicaTab>
+                    {notifications.map((notif, index) => {
+                        return this.genHarmonicaTab(notif, index)
+                    })}
                 </Harmonica>
             </ContentCard>
         )

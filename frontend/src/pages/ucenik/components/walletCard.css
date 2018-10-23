@@ -1,12 +1,12 @@
 .wallet {
-    display: block;
+    flex-grow: 0;
     width: 80%;
     height: 90%;
     background: #444;
     border-radius: 15px;
     z-index: 900;
     transform: translateY(-10px);
-    margin-right: 2vw;
+    margin-left: 2vw;
     margin-top: 2vw;
     color: white;
 }
