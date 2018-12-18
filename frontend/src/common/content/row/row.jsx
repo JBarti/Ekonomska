@@ -8,13 +8,16 @@ const styles = theme => ({
         position: 'relative',
         width: '100%',
         height: '100%',
-        maxHeight: '50%',
-        minHeight: '50%',
+        maxHeight: '60%',
+        minHeight: '20%',
         display: 'flex',
         boxSizing: 'border-box',
-        padding: '2vw',
+        padding: '1vw',
         '&:nth-child(2n)': {
-            paddingTop: 0
+            paddingTop: '2vw'
+        },
+        '&:last-child': {
+            marginBottom: '5vw'
         },
         flexGrow: 0,
         flexShring: 0

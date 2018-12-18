@@ -18,7 +18,7 @@ const styles = theme => ({
         right: 0,
         overflowY: 'auto',
         transitionDuration: '225ms',
-        backgroundColor: theme.palette.grey[100],
+        backgroundColor: '#fafafa',
     },
 })
 

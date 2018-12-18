@@ -6,13 +6,17 @@ import ListFolder from '../../common/list-folder/listFolder'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import Content from '../../common/content/content'
+import Row from '../../common/content/row/row'
 import UcenikAppBar from './components/appbar'
+import NotificationCard from './components/notificationCard'
+import GradesCard from './components/gradesCard'
 import Slide from '@material-ui/core/Slide'
+import WalletCard from './components/walletCard'
+import LekcijaCard from './components/lekcijaCard'
 import { Typography } from '@material-ui/core';
 import Dashboard from './components/dashboard';
 import External from './components/external'
 import Forms from './components/forms'
-import ucenikApi from '../../data/apiController/ucenik'
 
 
 const styles = theme => {
@@ -36,74 +40,43 @@ const styles = theme => {
     })
 }
 
+const defaultContent = <div style={{ height: 'calc(100% - 65px)' }}>
+    <Row>
+       <LekcijaCard/>
+    </Row>
+    <Row>
+        <GradesCard />
+    </Row>
+    < Row >
+        <NotificationCard />
+        <WalletCard />
+    </Row >
+</div>
 
 
 class Ucenik extends Component {
 
-    home = (state) => {
-        console.log("UCENIK")
-        return {
+    screens = [
+
+        {
             name: 'Home',
-            component: <Dashboard
-                solutions={this.state.ucenik.solutions}
-                tests={this.state.grade.tests}
-                notifications={state.ucenik.notifications} />
+            component: <Dashboard />
+
+        },
+        {
+            name: 'RandomPdf',
+            component: <External url='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' />
+
+        },
+        {
+            name: 'RandomDocs',
+            component: <External url='https://www.rscautomobile.com/data/documents/cars/1511270057-naamloosdocument.pdf' />
+
         }
-    }
+    ]
 
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            fullscreen: false,
-            expanded: false,
-            currentPage: 'Home',
-            animate: true,
-            content: undefined,
-            ucenik: undefined
-        }
-        this.loadUcenik().then(() => {
-            this.initState()
-        })
-
-    }
-
-    initState = () => {
-        this.setState({ content: this.home(this.state).component })
-    }
-
-    loadUcenik = () => {
-        return new Promise((resolve, reject) => {
-            ucenikApi.getData()
-                .then(ucenikData => {
-                    let ucenik = ucenikData.data.student
-                    let grade = ucenikData.data.grade
-
-                    grade.files = grade.files.map(file => {
-                        file.component = <External url={file.url} />
-                        return file
-                    })
-
-                    grade.tests = grade.tests.map(test => {
-                        test.component = <Forms
-                            questions={test.questions}
-                            testId={test.id}
-                            studentId={ucenik.id}
-                        />
-                        return test
-                    })
-                    this.setState({
-                        ucenik: ucenik,
-                        grade: grade,
-                        loaded: true
-                    })
-                    resolve()
-                })
-                .catch(err => {
-                    reject(err)
-                })
-        })
+    state = {
+        fullscreen: false, expanded: false, currentPage: 'Home', animate: true, content: this.screens[0].component
     }
 
 
@@ -124,70 +97,37 @@ class Ucenik extends Component {
             () => { this.setState({ animate: true, currentPage: content.name, content: content.component }) },
             300
         )
+
+
     }
 
     render() {
-        console.log(this.state)
         const { classes } = this.props
-        const { ucenik } = this.state
-        const { grade } = this.state
-
-        let genFileButtons = (lessonNumber, files) => {
-            return files
-                .filter(file => {
-                    return parseInt(file.lesson) === lessonNumber
-                })
-                .map(file => {
-                    return <ListButton
-                        onClick={() => { this.changeContent(file) }}
-                        tabbed={true}
-                        primary={file.name}
-                        disabled={!file.active} />
-                })
-        }
 
         let sidebarAppbar = <div className={classes.sidebarNav}>
-            <IconButton style={{ color: 'white' }} onClick={() => { this.changeContent(this.home(this.state)) }}><ArrowBack /></IconButton>
+            <IconButton style={{ color: 'white' }} onClick={() => { this.changeContent(this.screens[0]) }}><ArrowBack /></IconButton>
             <Slide timeout={250} direction='down' in={this.state.animate}>
                 <Typography className={classes.sidebarHeading} variant='subheading' style={{ color: 'white' }}>{this.state.currentPage}</Typography>
             </Slide>
         </div>
 
-        if (this.state.loaded)
-            return (
-                <div>
-                    <UcenikAppBar
-                        ucenikName={`${ucenik.firstName} ${ucenik.lastName}`}
-                        expanded={this.state.expanded}
-                        onFullscreen={this.expandContent}
-                        onMenu={this.showMenu} />
+        return (
+            <div>
+                <UcenikAppBar expanded={this.state.expanded} onFullscreen={this.expandContent} onMenu={this.showMenu} />
 
-                    <Sidebar appbar={sidebarAppbar} open={!this.state.expanded}>
-                        <ListFolder primary='Lekcija 1' classes={{ expanded: classes.folderExpanded }} className={classes.sidebarContent}>
-                            {genFileButtons(1, grade.files)}
-                            {genFileButtons(1, grade.tests)}
-                        </ListFolder>
-                        <ListFolder primary='Lekcija 2' classes={{ expanded: classes.folderExpanded }}>
-                            {genFileButtons(2, grade.files)}
-                        </ListFolder>
-                        <ListFolder primary='Lekcija 3' classes={{ expanded: classes.folderExpanded }}>
-                            {genFileButtons(3, grade.files)}
-                        </ListFolder>
-                        <ListFolder primary='Lekcija 4' classes={{ expanded: classes.folderExpanded }}>
-                            {genFileButtons(4, grade.files)}
-                        </ListFolder>
-                        <ListFolder primary='Lekcija 5' classes={{ expanded: classes.folderExpanded }}>
-                            {genFileButtons(5, grade.files)}
-                        </ListFolder>
-
-                    </Sidebar>
-                    <Content expanded={this.state.expanded}>
-                        {this.state.content}
-                    </Content>
-                </div >
-            );
-        else
-            return (<h1>Loading</h1>)
+                <Sidebar appbar={sidebarAppbar} open={!this.state.expanded}>
+                    <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }} className={classes.sidebarContent}>
+                        {this.screens.slice(1).map(component => (
+                            <ListButton onClick={() => { this.changeContent(component) }} tabbed={true} primary={component.name} />
+                        ))}
+                    </ListFolder>
+                    <ListFolder primary='Botun' classes={{ expanded: classes.folderExpanded }}></ListFolder>
+                </Sidebar>
+                <Content expanded={this.state.expanded}>
+                    {this.state.content}
+                </Content>
+            </div >
+        );
     }
 }
 export default withStyles(styles)(Ucenik);

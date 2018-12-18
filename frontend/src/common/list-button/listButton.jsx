@@ -16,7 +16,6 @@ const styles = theme => ({
     root: {
         position: 'relative',
         width: '100%',
-        transitionDuration: '2s'
     },
     sidebarItemTabbed: {
         paddingLeft: 40,
@@ -31,7 +30,6 @@ class ListButton extends Component {
         return (
             <ListItem
                 button
-                disabled={this.props.disabled}
                 className={this.props.tabbed ? classes.sidebarItemTabbed : classes.root}
                 onClick={this.props.onClick}>
                 <ListItemIcon>

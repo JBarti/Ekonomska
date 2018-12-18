@@ -37,6 +37,7 @@ class NotifiactionCard extends Component {
         const { classes } = this.props
         return (
             <ContentCard cardName='Obavijesti' className={classes.root}>
+            <Dijalog className={classes.mutton}/>
                 <Harmonica >
                     <HarmonicaTab
                         type='warning'
@@ -55,7 +56,6 @@ class NotifiactionCard extends Component {
                         expanded={this.state.open == 'panel2'} >
                     </HarmonicaTab>
                 </Harmonica>
-                <Dijalog className={classes.mutton}/>
             </ContentCard>
         )
     }

@@ -39,7 +39,7 @@ const styles = theme => ({
 class HarmonicaTab extends Component {
     render() {
         const { classes } = this.props;
-        this.state = { message: '4px solid #283593', warning: '4px solid #C62828' }
+        this.state = { message: '4px solid #252E73', warning: '4px solid #C33764' }
 
         return (
             <ExpansionPanel

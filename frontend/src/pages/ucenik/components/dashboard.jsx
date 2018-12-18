@@ -4,30 +4,38 @@ import Row from '../../../common/content/row/row'
 import NotificationCard from './notificationCard'
 import GradesCard from './gradesCard'
 import WalletCard from './walletCard'
+import LekcijaCard from './lekcijaCard'
 import PropTypes from 'prop-types';
 
-const styles = theme => {
+const styles = theme => 
     ({
-        content: {
-            height: '100%'
+        fix: {
+            maxHeight: '30%',
         },
     })
-}
+
 
 
 class Dashboard extends Component {
     render() {
         const { classes } = this.props;
+        console.log("LOKACIJA")
+        console.log(this.props.location)
         return (
             <div style={{ height: 'calc(100% - 65px)' }}>
-                <Row>
-                    <GradesCard solutions={this.props.solutions} tests={this.props.tests} />
+                <Row classes={{root: classes.fix}}>
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <LekcijaCard />
                 </Row>
-
                 < Row >
-                    <NotificationCard notifications={this.props.notifications} />
-                    <WalletCard finance={this.props.finance} />
+                    <NotificationCard />
                 </Row >
+                <Row>
+                    <GradesCard />
+                </Row>
             </div>
 
         );

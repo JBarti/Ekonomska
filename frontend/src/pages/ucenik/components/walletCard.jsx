@@ -20,28 +20,11 @@ var topPrihodiValue = [5000, 1000, 600, 200]
 
 var topRashodiName = ['Rashodi', 'Režije', 'Najam', 'Auto']
 var topRashodiValue = [4500, 2500, 1000, 1000]
-
 class walletCard extends Component {
 
-  genFinances = (finances, classes) => {
-    finances.map(finance => {
-      console.log({ finance })
-      return <div>
-        < ListItem >
-          <ListItemText>
-            <span
-              className={classes.root}>{finance.name}: </span>
-            <span className="walletvalue"> {finance.money},00kn</span></ListItemText>
-        </ListItem >
-        <Divider />
-      </div>
-
-    })
-  }
 
   render() {
     const { classes } = this.props
-    const { finances } = this.props
     return (
 
       <div className="wallet">
@@ -66,6 +49,21 @@ class walletCard extends Component {
         </div>
         <div className="card" id="card2" style={{ bottom: "50px" }}>
           <List>
+            <ListItem>
+              <ListItemText><span className={classes.root}>{topRashodiName[0]}: </span><span className="walletvalue"> {topRashodiValue[0]},00kn</span></ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemText><span className={classes.root}>{topRashodiName[1]}:</span> <span className="walletvalue"> {topRashodiValue[1]},00kn</span></ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemText><span className={classes.root}> {topRashodiName[2]}:</span> <span className="walletvalue"> {topRashodiValue[2]},00kn</span></ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemText><span className={classes.root}> {topRashodiName[3]}:</span> <span className="walletvalue">{topRashodiValue[3]},00kn</span></ListItemText>
+            </ListItem>
           </List>
         </div>
         <div className="card" id="card3" style={{ bottom: "100px" }}>

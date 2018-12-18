@@ -1,13 +1,13 @@
 .wallet {
-    flex-grow: 0;
+    display: block;
     width: 80%;
     height: 90%;
     background: #444;
     border-radius: 15px;
-    z-index: 900;
+    z-index: 1900;
     transform: translateY(-10px);
-    margin-left: 2vw;
-    margin-top: 2vw;
+    margin-right: 2vw;
+    margin-top: 1vw;
     color: white;
 }
 
@@ -36,19 +36,19 @@
 #one {
     bottom: 0;
     height: 170px;
-    z-index: 100;
+    z-index: 1100;
 }
 
 #two {
     bottom: 50px;
     height: 170px;
-    z-index: 50;
+    z-index: 1050;
 }
 
 #three {
     bottom: 100px;
     height: 170px;
-    z-index: 0;
+    z-index: 1000;
 }
 
 /* ----- Cards ----- */
@@ -74,17 +74,17 @@
 
 #card1 {
     background: #2e3ca1;
-    z-index: 100;
+    z-index: 1100;
 }
 
 #card2 {
     background: rgb(209, 55, 55);
-    z-index: 40;
+    z-index: 1040;
 }
 
 #card3 {
     background: rgb(95, 108, 194);
-    z-index: 0;
+    z-index: 1000;
 }
 
 .walletvalue {

@@ -8,10 +8,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ContentCard from '../../../common/content-card/contentCard'
 import './dialog.css'
 const styles = theme => ({
+    container:{
+        width: '20%',
+        height: '20%',
+    },
     root: {
         overflow: 'hidden',
     },
@@ -19,12 +22,14 @@ const styles = theme => ({
         overflowX: 'hidden',
         display: 'flex',
         background: 'linear-gradient(135deg, #C33764 0%, #252E73 100%)',
-        color: 'white'
+        color: 'white',
+        width: '100%',
+        height: '100%'
         
     }, 
 })
 
-class Dijalog extends Component {
+class dodajLekciju extends Component {
     state = {
         open: false,
       };
@@ -37,16 +42,11 @@ class Dijalog extends Component {
         this.setState({ open: false });
       };
 
-      handleChange = name => event => {
-        this.setState({ [name]: event.target.checked });
-      };
-
-
     render() {
         const { classes } = this.props
         return (
 
-
+<ContentCard className={classes.container}>
 <Button color="white" label="Nova poruka" onClick={this.handleClickOpen} className={classes.mutton}>
                  <AddIcon />
                 <Dialog
@@ -54,35 +54,31 @@ class Dijalog extends Component {
                  onClose={this.handleClose}
                  aria-labelledby="form-dialog-title"
                    className={classes.dialog} fullWidth scroll="paper">
-          <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
+          <DialogTitle id="form-dialog-title">Nova Lekcija</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-                Pošaljite obavijest razredima kojim predajete. Napomena, ako ne označite da je važna obavijest, poslat će se kao obična.
-            </DialogContentText>
             <TextField
               autoFocus
-              
               id="text"
-              label="Poruka"
+              label="Naslov"
               type="text"
               fullWidth
             />
           </DialogContent>
           <DialogActions> 
-          <FormControlLabel control={<Checkbox value="checkedC" color="secondary" />} label="Vazno" />
             <Button onClick={this.onClose} color="secondary">
               Odustani
             </Button>
             <Button onClick={this.handleClose} color="primary">
-              Pošalji
-            </Button>
+              Dodaj lekciju 
+            </Button> 
           </DialogActions>
         </Dialog>
         </Button>
+        </ContentCard>
 
 )
     }
 
 }
 
-export default withStyles(styles)(Dijalog);
+export default withStyles(styles)(dodajLekciju);

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Card from '../common/content-card/contentCard'
 import ContentCard from '../common/content-card/contentCard';
+import Content from '../common/content/content'
+import Row from '../common/content/row/row'
 import wallpaper from '../images/wallpaper.jpg'
 import TextField from '@material-ui/core/TextField'
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
-import ucenikApi from '../data/apiController/ucenik'
-import { Redirect } from 'react-router'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import MenuList from '@material-ui/core/MenuList'
+import ListItemText from '@material-ui/core/ListItemText'
+
 
 
 const styles = theme => {
@@ -26,7 +34,7 @@ const styles = theme => {
         },
         formCard: {
             width: 400,
-            height: 'fit-content',
+            height: '35%',
             display: 'flex',
             flexDirection: 'column'
         },
@@ -45,57 +53,35 @@ const styles = theme => {
         },
         textField: {
             marginLeft: '15%',
-            marginRight: '15%',
-        },
-        errorCaption: {
-            marginLeft: '15%',
-            textAlign: 'left',
-            marginTop: 24,
-            marginBottom: -10,
-            color: theme.palette.error.main
+            marginRight: '15%'
         },
         buttonSubmit: {
             marginRight: '15%',
             marginLeft: '60%',
-            marginTop: 24,
-            marginBottom: '10%'
-        },
+            marginTop: 24
+        }
     }
 }
 
 class Login extends Component {
-    state = { redirect: undefined }
+    state = {}
+
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value })
-    }
-
-    submit = () => {
-        let { email, password } = this.state
-        ucenikApi.login({ email, password })
-            .then(ucenik => {
-                console.log(ucenik)
-                this.setState({ redirect: <Redirect to='/ucenik/' /> })
-            })
-            .catch(err => {
-                console.log(err.response.data)
-                this.setState({ errorMessage: err.response.data.error })
-            })
+        console.log(this.state)
     }
 
     render() {
         const { classes } = this.props;
         return (
-            <form className={classes.page}>
+            <div className={classes.page}>
                 <ContentCard classes={{ root: classes.formCard, children: classes.cardChildren }}>
                     <div className={classes.loginTitleContainer}>
                         <Typography color='primary' className={classes.loginTitle} variant='display1'>Prijava:</Typography>
                     </div>
-                    <Typography variant='caption' className={classes.errorCaption}>
-                        {this.state.errorMessage}
-                    </Typography>
                     <TextField
-                        label='E-mail'
+                        label='e-mail'
                         name='email'
                         className={classes.textField}
                         value={this.state['email']}
@@ -111,15 +97,10 @@ class Login extends Component {
                         margin="normal"
                         type='password'
                     />
-                    <Button
-                        variant='contained'
-                        color='primary'
-                        className={classes.buttonSubmit}
-                        onClick={this.submit}>
-                        SUBMIT</Button>
+                    <Button type='submit' variant='contained' color='primary' className={classes.buttonSubmit}>SUBMIT</Button>
                 </ContentCard>
-                {this.state.redirect}
-            </form >
+
+            </div >
         );
     }
 }

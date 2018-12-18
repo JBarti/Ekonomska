@@ -5,10 +5,13 @@ import NotificationCard from './notificationCard'
 import PropTypes from 'prop-types';
 import NotesCard from './notesCard'
 import StdlistCard from './stdlistCard'
+import LekcijaCard from './lekcijaCard'
+import DodajLekciju from './dodajLekciju'
+
 const styles = theme => {
     ({
-        content: {
-            height: '100%'
+        fix: {
+            maxHeight: '30%',
         },
     })
 }
@@ -21,13 +24,20 @@ class Dashboard extends Component {
         console.log(this.props.location)
         return (
             <div style={{ height: 'calc(100% - 65px)' }}>
-                <Row>
-                    <NotesCard/>
-                    <NotificationCard/>
+                <Row classes={{root: classes.fix}}>
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <LekcijaCard />
+                    <DodajLekciju />
                 </Row>
                 < Row >
                     <StdlistCard/>
                 </Row >
+                <Row>
+                    <NotificationCard/>
+                </Row>
             </div>
 
         );

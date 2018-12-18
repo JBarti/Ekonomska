@@ -24,7 +24,9 @@ const styles = theme => ({
         backgroundColor: '#34495E',
         overflowX: 'hidden',
         backgroundColor: 'white',
-        boxShadow: theme.shadows[1]
+        webkitBoxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
+        mozBoxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
+        boxShadow: '0px 0px 45px -19px rgba(0,0,0,0.75)'
     },
     appbar: {
         display: 'flex',
@@ -34,7 +36,7 @@ const styles = theme => ({
         height: 65,
         width: '100%',
         position: 'relative',
-        backgroundColor: '#383838'
+        background: 'linear-gradient(270deg, #C33764 0%, #252E73 100%)'
     },
 
     toolbar: theme.mixins.toolbar,

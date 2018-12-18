@@ -39,31 +39,27 @@ class ListFolder extends Component {
 
     render() {
         const { classes } = this.props;
-        const { children } = this.props
-        if (children.length)
-            return (
-                <div>
-                    <ListItem button onClick={this.open} className={this.state.open ? classes.expanded : classes.notExpanded}>
-                        <ListItemIcon color='secondary'>
-                            {this.state.open ? <FolderOpen /> : <Folder />}
-                        </ListItemIcon>
-                        <ListItemText
-                            inset
-                            primaryTypographyProps={{ color: this.state.open ? 'secondary' : 'default' }}
-                            primary={this.props.primary}
-                            secondary={this.props.secondary}
-                            className={classes.listItemText} />
-                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem >
-                    <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-                        <List>
-                            {this.props.children}
-                        </List>
-                    </Collapse>
-                </div>
-            );
-        else
-            return <div style={{ position: 'none' }}></div>
+        return (
+            <div>
+                <ListItem button onClick={this.open} className={this.state.open ? classes.expanded : classes.notExpanded}>
+                    <ListItemIcon color='secondary'>
+                        {this.state.open ? <FolderOpen /> : <Folder />}
+                    </ListItemIcon>
+                    <ListItemText
+                        inset
+                        primaryTypographyProps={{ color: this.state.open ? 'secondary' : 'default' }}
+                        primary={this.props.primary}
+                        secondary={this.props.secondary}
+                        className={classes.listItemText} />
+                    {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem >
+                <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+                    <List>
+                        {this.props.children}
+                    </List>
+                </Collapse>
+            </div>
+        );
     }
 }
 

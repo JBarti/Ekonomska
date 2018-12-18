@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
-import ListButton from '../list-button/listButton'
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List'
-import Divider from '@material-ui/core/Divider';
 
 
 const styles = theme => ({
@@ -20,7 +18,10 @@ const styles = theme => ({
         height: '100%',
         boxSizing: 'border-box',
         margin: '0 auto',
+        marginLeft: '2vw',
+        marginRight: '2vw',
         overflowY: 'hidden',
+        zIndex: '1000'
     },
     subheader: {
         textAlign: 'left',
@@ -53,7 +54,7 @@ class ContentCard extends Component {
         return (
 
             <Paper elevation={1} className={classes.root}>
-                {subheader ? <List subheader={subheader} className={classes.subheaderList} /> : null}
+                {subheader ? <List subheader={subheader} className={classes.subheaderList} /> : null}    
                 <div className={classes.children}>
                     {this.props.children}
                 </div>
