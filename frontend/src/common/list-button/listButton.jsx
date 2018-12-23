@@ -16,7 +16,6 @@ const styles = theme => ({
     root: {
         position: 'relative',
         width: '100%',
-        transitionDuration: '2s'
     },
     sidebarItemTabbed: {
         paddingLeft: 40,

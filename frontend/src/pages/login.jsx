@@ -73,8 +73,11 @@ class Login extends Component {
     submit = () => {
         let { email, password } = this.state
         ucenikApi.login({ email, password })
-            .then(ucenik => {
-                console.log(ucenik)
+            .then(user => {
+                console.log({ user })
+                if (user.data.email == 'profprofi@gmail.com') {
+                    this.setState({ redirect: <Redirect to='/profesor/' /> })
+                }
                 this.setState({ redirect: <Redirect to='/ucenik/' /> })
             })
             .catch(err => {
@@ -126,7 +129,6 @@ class Login extends Component {
 
 Login.propTypes = {
     classes: PropTypes.object.isRequired,
-
 };
 
 export default withStyles(styles)(Login);

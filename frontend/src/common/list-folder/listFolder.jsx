@@ -39,7 +39,11 @@ class ListFolder extends Component {
 
     render() {
         const { classes } = this.props;
-        const { children } = this.props
+        let { children } = this.props;
+        if (children === undefined) {
+            children = []
+        }
+        console.log({ children: children })
         if (children.length)
             return (
                 <div>

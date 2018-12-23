@@ -9,41 +9,42 @@ import HarmonicaTab from '../../../common/harmonica/harmonica-tab/harmonicaTab'
 const styles = theme => ({
     root: {
         overflow: 'hidden',
+        display: 'relative'
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 200,
-      },
-      dense: {
+    },
+    dense: {
         marginTop: 19,
-      },
-      addnote: {
-       position: 'absolute',
-       bottom: 10
-      }
+    },
+    addnote: {
+        position: 'absolute',
+        bottom: 40
+    }
 })
 
 class notesCard extends Component {
     handleChange = link => event => {
         this.setState({
-          [link]: event.target.value,
+            [link]: event.target.value,
         });
-      };
-      state = { open: null }
-      expandTab = panel => (event, expanded) => {
-          if (panel === this.state.open) {
-              this.setState({ open: null })
-          }
-          else {
-              this.setState({ open: panel })
-          }
-      }
+    };
+    state = { open: null }
+    expandTab = panel => (event, expanded) => {
+        if (panel === this.state.open) {
+            this.setState({ open: null })
+        }
+        else {
+            this.setState({ open: panel })
+        }
+    }
     render() {
         const { classes } = this.props
-        return (    
+        return (
             <ContentCard cardName='Spremljeno' className={classes.root}>
-              <Harmonica >
+                <Harmonica >
                     <HarmonicaTab
                         heading='Tekst'
                         bodyText='link'
@@ -52,30 +53,27 @@ class notesCard extends Component {
                     </HarmonicaTab>
                 </Harmonica>
 
-
-
-              <div className={classes.addnote}>
-              <TextField
-                 label="Tekst"
-                 className={classes.textField}
-                 onChange={this.handleChange('link')}
-                 margin="normal"
-                 />
-                 <TextField
-                 label="Link"
-                 className={classes.textField}
-                  onChange={this.handleChange('link')}
-                 margin="normal"
-                 />
-                 <Button onClick={this.handleClose} color="primary">
-              Spremi
+                <div className={classes.addnote}>
+                    <TextField
+                        label="Tekst"
+                        className={classes.textField}
+                        onChange={this.handleChange('link')}
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Link"
+                        className={classes.textField}
+                        onChange={this.handleChange('link')}
+                        margin="normal"
+                    />
+                    <Button onClick={this.handleClose} color="primary">
+                        Spremi
             </Button>
-              
-              </div>
-             </ContentCard>
-            )
-        }
-    
+                </div>
+            </ContentCard>
+        )
     }
-    
+
+}
+
 export default withStyles(styles)(notesCard);

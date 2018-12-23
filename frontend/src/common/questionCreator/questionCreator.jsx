@@ -6,8 +6,10 @@ import Button from "@material-ui/core/Button/Button";
 import Fade from "@material-ui/core/Fade";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import styles from "./questionStyle";
-import TouchRipple from "@material-ui/core/ButtonBase/TouchRipple";
+import TextField from "@material-ui/core/TextField";
 import ucenikApi from "../../data/apiController/ucenik";
+import ListButton from "../../common/list-button/listButton";
+import ProffesorApi from "../../data/apiController/proffesor";
 
 class Question extends Component {
   constructor(props) {
@@ -53,115 +55,68 @@ class Question extends Component {
     };
   };
 
-  answerOption = (classes, sign, answer, currentQuestionIndex) => {
-    let answers = this.state.answers;
+  handleChange = (questionIndex, answerIndex) => ev => {
+    let questions = this.state.questions;
+    let question = questions[questionIndex];
+    let answer = question.answers[answerIndex];
+    answer.answer = ev.target.value;
+    this.setState({ questions });
+  };
+
+  handleQuestionChange = ev => {
+    let questions = this.state.questions;
+    let question = questions[this.state.currentQuestionIndex];
+    question.text = ev.target.value;
+    this.setState({ questions });
+  };
+
+  answerOption = (classes, sign, answer, currentQuestionIndex, answerIndex) => {
+    let questions = this.state.questions;
+    let question = questions[currentQuestionIndex];
+    let answerObj = question.answers[answerIndex];
     return (
       <div
         className={
-          answers[sign + currentQuestionIndex]
-            ? classes.answerSelected
-            : classes.answer
+          answerObj.isCorrect ? classes.answerSelected : classes.answer
         }
       >
         <div
           name={sign}
-          onClick={this.answerClick}
+          onClick={this.answerClick(currentQuestionIndex, answerIndex)}
           className={classes.answerOverlay}
         />
         <Typography className={classes.answerNum} variant="headline">
           {sign}
         </Typography>
-        <Typography className={classes.answerText} variant="headline">
-          {answer}
-        </Typography>
+        <TextField
+          className={classes.answerText}
+          variant="headline"
+          value={answer}
+          onChange={this.handleChange(currentQuestionIndex, answerIndex)}
+        />
       </div>
     );
   };
 
-  submitButton = classes => (
-    <Button className={classes.answerNavButton} onClick={this.submit}>
-      Submit
-    </Button>
-  );
-
-  nextButton = classes => (
-    <Button
-      className={classes.answerNavButton}
-      onClick={this.changeQuestion(true)}
-    >
-      Next
-    </Button>
-  );
-
   submit = () => {
-    let { answers } = this.state;
-    let points = 0;
-
-    let testPoints = 0;
-    for (let question in this.state.questions) {
-      console.log({ WUT: this.state.questions[question] });
-      console.log(this.state.questions[question].answers);
-      for (let answer in this.state.questions[question].answers) {
-        if (this.state.questions[question].answers[answer].isCorrect) {
-          testPoints += 1;
-        }
-      }
-    }
-
-    for (let answerKey in answers) {
-      let answerNumber = answerKey.charCodeAt(0) - 65;
-      let questionNumber = answerKey.charCodeAt(1) - 48;
-      if (
-        this.state.questions[questionNumber].answers[answerNumber].isCorrect
-      ) {
-        points += 1;
-      } else {
-        points -= 1;
-      }
-    }
-
-    for (
-      let questionIndex = 0;
-      questionIndex < this.state.questions.length;
-      questionIndex++
-    ) {
-      for (
-        let answerIndex = 0;
-        answerIndex < this.state.questions[questionIndex].answers.length;
-        answerIndex++
-      ) {
-        if (
-          this.state.questions[questionIndex].answers[answerIndex].isCorrect
-        ) {
-          let answerCode =
-            String.fromCharCode(answerIndex + 65) + questionIndex;
-          if (!this.state.answers[answerCode]) {
-            points -= 1;
-          }
-        }
-      }
-    }
-    ucenikApi
-      .solveTest({
-        studentId: this.props.studentId,
-        testId: this.props.testId,
-        solution: this.state.answers,
-        studentsPoints: points,
-        testPoints: testPoints
-      })
-      .then(data => {
-        window.location.reload();
-      });
+    ProffesorApi.addTest({
+      questions: this.state.questions,
+      lesson: this.props.lesson,
+      gradeId: this.props.gradeId,
+      testName: this.props.testName,
+      testId: this.props.testId
+    }).then(data => {
+      window.location.reload();
+    });
   };
 
-  answerClick = ev => {
-    let targetName = ev.target.getAttribute("name");
-    let currentQuestionIndex = this.state.currentQuestionIndex;
-    let currentAnswers = this.state.answers;
-    let targetState = currentAnswers[targetName + currentQuestionIndex];
-    currentAnswers[targetName + currentQuestionIndex] = !targetState;
-    this.setState({ answers: currentAnswers });
-    console.log(targetName);
+  answerClick = (questionIndex, answerIndex) => ev => {
+    let questions = this.state.questions;
+    let question = questions[questionIndex];
+    let answerObj = question.answers[answerIndex];
+    answerObj.isCorrect = !answerObj.isCorrect;
+    this.setState({ questions });
+    console.log({ question });
   };
 
   changeQuestion = next => {
@@ -178,6 +133,26 @@ class Question extends Component {
         200
       );
     };
+  };
+
+  addQuestion = () => {
+    let questions = this.state.questions;
+    questions.push({
+      answers: [],
+      text: ""
+    });
+    this.setState({ questions });
+    this.changeQuestion(true)();
+  };
+
+  addAnswer = () => {
+    let questions = this.state.questions;
+    let question = questions[this.state.currentQuestionIndex];
+    question.answers.push({
+      answer: "",
+      isCorrect: false
+    });
+    this.setState({ questions });
   };
 
   render() {
@@ -205,23 +180,32 @@ class Question extends Component {
               />
               <div className={classes.time}>{this.state.duration}</div>
             </div>
-            <Typography variant="subheading" className={classes.questionText}>
-              {currentQuestion.text}
-            </Typography>
+            <TextField
+              value={currentQuestion.text}
+              variant="subheading"
+              className={classes.questionText}
+              onChange={this.handleQuestionChange}
+            />
           </div>
           <div className={classes.answerCard}>
             <Fade in={this.state.fade} timeout={200}>
               <div className={classes.answerContainer}>
-                {currentQuestion.answers
-                  ? currentQuestion.answers.map(data => {
-                      return this.answerOption(
-                        classes,
-                        signGen(),
-                        data.answer,
-                        currentQuestionIndex
-                      );
-                    })
-                  : []}
+                {currentQuestion.answers.map((data, index) => {
+                  console.log({ index });
+                  return this.answerOption(
+                    classes,
+                    signGen(),
+                    data.answer,
+                    currentQuestionIndex,
+                    index
+                  );
+                })}
+                <ListButton
+                  icon={<div />}
+                  primary="+"
+                  classes={{ listItemText: classes.addAnswer }}
+                  onClick={this.addAnswer}
+                />
               </div>
             </Fade>
             <div className={classes.answerNavbar}>
@@ -232,10 +216,24 @@ class Question extends Component {
               >
                 Previous
               </Button>
-              {currentQuestionIndex + 1 === questions.length ||
-              !this.state.duration
-                ? this.submitButton(classes)
-                : this.nextButton(classes)}
+              <Button className={classes.answerNavButton} onClick={this.submit}>
+                SUBMIT
+              </Button>
+              {currentQuestionIndex + 1 < questions.length ? (
+                <Button
+                  className={classes.answerNavButton}
+                  onClick={this.changeQuestion(true)}
+                >
+                  Next
+                </Button>
+              ) : (
+                <Button
+                  className={classes.answerNavButton}
+                  onClick={this.addQuestion}
+                >
+                  Next
+                </Button>
+              )}
             </div>
           </div>
         </ContentCard>
