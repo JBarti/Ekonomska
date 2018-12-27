@@ -19,6 +19,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import EditIcon from '@material-ui/icons/Edit';
 import './lekcijaCard.css'
 
 
@@ -129,6 +130,9 @@ class LekcijaCard extends Component {
                                 <Typography variant="h6" color="inherit" className={classes.flex}>
                                     Lekcija 1. - merketinška nešto nešto nešto
           </Typography>
+          <IconButton className={classes.deleteBtn} aria-label="Edit">
+                         <EditIcon />
+                     </IconButton>
                             </Toolbar>
                         </AppBar>
 

@@ -3,18 +3,16 @@ import { withStyles } from '@material-ui/core/styles'
 import Row from '../../../common/content/row/row'
 import NotificationCard from './notificationCard'
 import PropTypes from 'prop-types';
-import NotesCard from './notesCard'
 import StdlistCard from './stdlistCard'
 import LekcijaCard from './lekcijaCard'
 import DodajLekciju from './dodajLekciju'
 
-const styles = theme => {
+const styles = theme => 
     ({
         fix: {
             maxHeight: '30%',
         },
     })
-}
 
 
 class Dashboard extends Component {
@@ -34,8 +32,6 @@ class Dashboard extends Component {
                 </Row>
                 < Row >
                     <StdlistCard/>
-                </Row >
-                <Row>
                     <NotificationCard/>
                 </Row>
             </div>

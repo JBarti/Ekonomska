@@ -4,7 +4,6 @@ import ContentCard from '../../../common/content-card/contentCard'
 import Harmonica from '../../../common/harmonica/harmonica'
 import HarmonicaTab from '../../../common/harmonica/harmonica-tab/harmonicaTab'
 import Dijalog from './dialog'
-
 const styles = theme => ({
     root: {
         overflow: 'hidden',
@@ -17,7 +16,7 @@ const styles = theme => ({
     },
     dialog: {
         overflowX: 'hidden'
-    }
+    },
 })
 
 
@@ -55,6 +54,7 @@ class NotifiactionCard extends Component {
                         onClick={this.expandTab('panel2')}
                         expanded={this.state.open == 'panel2'} >
                     </HarmonicaTab>
+
                 </Harmonica>
             </ContentCard>
         )

@@ -69,7 +69,7 @@ class Profesor extends Component {
     ]
 
     state = {
-        fullscreen: false, expanded: false, currentPage: 'Home', animate: true, content: this.screens[0].component
+        fullscreen: true, expanded: true, currentPage: 'Home', animate: true, content: this.screens[0].component
     }
 
 

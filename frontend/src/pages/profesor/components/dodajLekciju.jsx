@@ -11,73 +11,89 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ContentCard from '../../../common/content-card/contentCard'
 import './dialog.css'
 const styles = theme => ({
-    container:{
-        width: '20%',
-        height: '20%',
-    },
-    root: {
-        overflow: 'hidden',
-    },
-    mutton: {
-        overflowX: 'hidden',
-        display: 'flex',
-        background: 'linear-gradient(135deg, #C33764 0%, #252E73 100%)',
-        color: 'white',
-        width: '100%',
-        height: '100%'
-        
-    }, 
+  container: {
+    width: '20%',
+    height: '20%',
+  },
+  root: {
+    overflow: 'hidden',
+  },
+  mutton: {
+    overflowX: 'hidden',
+    display: 'flex',
+    background: 'linear-gradient(135deg, #C33764 0%, #252E73 100%)',
+    color: 'white',
+    width: '100%',
+    height: '100%'
+
+  },
 })
 
 class dodajLekciju extends Component {
-    state = {
-        open: false,
-      };
-    
-      handleClickOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        this.setState({ open: false });
-      };
+  state = {
+    open: false,
+  };
 
-    render() {
-        const { classes } = this.props
-        return (
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
 
-<ContentCard className={classes.container}>
-<Button color="white" label="Nova poruka" onClick={this.handleClickOpen} className={classes.mutton}>
-                 <AddIcon />
-                <Dialog
-                 open={this.state.open}
-                 onClose={this.handleClose}
-                 aria-labelledby="form-dialog-title"
-                   className={classes.dialog} fullWidth scroll="paper">
-          <DialogTitle id="form-dialog-title">Nova Lekcija</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              id="text"
-              label="Naslov"
-              type="text"
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions> 
-            <Button onClick={this.onClose} color="secondary">
-              Odustani
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  render() {
+    const { classes } = this.props
+    return (
+
+      <ContentCard className={classes.container}>
+        <Button color="white" label="Nova poruka" onClick={this.handleClickOpen} className={classes.mutton}>
+          <AddIcon />
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
+            className={classes.dialog} fullWidth scroll="paper">
+            <DialogTitle id="form-dialog-title">Nova Lekcija</DialogTitle>
+            <DialogContent>
+              <TextField
+                autoFocus
+                id="text"
+                label="Naslov"
+                type="text"
+                fullWidth
+              />
+                 <TextField
+          id="standard-multiline-flexible"
+          label="Opis "
+          multiline
+          rowsMax="9"
+          value={this.state.multiline}
+          onChange={this.handleChange('multiline')}
+          className={classes.textField}
+          margin="normal"
+          fullWidth
+        />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.onClose} color="secondary">
+                Odustani
             </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Dodaj lekciju 
-            </Button> 
-          </DialogActions>
-        </Dialog>
+              <Button onClick={this.handleClose} color="primary">
+                Dodaj lekciju
+            </Button>
+            </DialogActions>
+          </Dialog>
         </Button>
-        </ContentCard>
+      </ContentCard>
 
-)
-    }
+    )
+  }
 
 }
 

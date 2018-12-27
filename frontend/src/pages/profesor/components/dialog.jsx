@@ -35,7 +35,7 @@ class Dijalog extends Component {
     
       handleClose = () => {
         this.setState({ open: false });
-      };
+    };
 
       handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
@@ -69,7 +69,7 @@ class Dijalog extends Component {
             />
           </DialogContent>
           <DialogActions> 
-          <FormControlLabel control={<Checkbox value="checkedC" color="secondary" />} label="Vazno" />
+          <FormControlLabel control={<Checkbox value="checkedC" color="secondary" />} label="Važno" />
             <Button onClick={this.onClose} color="secondary">
               Odustani
             </Button>

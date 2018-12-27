@@ -6,7 +6,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
@@ -34,6 +35,9 @@ const styles = theme => ({
         borderTopStyle: 'solid',
         borderTopWidth: 1,
     },
+    deleteBtn: {
+        float: 'right'
+    }
 })
 
 class HarmonicaTab extends Component {
@@ -50,6 +54,7 @@ class HarmonicaTab extends Component {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading} variant='heading'>{this.props.heading}</Typography>
                     <Typography className={classes.caption} variant='caption'>{this.props.subheading}</Typography>
+                    
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <Typography className={classes.body} variant='body1'>
@@ -57,6 +62,9 @@ class HarmonicaTab extends Component {
                     </Typography>
                     {this.props.children}
                 </ExpansionPanelDetails>
+                <IconButton className={classes.deleteBtn} aria-label="Delete">
+                         <DeleteIcon />
+                     </IconButton>
             </ExpansionPanel>
 
         );

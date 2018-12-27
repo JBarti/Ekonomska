@@ -36,11 +36,11 @@ class UcenikAppBar extends Component {
         const { classes } = this.props
         return (
             <Appbar
-                expanded={this.props.expanded}
+                expanded={this.props.expanded} /*
                 beforeTitle={<IconButton style={{ color: 'white' }}
                     onClick={this.props.onMenu}>
                     <MenuIcon />
-                </IconButton>}>
+            </IconButton>}*/>
                 < div id="nameTag">
                     <div>
                         <Typography className={classes.username} variant='subheading'>Ante Horvat</Typography>
