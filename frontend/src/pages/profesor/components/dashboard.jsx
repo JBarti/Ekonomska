@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import StdlistCard from './stdlistCard'
 import LekcijaCard from './lekcijaCard'
 import DodajLekciju from './dodajLekciju'
+import HorizontalScroll from './horizontalScroll'
 
 const styles = theme => 
     ({
@@ -23,12 +24,7 @@ class Dashboard extends Component {
         return (
             <div style={{ height: 'calc(100% - 65px)' }}>
                 <Row classes={{root: classes.fix}}>
-                    <LekcijaCard />
-                    <LekcijaCard />
-                    <LekcijaCard />
-                    <LekcijaCard />
-                    <LekcijaCard />
-                    <DodajLekciju />
+                    <HorizontalScroll/>
                 </Row>
                 < Row >
                     <StdlistCard/>
