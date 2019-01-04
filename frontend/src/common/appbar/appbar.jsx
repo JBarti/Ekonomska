@@ -13,7 +13,7 @@ const styles = theme => ({
         position: 'fixed',
         height: 65,
         transitionDuration: '225ms',
-        background: 'linear-gradient(90deg, #C33764 0%, #252E73 100%)'
+        background: 'linear-gradient(90deg, #C33764 0%, #252E73 25%)',
     },
     text: {
         letterSpacing: 0.82,

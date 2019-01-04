@@ -1,23 +1,23 @@
+  #nameTag{ 
+    padding: 0.5em;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    border-radius: 20px;
+    background-color: #1A237E;
+    display: inline;
+    transition: color 2s;
+    background: linear-gradient(132deg, #585858, #080808);
+    background-size: 400% 400%;
+    animation: BackgroundGradient 15s ease infinite;
+    position: absolute;
+    right: 1em;
+    display: inline;
+    transition: color 1s;
    
-   #nameTag{ 
-   padding: 0.5em;
-   padding-left: 1.25em;
-   padding-right: 1.25em;
-   border-radius: 20px;
-   background-color: #1A237E;
-   display: inline;
-   transition: color 2s;
-   background: linear-gradient(132deg, #585858, #080808);
-  background-size: 400% 400%;
-  animation: BackgroundGradient 15s ease infinite;
-  position: absolute;
-  right: 1em;
-  display: inline;
-  transition: color 1s;
    }
 
   
-   #nameTag:hover{
+  #nameTag:hover{
     background-color: #283593;
     cursor: pointer;
   }
