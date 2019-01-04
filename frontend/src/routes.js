@@ -7,12 +7,13 @@ import Ucenik from './pages/ucenik/ucenik'
 import Profesor from './pages/profesor/profesor'
 
 
+import { Provider } from 'react-redux'
+import store from './store'
 
-export default (
-    <BrowserRouter>
-        <div>
-            <Route path='/ucenik' component={Ucenik} />
-            <Route path='/profesor' component={Profesor} />
-        </div>
-    </BrowserRouter>
-)
+export default <BrowserRouter>
+    <Provider store={store}>
+        <Route exact path='/' component={Login} />
+        <Route path='/ucenik' component={Ucenik} />
+        <Route path='/profesor' component={Profesor} />
+    </Provider>
+</BrowserRouter>
