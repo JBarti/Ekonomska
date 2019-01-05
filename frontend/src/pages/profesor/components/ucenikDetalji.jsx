@@ -21,7 +21,6 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import GradesCard from "./gradesCard";
 import EditIcon from "@material-ui/icons/Edit";
-import "./lekcijaCard.css";
 
 const drawerWidth = 240;
 
