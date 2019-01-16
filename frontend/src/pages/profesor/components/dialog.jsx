@@ -11,15 +11,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import './dialog.css'
-const styles = theme => ({
-    root: {
+const styles = theme => ({  
+  root: {
         overflow: 'hidden',
+
     },
     mutton: {
         overflowX: 'hidden',
         display: 'flex',
         background: 'linear-gradient(135deg, #C33764 0%, #252E73 100%)',
-        color: 'white'
+        color: 'white',
+        webkit_scrollbar: {
+          display: "none"
+        }
         
     }, 
 })

@@ -39,7 +39,6 @@ class Dashboard extends Component {
           <LekcijaCard />
           <LekcijaCard />
           <LekcijaCard />
-          <DodajLekciju />
         </GridList>
         <Row>
           <StdlistCard />

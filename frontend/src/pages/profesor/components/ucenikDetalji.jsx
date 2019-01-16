@@ -20,6 +20,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import GradesCard from "./gradesCard";
+import AddNewDialog from "./addNewDialog";
 import EditIcon from "@material-ui/icons/Edit";
 
 const drawerWidth = 240;
@@ -180,6 +181,7 @@ class LekcijaCard extends Component {
                     <ListItemText style={{ color: "white" }} primary={text} />
                   </ListItem>
                 ))}
+                <AddNewDialog/>
               </List>
             </Drawer>
           </div>
