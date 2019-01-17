@@ -18,7 +18,8 @@ import IconBook from "@material-ui/icons/Book";
 import IconQA from "@material-ui/icons/QuestionAnswer";
 import External from "./external";
 import StudentForms from "../pages/ucenik/components/forms";
-
+import EditIcon from "@material-ui/icons/Edit";
+import EditLekcija from "./editLekcija"
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -284,6 +285,7 @@ class LekcijaCard extends Component {
                 >
                   {name} - {description}
                 </Typography>
+                <EditLekcija/>
               </Toolbar>
             </AppBar>
 

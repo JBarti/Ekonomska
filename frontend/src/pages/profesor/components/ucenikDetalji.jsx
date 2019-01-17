@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import ContentCard from "../../../common/content-card/contentCard";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -19,9 +18,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import Visibility from "@material-ui/icons/Visibility";
 import GradesCard from "./gradesCard";
 import AddNewDialog from "./addNewDialog";
-import EditIcon from "@material-ui/icons/Edit";
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const drawerWidth = 240;
 
@@ -118,6 +118,11 @@ class LekcijaCard extends Component {
       <div>
         <ListItem button onClick={this.handleClickOpen}>
           <ListItemText primary="4.D" />
+          <ListItemSecondaryAction onClick={this.handleClickOpen}>
+                      <IconButton aria-label="Delete">
+                        <Visibility />
+                      </IconButton>
+                    </ListItemSecondaryAction>
         </ListItem>
         <Dialog
           classes={{ paper: classes.dialog }}
