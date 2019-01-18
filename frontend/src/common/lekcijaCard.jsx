@@ -20,6 +20,7 @@ import External from "./external";
 import StudentForms from "../pages/ucenik/components/forms";
 import EditIcon from "@material-ui/icons/Edit";
 import EditLekcija from "./editLekcija"
+import AddNewDialog from "./addNewDialog";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -323,6 +324,7 @@ class LekcijaCard extends Component {
                     onClick={this.showTest(test)}
                   />
                 ))}
+                <AddNewDialog/>
               </List>
             </Drawer>
           </div>

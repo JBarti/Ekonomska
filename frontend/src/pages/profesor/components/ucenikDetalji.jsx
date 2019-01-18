@@ -20,7 +20,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import Visibility from "@material-ui/icons/Visibility";
 import GradesCard from "./gradesCard";
-import AddNewDialog from "./addNewDialog";
+import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const drawerWidth = 240;
@@ -119,7 +119,7 @@ class LekcijaCard extends Component {
         <ListItem button onClick={this.handleClickOpen}>
           <ListItemText primary="4.D" />
           <ListItemSecondaryAction onClick={this.handleClickOpen}>
-                      <IconButton aria-label="Delete">
+                     <IconButton aria-label="Delete">
                         <Visibility />
                       </IconButton>
                     </ListItemSecondaryAction>
@@ -186,7 +186,7 @@ class LekcijaCard extends Component {
                     <ListItemText style={{ color: "white" }} primary={text} />
                   </ListItem>
                 ))}
-                <AddNewDialog/>
+                <AddNewUcenik/>
               </List>
             </Drawer>
           </div>
