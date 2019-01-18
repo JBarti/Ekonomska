@@ -18,7 +18,8 @@ import IconBook from "@material-ui/icons/Book";
 import IconQA from "@material-ui/icons/QuestionAnswer";
 import External from "./external";
 import StudentForms from "../pages/ucenik/components/forms";
-
+import EditIcon from "@material-ui/icons/Edit";
+import EditLekcija from "./editLekcija"
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -64,7 +65,11 @@ const styles = theme => ({
   container: {
     marginTop: 10,
     flex: "0 0 350px",
-    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);"
+    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);",
+    marginRight: '20px',
+    '&:last-child': {
+      marginRight: '20px'
+  },
   },
   containerChildren: {
     position: "relative",
@@ -231,7 +236,10 @@ class LekcijaCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { name, description, tests, files } = this.props.folder;
+    const name=" ";
+    const description=" ";
+    const tests = [];
+    const files = [];
     return (
       <ContentCard
         classes={{
@@ -277,6 +285,7 @@ class LekcijaCard extends Component {
                 >
                   {name} - {description}
                 </Typography>
+                <EditLekcija/>
               </Toolbar>
             </AppBar>
 

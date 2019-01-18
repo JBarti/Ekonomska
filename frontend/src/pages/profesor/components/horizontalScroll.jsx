@@ -16,7 +16,7 @@ const styles = theme => ({
   gridList: {
     flexWrap: "nowrap",
     transform: "translateZ(0)",
-    overflow: "scroll"
+    overflow: "scroll",
   }
 });
 

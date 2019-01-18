@@ -21,7 +21,8 @@ const styles = theme => ({
     color: "white",
     width: 280,
     height: "100%",
-    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);"
+    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);",
+    marginRight: "20px"
   },
   textField: {
     height: 50
