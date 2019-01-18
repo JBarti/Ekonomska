@@ -29,8 +29,9 @@ const styles = theme => ({
 
 class Dashboard extends Component {
   render() {
-    const { classes } = this.props;
-    const { folders } = this.props;
+    const { classes, folders, notifications } = this.props;
+    console.log("notifikacjeeee");
+    console.log(notifications);
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         <GridList className={classes.gridList} rows={2.5}>
@@ -39,7 +40,7 @@ class Dashboard extends Component {
           ))}
         </GridList>
         <Row>
-          <NotificationCard />
+          <NotificationCard notifications={notifications} />
         </Row>
         <Row>
           <GradesCard />
@@ -55,7 +56,10 @@ Dashboard.propTypes = {
 };
 
 export default connect(store => {
+  console.log("STOORE");
+  console.log(store.grade.folders);
   return {
+    notifications: store.notifications.all || [],
     folders: store.grade.folders || []
   };
 })(withStyles(styles)(Dashboard));

@@ -64,15 +64,30 @@ const styles = theme => {
 };
 
 class Login extends Component {
-  state = { redirect: undefined };
+  state = { redirect: undefined, error: false };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   submit = () => {
-    this.props.dispatch(loadStudent(this.state.email, this.state.password));
-    this.setState({ redirect: <Redirect to="/ucenik" /> });
+    const { dispatch } = this.props;
+    dispatch({ type: "LOAD_USER_PENDING" });
+    loadStudent(this.state.email, this.state.password)
+      .payload.then(({ data }) => {
+        if (data.type === "student") {
+          this.setState({ redirect: <Redirect to="/ucenik" /> });
+          dispatch({ type: "LOAD_STUDENT_FULFILLED", payload: data });
+        } else {
+          this.setState({ redirect: <Redirect to="/profesor" /> });
+          dispatch({ type: "LOAD_PROFFESOR_FULFILLED", payload: data });
+        }
+      })
+      .catch(err => {
+        dispatch({ type: "LOAD_USER_FAILED", payload: err });
+        console.error(err);
+        this.setState({ error: true });
+      });
   };
 
   render() {

@@ -32,13 +32,6 @@ class Dashboard extends Component {
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         <GridList className={classes.gridList} rows={2.5}>
-          <LekcijaCard />
-          <LekcijaCard />
-          <LekcijaCard />
-          <LekcijaCard />
-          <LekcijaCard />
-          <LekcijaCard />
-          <LekcijaCard />
           <DodajLekciju />
         </GridList>
         <Row>

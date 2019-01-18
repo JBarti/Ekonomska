@@ -1,7 +1,15 @@
-import { combineReducers } from "redux"
+import { combineReducers } from "redux";
 
-import student from './studentReducer'
-import notifications from './notificationsReducer'
-import grade from './gradeReducer'
+import proffesor from "./proffesor/proffesorReducer";
+import grades from "./proffesor/gradesReducer";
+import student from "./student/studentReducer";
+import grade from "./student/gradeReducer";
+import notifications from "./student/notificationsReducer";
 
-export default combineReducers({ student, notifications, grade })
+export default combineReducers({
+  proffesor,
+  grades,
+  student,
+  grade,
+  notifications
+});

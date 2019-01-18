@@ -2,7 +2,7 @@ let state = {
   id: null,
   name: null,
   proffesorId: null,
-  folders: []
+  folders: null
 };
 
 export default function reducer(state = state, action) {
@@ -10,14 +10,8 @@ export default function reducer(state = state, action) {
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
       console.log(action.payload.data);
-      let {
-        id,
-        name,
-        proffesorId,
-        files,
-        tests,
-        folders
-      } = action.payload.data["grade"];
+      let user = action.payload.data ? action.payload.data : action.payload;
+      let { id, name, proffesorId, files, tests, folders } = user.grade;
       newState = { ...state, id, name, proffesorId, files, tests, folders };
       break;
     }
