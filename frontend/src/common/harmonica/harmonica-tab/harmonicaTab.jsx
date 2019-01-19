@@ -33,7 +33,9 @@ const styles = theme => ({
     borderTopWidth: 1
   },
   deleteBtn: {
-    float: "right"
+    float: "right",
+    marginRight: 5,
+    marginBottom: 5
   }
 });
 

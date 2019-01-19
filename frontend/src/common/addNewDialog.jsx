@@ -17,11 +17,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
-import EditIcon from "@material-ui/icons/Edit";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import DeleteIcon from '@material-ui/icons/Delete';
-
 
 const styles = theme => ({  
   root: {
@@ -44,13 +39,16 @@ const styles = theme => ({
 })
 function Choice(props) {
     const whatIsChosen = props.whatIsChosen;
-    if (whatIsChosen == "PromijeniIme") {
-      return <div> <TextField style={{width:400}} id="text" label="Novi naziv" type="text" /> 
+    if (whatIsChosen == "Test") {
+      return <div> <TextField style={{width:400,marginLeft: 30}} id="text" label="Naziv" type="text" /> 
       </div> ;
-    }return <div></div>;
+    }else if (whatIsChosen == "PDF" || whatIsChosen == "Word" ){ 
+    return <div> <TextField style={{width:400,marginLeft: 30}} id="text" label="Naziv" type="text" /> 
+    <TextField style={{width:400,marginLeft: 30}} id="text" label="Link" type="text" />
+    </div> ;} return <div></div>;
        }
 
-class editLekcija extends Component {
+class addNewDialog extends Component {
     state = {
         open: false,
       };
@@ -71,33 +69,40 @@ class editLekcija extends Component {
         const { classes } = this.props
         return (
             <div>
-                <IconButton className={classes.deleteBtn} onClick={this.handleClickOpen} aria-label="Edit">
-                  <EditIcon />
-                </IconButton>
+                <ListItem button onClick={this.handleClickOpen}>
+                 <ListItemText primary="Novo" />
+                 </ListItem>
                 <Dialog
                  open={this.state.open}
                  onClose={this.handleClose}
                  aria-labelledby="form-dialog-title"
                    className={classes.dialog} fullWidth scroll="paper">
-          <DialogTitle id="form-dialog-title">Uredite lekciju </DialogTitle>
-          <DialogContent> 
-          <TextField style={{width:400}} id="text" label="Novi naziv" type="text" />  
-
-          <IconButton className={classes.deleteBtn} aria-label="Delete">
-                         <Visibility />
-          </IconButton>   
-        
-          <IconButton className={classes.deleteBtn} aria-label="Delete">
-                         <DeleteIcon />
-          </IconButton>
-
+          <DialogTitle id="form-dialog-title">Novo</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+                Odaberite što želite dodati:
+            </DialogContentText>
+            <FormControl component="fieldset" className={classes.formControl}>
+          <RadioGroup
+            aria-label="dodaj"
+            name="Dodaj"
+            className={classes.group}
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <FormControlLabel value="PDF" control={<Radio />} label="PDF" />
+            <FormControlLabel value="Word" control={<Radio />} label="Word" />
+            <FormControlLabel value="Test" control={<Radio />} label="Test" />
+          </RadioGroup>
+        </FormControl>
+        <Choice whatIsChosen={this.state.value}/>
           </DialogContent>
           <DialogActions> 
             <Button onClick={this.onClose} color="secondary">
               Odustani
             </Button>
             <Button onClick={this.handleClose} color="primary">
-              Potvrdi
+              Dodaj
             </Button>
           </DialogActions>
         </Dialog>
@@ -108,4 +113,4 @@ class editLekcija extends Component {
 
 }
 
-export default withStyles(styles)(editLekcija);
+export default withStyles(styles)(addNewDialog);

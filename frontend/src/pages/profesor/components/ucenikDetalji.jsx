@@ -21,6 +21,8 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
 import { selectGrade } from "../../../actions/proffesorActions";
+import AddNewUcenik from "./addNewUcenik";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
 const drawerWidth = 240;
 
@@ -181,8 +183,8 @@ class LekcijaCard extends Component {
                     />
                   );
                 })}
-                <Divider />
-                <AddNewDialog />
+                >
+                <AddNewUcenik />
               </List>
             </Drawer>
           </div>
