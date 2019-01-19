@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import ContentCard from "../../../common/content-card/contentCard";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import UcenikDetalji from "./ucenikDetalji";
 
@@ -23,15 +21,13 @@ class stdlistCard extends Component {
     this.setState({ open: false });
   };
   render() {
-    const { classes } = this.props;
+    const { classes, grades } = this.props;
     return (
       <ContentCard cardName="Moji razredi" className={classes.root}>
         <List component="nav" className={classes.root}>
-          <UcenikDetalji />
-          <Divider />
-          <ListItem button>
-            <ListItemText primary="4.F" />
-          </ListItem>
+          {grades.map(grade => (
+            <UcenikDetalji grade={grade} />
+          ))}
           <Divider />
         </List>
       </ContentCard>

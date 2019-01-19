@@ -18,6 +18,9 @@ const styles = theme => ({
   },
   sidebarItemTabbed: {
     paddingLeft: 40
+  },
+  buttonText: {
+    color: "white"
   }
 });
 

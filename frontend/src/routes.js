@@ -11,14 +11,10 @@ import { store } from "./store";
 
 export default (
   <BrowserRouter>
-    <div>
-      <Provider store={store}>
-        <Route exact path="/" component={Login} />
-      </Provider>
-      <Provider store={store}>
-        <Route path="/ucenik" component={Ucenik} />
-      </Provider>
+    <Provider store={store}>
+      <Route exact path="/" component={Login} />
+      <Route path="/ucenik" component={Ucenik} />
       <Route path="/profesor" component={Profesor} />
-    </div>
+    </Provider>
   </BrowserRouter>
 );

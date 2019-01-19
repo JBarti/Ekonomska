@@ -56,8 +56,6 @@ Dashboard.propTypes = {
 };
 
 export default connect(store => {
-  console.log("STOORE");
-  console.log(store.grade.folders);
   return {
     notifications: store.notifications.all || [],
     folders: store.grade.folders || []

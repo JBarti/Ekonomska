@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { loadSession } from "../../actions/studentActions";
 
 const styles = theme => {
-  console.log(theme);
   return {
     sidebarNav: {
       display: "flex",

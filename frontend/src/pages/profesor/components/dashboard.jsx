@@ -7,7 +7,7 @@ import StdlistCard from "./stdlistCard";
 import LekcijaCard from "../../../common/lekcijaCard";
 import GridList from "@material-ui/core/GridList";
 import DodajLekciju from "./dodajLekciju";
-import HorizontalScroll from "./horizontalScroll";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   fix: {
@@ -26,16 +26,23 @@ const styles = theme => ({
 
 class Dashboard extends Component {
   render() {
-    const { classes } = this.props;
-    console.log("LOKACIJA");
-    console.log(this.props.location);
+    const { classes, grades } = this.props;
+    const { selectedGrade } = this.props;
+    const folders = selectedGrade.folders || [];
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
-        <GridList className={classes.gridList} rows={2.5}>
-          <DodajLekciju />
-        </GridList>
+        {Object.getOwnPropertyNames(selectedGrade).length !== 0 ? (
+          <GridList className={classes.gridList} rows={2.5}>
+            {folders.map(folder => (
+              <LekcijaCard folder={folder} />
+            ))}
+            {folders.length ? <DodajLekciju /> : undefined}
+          </GridList>
+        ) : (
+          undefined
+        )}
         <Row>
-          <StdlistCard />
+          <StdlistCard grades={grades} />
           <NotificationCard />
         </Row>
       </div>
@@ -48,4 +55,9 @@ Dashboard.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
-export default withStyles(styles)(Dashboard);
+export default connect(store => {
+  return {
+    grades: store.grades.all || [],
+    selectedGrade: store.grades.selectedGrade || {}
+  };
+})(withStyles(styles)(Dashboard));

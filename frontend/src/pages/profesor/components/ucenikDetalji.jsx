@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,16 +11,16 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import Visibility from "@material-ui/icons/Visibility";
+import UserIcon from "@material-ui/icons/Person";
 import GradesCard from "./gradesCard";
 import AddNewDialog from "./addNewDialog";
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListButton from "../../../common/list-button/listButton";
+import { connect } from "react-redux";
+import { selectGrade } from "../../../actions/proffesorActions";
 
 const drawerWidth = 240;
 
@@ -92,6 +91,9 @@ const styles = theme => ({
   contentTitle: {
     paddingBottom: 25,
     color: "black"
+  },
+  buttonText: {
+    color: "white"
   }
 });
 function Transition(props) {
@@ -112,17 +114,23 @@ class LekcijaCard extends Component {
     console.log("KLOOZ");
     this.setState({ open: false });
   };
+
+  selectGrade = gradeId => () => {
+    this.props.dispatch(selectGrade(gradeId));
+  };
+
   render() {
     const { classes } = this.props;
+    const { name, students, id } = this.props.grade;
     return (
       <div>
-        <ListItem button onClick={this.handleClickOpen}>
-          <ListItemText primary="4.D" />
+        <ListItem button onClick={this.selectGrade(id)}>
+          <ListItemText primary={name} />
           <ListItemSecondaryAction onClick={this.handleClickOpen}>
-                      <IconButton aria-label="Delete">
-                        <Visibility />
-                      </IconButton>
-                    </ListItemSecondaryAction>
+            <IconButton aria-label="Delete">
+              <Visibility />
+            </IconButton>
+          </ListItemSecondaryAction>
         </ListItem>
         <Dialog
           classes={{ paper: classes.dialog }}
@@ -150,10 +158,8 @@ class LekcijaCard extends Component {
                 </Typography>
               </Toolbar>
             </AppBar>
-
             <main className={classes.content}>
               <div className={classes.toolbar} />
-
               <GradesCard />
             </main>
             <Drawer
@@ -165,28 +171,18 @@ class LekcijaCard extends Component {
               <div className={classes.toolbar} />
               <Divider />
               <List>
-                {["Inbox", "Starred", "Send email", "Drafts"].map(
-                  (text, index) => (
-                    <ListItem style={{ color: "white" }} button key={text}>
-                      <ListItemIcon style={{ color: "white" }}>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                      </ListItemIcon>
-                      <ListItemText style={{ color: "white" }} primary={text} />
-                    </ListItem>
-                  )
-                )}
-              </List>
-              <Divider />
-              <List>
-                {["All mail", "Trash", "Spam"].map((text, index) => (
-                  <ListItem style={{ color: "white" }} button key={text}>
-                    <ListItemIcon style={{ color: "white" }}>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText style={{ color: "white" }} primary={text} />
-                  </ListItem>
-                ))}
-                <AddNewDialog/>
+                {students.map(student => {
+                  return (
+                    <ListButton
+                      primary={student.firstName + " " + student.lastName}
+                      classes={{ text: classes.buttonText }}
+                      iconColor="white"
+                      icon={<UserIcon />}
+                    />
+                  );
+                })}
+                <Divider />
+                <AddNewDialog />
               </List>
             </Drawer>
           </div>
@@ -199,4 +195,4 @@ LekcijaCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(LekcijaCard);
+export default connect()(withStyles(styles)(LekcijaCard));
