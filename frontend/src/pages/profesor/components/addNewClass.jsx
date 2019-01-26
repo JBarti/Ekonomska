@@ -8,15 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
+import IconButton from "@material-ui/core/IconButton";
+
 
 const styles = theme => ({  
   root: {
@@ -36,14 +29,19 @@ const styles = theme => ({
     formControl: {
         float: "left"
     },
-    dialog: {
-        position: "initial",
-        zIndex: 1000000
-        
-      }
+    checkVid: {
+      float: "left"
+    },
+    addClassBtn: {
+      position: "absolute",
+      right: 10,
+      top: 0
+      
+    }
 })
 
-class addNewUcenik extends Component {
+
+class addNewClass extends Component {
     state = {
         open: false,
       };
@@ -63,29 +61,24 @@ class addNewUcenik extends Component {
     render() {
         const { classes } = this.props
         return (
-            <div>
-                <ListItem button onClick={this.handleClickOpen}>
-                 <ListItemText primary="Novo" />
-                 </ListItem>
+            <div className={classes.addClassBtn} >
+                <IconButton onClick={this.handleClickOpen}>
+                  <AddIcon />
+                </IconButton>
                 <Dialog
                  open={this.state.open}
                  onClose={this.handleClose}
                  aria-labelledby="form-dialog-title"
-                   className={classes.dialog} classes={{paper: classes.dialog}}>
-          <DialogTitle id="form-dialog-title">Novi učenik</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-                Upišite podatke:
-            </DialogContentText>
-            <TextField style={{width:175,marginTop: 10}} id="text" label="Ime" type="text" /> 
-            <TextField style={{width:175,marginTop: 10}} id="text" label="Prezime" type="text" /> 
-            <TextField style={{width:400,marginTop: 10}} id="text" label="Korisničko ime" type="text" /> 
-            <TextField style={{width:400,marginTop: 10}} id="text" label="Zaporka" type="text" /> 
+                   className={classes.dialog} fullWidth scroll="paper">
+          <DialogTitle id="form-dialog-title">Dodajte razred: </DialogTitle>
+          <DialogContent> 
+          <TextField fullWidth id="text" label="Naziv" type="text" />  
           </DialogContent>
           <DialogActions> 
-            <Button onClick={this.onClose} color="secondary">
+            <Button onClick={this.handleClose} color="secondary">
               Odustani
             </Button>
+
             <Button onClick={this.handleClose} color="primary">
               Dodaj
             </Button>
@@ -98,4 +91,4 @@ class addNewUcenik extends Component {
 
 }
 
-export default withStyles(styles)(addNewUcenik);
+export default withStyles(styles)(addNewClass);

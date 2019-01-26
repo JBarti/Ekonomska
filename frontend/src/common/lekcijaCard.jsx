@@ -83,7 +83,6 @@ const styles = theme => ({
   },
   root: {
     display: "flex",
-    padding: 15,
     overflowX: "hidden",
     maxWidth: "100%"
   },
@@ -106,7 +105,7 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   content: {
-    width: "78%",
+    width: "100%",
     margin: "0 auto"
   },
   contentText: {

@@ -35,6 +35,12 @@ const styles = theme => ({
     },
     formControl: {
         float: "left"
+    },
+    dialog: {
+      position: "initial",
+      zIndex: 1000000,
+      minWidth: 600
+      
     }
 })
 function Choice(props) {
@@ -76,7 +82,7 @@ class addNewDialog extends Component {
                  open={this.state.open}
                  onClose={this.handleClose}
                  aria-labelledby="form-dialog-title"
-                   className={classes.dialog} fullWidth scroll="paper">
+                   className={classes.dialog} classes={{paper: classes.dialog}}>
           <DialogTitle id="form-dialog-title">Novo</DialogTitle>
           <DialogContent>
             <DialogContentText>

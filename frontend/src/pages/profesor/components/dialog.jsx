@@ -26,6 +26,11 @@ const styles = theme => ({
         }
         
     }, 
+    dialog: {
+      position: "initial",
+      zIndex: 1000000
+      
+    }
 })
 
 class Dijalog extends Component {
@@ -57,7 +62,7 @@ class Dijalog extends Component {
                  open={this.state.open}
                  onClose={this.handleClose}
                  aria-labelledby="form-dialog-title"
-                   className={classes.dialog} fullWidth scroll="paper">
+                   className={classes.dialog} classes={{paper: classes.dialog}}>
           <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
           <DialogContent>
             <DialogContentText>
