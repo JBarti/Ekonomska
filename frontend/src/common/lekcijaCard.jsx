@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import ContentCard from "./content-card/contentCard";
@@ -18,7 +19,7 @@ import IconBook from "@material-ui/icons/Book";
 import IconQA from "@material-ui/icons/QuestionAnswer";
 import External from "./external";
 import StudentForms from "../pages/ucenik/components/forms";
-import EditIcon from "@material-ui/icons/Edit";
+import ProffesorForms from "../pages/profesor/components/forms";
 import EditLekcija from "./editLekcija";
 import AddNewDialog from "./addNewDialog";
 const drawerWidth = 240;
@@ -231,13 +232,18 @@ class LekcijaCard extends Component {
   };
 
   showTest = test => () => {
-    console.log(test);
-    this.setState({ content: <StudentForms test={test} /> });
+    let { proffesor } = this.props;
+    let content = proffesor.id ? (
+      <ProffesorForms test={test} />
+    ) : (
+      <StudentForms test={test} />
+    );
+    this.setState({ content: content });
   };
 
   render() {
     const { classes } = this.props;
-    const { name, description, tests, files } = this.props.folder;
+    const { name, description, tests, files, id } = this.props.folder;
     return (
       <ContentCard
         classes={{
@@ -321,7 +327,7 @@ class LekcijaCard extends Component {
                     onClick={this.showTest(test)}
                   />
                 ))}
-                <AddNewDialog />
+                <AddNewDialog folderId={id} showTest={this.showTest} />
               </List>
             </Drawer>
           </div>
@@ -334,4 +340,8 @@ LekcijaCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(LekcijaCard);
+export default connect(store => {
+  return {
+    proffesor: store.proffesor
+  };
+})(withStyles(styles)(LekcijaCard));

@@ -20,6 +20,16 @@ export default function reducer(state = state, action) {
       newState = { ...state, selectedGrade };
       break;
     }
+    case "ADD_TEST": {
+      let { selectedGrade } = state;
+      let newGrade = { ...selectedGrade };
+      let { test, folderId } = action.payload;
+      let folder = newGrade.folders.filter(folder => {
+        return folderId === folder.id;
+      })[0];
+      folder.tests.push(test);
+      newState = { ...state, selectedGrade: newGrade };
+    }
   }
 
   return newState;

@@ -17,7 +17,6 @@ import Visibility from "@material-ui/icons/Visibility";
 import UserIcon from "@material-ui/icons/Person";
 import GradesCard from "./gradesCard";
 import AddNewDialog from "./addNewDialog";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
 import { selectGrade } from "../../../actions/proffesorActions";

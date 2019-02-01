@@ -51,7 +51,7 @@ class Forms extends Component {
     console.log(this.state);
   };
 
-  genQuestion = (question, classes) => (
+  genQuestion = (question, aIndex, classes) => (
     <div className={classes.question}>
       <Typography
         align="left"
@@ -62,14 +62,15 @@ class Forms extends Component {
       </Typography>
       <RadioGroup
         onChange={this.handleChange}
-        name={question.text}
-        value={this.state[question.text]}
+        name={aIndex.toString()}
+        value={this.state[aIndex.toString()]}
       >
-        {question.answers.map(answer => {
+        {question.answers.map((answer, qIndex) => {
+          console.log(aIndex.toString() + qIndex.toString());
           return (
             <FormControlLabel
               classes={{ label: classes.radioLabel }}
-              value={answer.answer}
+              value={aIndex.toString() + qIndex.toString()}
               label={answer.answer}
               control={<Radio />}
             />
@@ -91,8 +92,8 @@ class Forms extends Component {
         >
           {test.name}
         </Typography>
-        {questions.map(question => {
-          return this.genQuestion(question, classes);
+        {questions.map((question, index) => {
+          return this.genQuestion(question, index, classes);
         })}
         <Button
           variant="extendedFab"

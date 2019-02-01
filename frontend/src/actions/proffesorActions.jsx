@@ -33,3 +33,10 @@ export function selectGrade(gradeId) {
     payload: { gradeId }
   };
 }
+
+export function addTest(folderId, { name, active = false, questions = [] }) {
+  return {
+    type: "ADD_TEST",
+    payload: { folderId, test: { name, active, questions } }
+  };
+}
