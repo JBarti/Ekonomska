@@ -5,13 +5,11 @@ import Row from "../../../common/content/row/row";
 import NotificationCard from "./notificationCard";
 import GradesCard from "./gradesCard";
 import WalletCard from "./walletCard";
-import LekcijaCard from "../../../common/lekcijaCard";
+import LekcijaCard from "./lekcijaCard";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import gradesCard from "./gradesCard";
-import lekcijaCard from "../../../common/lekcijaCard";
-
 const styles = theme => ({
   fix: {
     maxHeight: "240px"
@@ -37,6 +35,7 @@ class Dashboard extends Component {
           {folders.map(folder => (
             <LekcijaCard folder={folder} />
           ))}
+          <LekcijaCard/>
         </GridList>
         <Row>
           <NotificationCard />

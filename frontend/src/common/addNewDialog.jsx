@@ -17,7 +17,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
-
+import PdfIcon from '@material-ui/icons/PictureAsPdf';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import WordIcon from '@material-ui/icons/InsertDriveFile'
 const styles = theme => ({  
   root: {
         overflow: 'hidden',
@@ -41,6 +43,10 @@ const styles = theme => ({
       zIndex: 1000000,
       minWidth: 600
       
+    },
+    icons: {
+      transform: "translateY(5px)",
+      marginRight: 10
     }
 })
 function Choice(props) {
@@ -96,9 +102,9 @@ class addNewDialog extends Component {
             value={this.state.value}
             onChange={this.handleChange}
           >
-            <FormControlLabel value="PDF" control={<Radio />} label="PDF" />
-            <FormControlLabel value="Word" control={<Radio />} label="Word" />
-            <FormControlLabel value="Test" control={<Radio />} label="Test" />
+            <FormControlLabel value="PDF" control={<Radio />} label={<div><PdfIcon className={classes.icons}/>Pdf</div>} />
+            <FormControlLabel value="Word" control={<Radio />} label={<div><WordIcon className={classes.icons}/>Word</div>} />
+            <FormControlLabel value="Test" control={<Radio />} label={<div><QuestionAnswerIcon className={classes.icons}/>Test</div>} />
           </RadioGroup>
         </FormControl>
         <Choice whatIsChosen={this.state.value}/>

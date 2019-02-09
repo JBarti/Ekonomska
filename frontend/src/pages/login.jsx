@@ -8,6 +8,9 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { loadStudent } from "../actions/studentActions";
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import { Redirect } from "react-router";
 
 const styles = theme => {
@@ -92,7 +95,6 @@ class Login extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-
   submit = () => {
     this.props.dispatch(loadStudent(this.state.email, this.state.password));
     this.setState({ redirect: <Redirect to="/ucenik" /> });
@@ -155,6 +157,21 @@ class Login extends Component {
             margin="normal"
             type="password"
           />
+          <InputLabel htmlFor="razred">Razred</InputLabel>
+          <Select
+            value={this.state.razred}
+            className={classes.textField}
+            onChange={this.handleChange}
+            label={"Razred"}
+            inputProps={{
+              name: 'razred',
+              id: 'razred',
+            }}
+          >
+            <MenuItem value={"A"}>4.A</MenuItem>
+            <MenuItem value={"B"}>4.B</MenuItem>
+            <MenuItem value={"C"}>4.C</MenuItem>
+          </Select>
           <Button
             variant="contained"
             color="primary"
