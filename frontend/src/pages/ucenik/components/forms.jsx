@@ -16,13 +16,15 @@ const styles = theme => ({
   },
   question: {
     marginBottom: 40,
+    marginLeft: 15,
     paddingLeft: 15,
     borderLeftWidth: "3px",
     borderLeftStyle: "solid",
     borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 2 100%"
   },
   submitButton: {
-    marginLeft: 0,
+    marginLeft: 15,
+    marginBottom: 15,
     textAlign: "none"
   },
   testName: {
@@ -52,7 +54,7 @@ class Forms extends Component {
   };
 
   genQuestion = (question, aIndex, classes) => (
-    <div className={classes.question}>
+    < div className={classes.question} >
       <Typography
         align="left"
         variant="title"
@@ -62,15 +64,15 @@ class Forms extends Component {
       </Typography>
       <RadioGroup
         onChange={this.handleChange}
-        name={aIndex.toString()}
-        value={this.state[aIndex.toString()]}
+        name={question.id.toString()}
+        value={this.state[question.id.toString()]}
       >
         {question.answers.map((answer, qIndex) => {
-          console.log(aIndex.toString() + qIndex.toString());
+          console.log(question.id.toString() + qIndex.toString());
           return (
             <FormControlLabel
               classes={{ label: classes.radioLabel }}
-              value={aIndex.toString() + qIndex.toString()}
+              value={question.id.toString() + qIndex.toString()}
               label={answer.answer}
               control={<Radio />}
             />
@@ -99,6 +101,7 @@ class Forms extends Component {
           variant="extendedFab"
           color="primary"
           className={classes.submitButton}
+          onClick={() => { console.log(this.state) }}
         >
           <IconDone style={{ marginRight: 8 }} />
           Submit

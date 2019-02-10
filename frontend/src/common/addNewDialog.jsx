@@ -32,8 +32,14 @@ const styles = theme => ({
   },
   formControl: {
     float: "left"
+  },
+  dialog: {
+    position: "initial",
+    zIndex: 1000000,
+    minWidth: 600
   }
 });
+
 function Choice(props) {
   const whatIsChosen = props.whatIsChosen;
   if (whatIsChosen == "Test") {
@@ -98,10 +104,8 @@ class addNewDialog extends Component {
         dispatch(addTest(folderId, { name: testName, active: true }));
     }
   };
-
   render() {
     const { classes } = this.props;
-    Choice = Choice.bind(this);
     return (
       <div>
         <ListItem button onClick={this.handleClickOpen}>
@@ -112,8 +116,7 @@ class addNewDialog extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
           className={classes.dialog}
-          fullWidth
-          scroll="paper"
+          classes={{ paper: classes.dialog }}
         >
           <DialogTitle id="form-dialog-title">Novo</DialogTitle>
           <DialogContent>

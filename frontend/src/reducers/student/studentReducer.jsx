@@ -17,7 +17,14 @@ export default function reducer(state = state, action) {
       newState = { ...state, id, gradeId, firstName, lastName, email };
       break;
     }
+    case "REGISTER_STUDENT_FULFILLED": {
+      let user = action.payload.data
+      let { id, gradeId, firstName, lastName, email } = user;
+      newState = { ...state, id, gradeId, firstName, lastName, email };
+      break;
+    }
   }
+
 
   return newState;
 }

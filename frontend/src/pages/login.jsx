@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-import { loadStudent } from "../actions/studentActions";
+import { loadStudent, registerStudent } from "../actions/studentActions";
 import { Redirect } from "react-router";
 
 const styles = theme => {
@@ -15,6 +15,7 @@ const styles = theme => {
   return {
     page: {
       display: "flex",
+      positin: "relative",
       flexDirection: "row",
       width: "100vw",
       height: "100vh",
@@ -59,18 +60,37 @@ const styles = theme => {
       marginLeft: "60%",
       marginTop: 24,
       marginBottom: "10%"
+    },
+    regProf: {
+      position: "absolute",
+      bottom: 10,
+      right: 15,
+      color: "white"
+    },
+    bottomLine: {
+      position: "absolute",
+      width: "100%",
+      height: "3.33vw",
+      bottom: 0,
+      backgroundColor: "#303F9F"
     }
   };
 };
 
 class Login extends Component {
-  state = { redirect: undefined, error: false };
+  state = { redirect: undefined };
+
+  constructor(props) {
+    super(props);
+    this.state = { isRegister: false };
+    this.regHandleClick = this.regHandleClick.bind(this);
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  submit = () => {
+  login = () => {
     const { dispatch } = this.props;
     dispatch({ type: "LOAD_USER_PENDING" });
     loadStudent(this.state.email, this.state.password)
@@ -90,8 +110,105 @@ class Login extends Component {
       });
   };
 
+  register = () => {
+    const { dispatch } = this.props;
+    dispatch(registerStudent(
+      this.state.name,
+      this.state.surname,
+      this.state.email,
+      this.state.password
+    ))
+    dispatch({ type: "REGISER_STUDENT_PENDING" })
+    loadStudent(this.state.email, this.state.password)
+      .payload.then(({ data }) => {
+        this.setState({ redirect: <Redirect to="/ucenik" /> });
+        dispatch({ type: "REGISTER_STUDENT_FULFILLED", payload: data });
+      })
+      .catch(err => {
+        dispatch({ type: "LOAD_USER_FAILED", payload: err });
+        console.error(err);
+        this.setState({ error: true });
+      });
+
+  }
+
+  regHandleClick() {
+    this.setState(state => ({
+      isRegister: !state.isRegister
+    }));
+  }
+
   render() {
     const { classes } = this.props;
+    if (this.state.isRegister) {
+      return (
+        <form className={classes.page}>
+          <ContentCard
+            classes={{ root: classes.formCard, children: classes.cardChildren }}
+          >
+            <div className={classes.loginTitleContainer}>
+              <Typography
+                color="primary"
+                className={classes.loginTitle}
+                variant="display1"
+              >
+                Registracija:
+              </Typography>
+            </div>
+            <Typography variant="caption" className={classes.errorCaption}>
+              {this.state.errorMessage}
+            </Typography>
+            <TextField
+              label="Ime"
+              name="name"
+              className={classes.textField}
+              value={this.state["name"]}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+            <TextField
+              label="Prezime"
+              name="surname"
+              className={classes.textField}
+              value={this.state["surname"]}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+            <TextField
+              label="Korisničko ime"
+              name="email"
+              className={classes.textField}
+              value={this.state["email"]}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+            <TextField
+              label="Lozinka"
+              name="password"
+              className={classes.textField}
+              value={this.state["password"]}
+              onChange={this.handleChange}
+              margin="normal"
+              type="password"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.buttonSubmit}
+              onClick={this.register}
+            >
+              SUBMIT
+            </Button>
+          </ContentCard>
+          {this.state.redirect}
+          <div className={classes.bottomLine}>
+            <Button className={classes.regProf} onClick={this.regHandleClick}>
+              {this.state.isRegister ? "Prijava" : "Registriraj se"}
+            </Button>
+          </div>
+        </form>
+      );
+    }
     return (
       <form className={classes.page}>
         <ContentCard
@@ -110,7 +227,7 @@ class Login extends Component {
             {this.state.errorMessage}
           </Typography>
           <TextField
-            label="E-mail"
+            label="Korisničko ime"
             name="email"
             className={classes.textField}
             value={this.state["email"]}
@@ -130,12 +247,17 @@ class Login extends Component {
             variant="contained"
             color="primary"
             className={classes.buttonSubmit}
-            onClick={this.submit}
+            onClick={this.login}
           >
             SUBMIT
           </Button>
         </ContentCard>
         {this.state.redirect}
+        <div className={classes.bottomLine}>
+          <Button className={classes.regProf} onClick={this.regHandleClick}>
+            {this.state.isRegister ? "Prijava" : "Registriraj se"}
+          </Button>
+        </div>
       </form>
     );
   }

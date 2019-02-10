@@ -9,19 +9,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = theme => ({  
   root: {
@@ -40,15 +31,11 @@ const styles = theme => ({
     },
     formControl: {
         float: "left"
+    },
+    checkVid: {
+      float: "left"
     }
 })
-function Choice(props) {
-    const whatIsChosen = props.whatIsChosen;
-    if (whatIsChosen == "PromijeniIme") {
-      return <div> <TextField style={{width:400}} id="text" label="Novi naziv" type="text" /> 
-      </div> ;
-    }return <div></div>;
-       }
 
 class editLekcija extends Component {
     state = {
@@ -81,21 +68,19 @@ class editLekcija extends Component {
                    className={classes.dialog} fullWidth scroll="paper">
           <DialogTitle id="form-dialog-title">Uredite lekciju </DialogTitle>
           <DialogContent> 
-          <TextField style={{width:400}} id="text" label="Novi naziv" type="text" />  
+          <TextField fullWidth id="text" label="Novi naziv" type="text" />  
+          <FormControlLabel control={<Checkbox value="checkedC" color="secondary" />} label="Vidljivo" className={classes.checkVid} />
 
-          <IconButton className={classes.deleteBtn} aria-label="Delete">
-                         <Visibility />
-          </IconButton>   
-        
+          </DialogContent>
+          <DialogActions> 
           <IconButton className={classes.deleteBtn} aria-label="Delete">
                          <DeleteIcon />
           </IconButton>
 
-          </DialogContent>
-          <DialogActions> 
             <Button onClick={this.onClose} color="secondary">
               Odustani
             </Button>
+
             <Button onClick={this.handleClose} color="primary">
               Potvrdi
             </Button>

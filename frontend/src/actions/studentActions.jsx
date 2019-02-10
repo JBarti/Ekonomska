@@ -20,6 +20,16 @@ export function loadStudent(email, password) {
   };
 }
 
+export function registerStudent(firstName, lastName, email, password) {
+  return {
+    type: "REGISTER_STUDENT",
+    payload: axios.post(
+      API_ENDPOINT + "/students/register",
+      { firstName, lastName, email, password }
+    )
+  }
+}
+
 export function loadSession() {
   return {
     type: "LOAD_STUDENT",
