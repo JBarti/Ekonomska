@@ -4,7 +4,7 @@ import Row from "../../../common/content/row/row";
 import NotificationCard from "./notificationCard";
 import PropTypes from "prop-types";
 import StdlistCard from "./stdlistCard";
-import LekcijaCard from "../../../common/lekcijaCard";
+import LekcijaCard from "./lekcijaCard";
 import GridList from "@material-ui/core/GridList";
 import DodajLekciju from "./dodajLekciju";
 import { connect } from "react-redux";

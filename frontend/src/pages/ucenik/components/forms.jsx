@@ -7,6 +7,8 @@ import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import IconDone from "@material-ui/icons/Done";
+import { solveTest } from "../../../actions/studentActions";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -44,7 +46,7 @@ const styles = theme => ({
 class Forms extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { answers: [] };
   }
 
   handleChange = event => {
@@ -53,8 +55,22 @@ class Forms extends Component {
     console.log(this.state);
   };
 
+  handleFormChange = event => {
+    let newState = { ...this.state };
+    newState.answers[Number(event.target.name)] = event.target.value;
+    this.setState(newState);
+    console.log(this.state);
+  };
+
+  submitTest = () => {
+    let answers = this.state.answers;
+    let { dispatch, studentId, test, handleClose } = this.props;
+    dispatch(solveTest(test.id, answers, studentId));
+    handleClose();
+  };
+
   genQuestion = (question, aIndex, classes) => (
-    < div className={classes.question} >
+    <div className={classes.question}>
       <Typography
         align="left"
         variant="title"
@@ -63,10 +79,11 @@ class Forms extends Component {
         {question.text}
       </Typography>
       <RadioGroup
-        onChange={this.handleChange}
+        onChange={this.handleFormChange}
         name={question.id.toString()}
-        value={this.state[question.id.toString()]}
+        value={this.state.answers[question.id]}
       >
+        1
         {question.answers.map((answer, qIndex) => {
           console.log(question.id.toString() + qIndex.toString());
           return (
@@ -101,7 +118,7 @@ class Forms extends Component {
           variant="extendedFab"
           color="primary"
           className={classes.submitButton}
-          onClick={() => { console.log(this.state) }}
+          onClick={this.submitTest}
         >
           <IconDone style={{ marginRight: 8 }} />
           Submit
@@ -116,4 +133,4 @@ Forms.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
-export default withStyles(styles)(Forms);
+export default connect()(withStyles(styles)(Forms));

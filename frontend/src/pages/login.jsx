@@ -4,10 +4,13 @@ import { withStyles } from "@material-ui/core/styles";
 import ContentCard from "../common/content-card/contentCard";
 import wallpaper from "../images/wallpaper.jpg";
 import TextField from "@material-ui/core/TextField";
-import { Typography } from "@material-ui/core";
+import { Typography, Input } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { loadStudent, registerStudent } from "../actions/studentActions";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
 import { Redirect } from "react-router";
 
 const styles = theme => {
@@ -45,6 +48,12 @@ const styles = theme => {
       paddingLeft: 32
     },
     textField: {
+      marginTop: 2,
+      marginLeft: "15%",
+      marginRight: "15%"
+    },
+    inputLabel: {
+      marginTop: "5%",
       marginLeft: "15%",
       marginRight: "15%"
     },
@@ -109,16 +118,17 @@ class Login extends Component {
         this.setState({ error: true });
       });
   };
-
   register = () => {
     const { dispatch } = this.props;
-    dispatch(registerStudent(
-      this.state.name,
-      this.state.surname,
-      this.state.email,
-      this.state.password
-    ))
-    dispatch({ type: "REGISER_STUDENT_PENDING" })
+    dispatch(
+      registerStudent(
+        this.state.name,
+        this.state.surname,
+        this.state.email,
+        this.state.password
+      )
+    );
+    dispatch({ type: "REGISER_STUDENT_PENDING" });
     loadStudent(this.state.email, this.state.password)
       .payload.then(({ data }) => {
         this.setState({ redirect: <Redirect to="/ucenik" /> });
@@ -129,8 +139,7 @@ class Login extends Component {
         console.error(err);
         this.setState({ error: true });
       });
-
-  }
+  };
 
   regHandleClick() {
     this.setState(state => ({
@@ -191,6 +200,23 @@ class Login extends Component {
               margin="normal"
               type="password"
             />
+            <InputLabel htmlFor="razred" className={classes.inputLabel}>
+              Razred
+            </InputLabel>
+            <Select
+              value={this.state.razred}
+              onChange={this.handleChange}
+              label="Razred"
+              className={classes.textField}
+              inputProps={{
+                name: "razred",
+                id: "razred"
+              }}
+            >
+              <MenuItem value={"A"}>4.A</MenuItem>
+              <MenuItem value={"B"}>4.B</MenuItem>
+              <MenuItem value={"C"}>4.C</MenuItem>
+            </Select>
             <Button
               variant="contained"
               color="primary"

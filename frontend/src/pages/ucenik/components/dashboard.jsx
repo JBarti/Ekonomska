@@ -4,13 +4,9 @@ import GridList from "@material-ui/core/GridList";
 import Row from "../../../common/content/row/row";
 import NotificationCard from "./notificationCard";
 import GradesCard from "./gradesCard";
-import WalletCard from "./walletCard";
-import LekcijaCard from "../../../common/lekcijaCard";
+import LekcijaCard from "./lekcijaCard";
 import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
 import { connect } from "react-redux";
-import gradesCard from "./gradesCard";
-import lekcijaCard from "../../../common/lekcijaCard";
 
 const styles = theme => ({
   fix: {
@@ -29,21 +25,36 @@ const styles = theme => ({
 
 class Dashboard extends Component {
   render() {
-    const { classes, folders, notifications } = this.props;
+    const {
+      classes,
+      folders,
+      notifications,
+      studentId,
+      solutions
+    } = this.props;
+    let tests = folders.map(folder => folder.tests).flat();
+    let solvedTests = solutions
+      .filter(solution => !!solution)
+      .map(solution => solution.testId);
     console.log("notifikacjeeee");
+    console.log(tests);
     console.log(notifications);
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         <GridList className={classes.gridList} rows={2.5}>
           {folders.map(folder => (
-            <LekcijaCard folder={folder} />
+            <LekcijaCard
+              folder={folder}
+              studentId={studentId}
+              solvedTests={solvedTests}
+            />
           ))}
         </GridList>
         <Row>
           <NotificationCard notifications={notifications} />
         </Row>
         <Row>
-          <GradesCard />
+          <GradesCard solutions={solutions} tests={tests} />
         </Row>
       </div>
     );
@@ -58,6 +69,8 @@ Dashboard.propTypes = {
 export default connect(store => {
   return {
     notifications: store.notifications.all || [],
-    folders: store.grade.folders || []
+    folders: store.grade.folders || [],
+    studentId: store.student.id,
+    solutions: store.student.solutions || []
   };
 })(withStyles(styles)(Dashboard));

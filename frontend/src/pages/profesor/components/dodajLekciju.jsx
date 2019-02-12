@@ -6,9 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import { addFolder } from "../../../actions/proffesorActions";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   dialogContent: {
@@ -41,10 +41,19 @@ class DodajLekciju extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
-  handleChange = name => event => {
+
+  handleChange = event => {
     this.setState({
-      [name]: event.target.value
+      [event.target.name]: event.target.value
     });
+  };
+
+  addLesson = () => {
+    console.log(this.state);
+    let { dispatch, selectedGrade } = this.props;
+    let { title, description } = this.state;
+    dispatch(addFolder(selectedGrade.id, title, description));
+    this.handleClose();
   };
 
   render() {
@@ -74,6 +83,9 @@ class DodajLekciju extends Component {
               id="text"
               label="Naslov"
               type="text"
+              onChange={this.handleChange}
+              name={"title"}
+              value={this.state.title}
               fullWidth
             />
             <TextField
@@ -81,9 +93,11 @@ class DodajLekciju extends Component {
               multiline
               rowsMax="9"
               value={this.state.multiline}
-              onChange={this.handleChange("multiline")}
+              onChange={this.handleChange}
               className={classes.textField}
               margin="normal"
+              name={"description"}
+              value={this.state.description}
               fullWidth
             />
           </DialogContent>
@@ -96,7 +110,7 @@ class DodajLekciju extends Component {
               Odustani
             </Button>
             <Button
-              onClick={this.handleClose}
+              onClick={this.addLesson}
               variant="contained"
               color="primary"
             >
@@ -109,4 +123,8 @@ class DodajLekciju extends Component {
   }
 }
 
-export default withStyles(styles)(DodajLekciju);
+export default connect(store => {
+  return {
+    selectedGrade: store.grades.selectedGrade || {}
+  };
+})(withStyles(styles)(DodajLekciju));

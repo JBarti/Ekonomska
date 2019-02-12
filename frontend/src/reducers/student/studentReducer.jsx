@@ -3,7 +3,8 @@ let state = {
   gradeId: null,
   firstName: null,
   lastName: null,
-  email: null
+  email: null,
+  solutions: []
 };
 
 export default function reducer(state = state, action) {
@@ -11,20 +12,39 @@ export default function reducer(state = state, action) {
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
       console.log("OVO JE PAYLOAD");
-      console.log(action);
+      console.log(action.payload.data);
       let user = action.payload.data ? action.payload.data : action.payload;
-      let { id, gradeId, firstName, lastName, email } = user;
-      newState = { ...state, id, gradeId, firstName, lastName, email };
+      let { id, gradeId, firstName, lastName, email, solutions } = user;
+      newState = {
+        ...state,
+        id,
+        gradeId,
+        firstName,
+        lastName,
+        email,
+        solutions
+      };
       break;
     }
     case "REGISTER_STUDENT_FULFILLED": {
-      let user = action.payload.data
-      let { id, gradeId, firstName, lastName, email } = user;
-      newState = { ...state, id, gradeId, firstName, lastName, email };
+      let user = action.payload.data;
+      let { id, gradeId, firstName, lastName, email, solutions } = user;
+      newState = {
+        ...state,
+        id,
+        gradeId,
+        firstName,
+        lastName,
+        email,
+        solutions
+      };
       break;
     }
+    case "SOLVE_TEST_FULFILLED": {
+      let solutions = action.payload.data;
+      newState = { ...state, solutions };
+    }
   }
-
 
   return newState;
 }

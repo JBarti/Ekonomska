@@ -15,6 +15,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import { addTest } from "../actions/proffesorActions";
 import { connect } from "react-redux";
+import PdfIcon from "@material-ui/icons/PictureAsPdf";
+import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
+import WordIcon from "@material-ui/icons/InsertDriveFile";
 
 const styles = theme => ({
   root: {
@@ -37,6 +40,10 @@ const styles = theme => ({
     position: "initial",
     zIndex: 1000000,
     minWidth: 600
+  },
+  icons: {
+    transform: "translateY(5px)",
+    marginRight: 10
   }
 });
 
@@ -122,27 +129,47 @@ class addNewDialog extends Component {
           <DialogContent>
             <DialogContentText>Odaberite što želite dodati:</DialogContentText>
             <FormControl component="fieldset" className={classes.formControl}>
+              mimi
               <RadioGroup
                 aria-label="dodaj"
-                name="value"
+                name="Dodaj"
                 className={classes.group}
                 value={this.state.value}
                 onChange={this.handleChange}
               >
-                <FormControlLabel value="PDF" control={<Radio />} label="PDF" />
+                <FormControlLabel
+                  value="PDF"
+                  control={<Radio />}
+                  labemil={
+                    <div>
+                      <PdfIcon className={classes.icons} />
+                      Pdf
+                    </div>
+                  }
+                />
                 <FormControlLabel
                   value="Word"
                   control={<Radio />}
-                  label="Word"
+                  label={
+                    <div>
+                      <WordIcon className={classes.icons} />
+                      Word
+                    </div>
+                  }
                 />
                 <FormControlLabel
                   value="Test"
                   control={<Radio />}
-                  label="Test"
+                  label={
+                    <div>
+                      <QuestionAnswerIcon className={classes.icons} />
+                      Test
+                    </div>
+                  }
                 />
               </RadioGroup>
             </FormControl>
-            {Choice({ whatIsChosen: this.state.value })}
+            <Choice whatIsChosen={this.state.value} />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="secondary">

@@ -30,6 +30,16 @@ export default function reducer(state = state, action) {
       folder.tests.push(test);
       newState = { ...state, selectedGrade: newGrade };
     }
+    case "ADD_FOLDER_FULFILLED": {
+      let { selectedGrade } = state;
+      let newGrade = { ...selectedGrade };
+      let folder = action.payload.data;
+      folder.tests = [];
+      folder.files = [];
+      console.log(action.payload.data);
+      newGrade.folders.push(folder);
+      newState = { ...state, selectedGrade: newGrade };
+    }
   }
 
   return newState;

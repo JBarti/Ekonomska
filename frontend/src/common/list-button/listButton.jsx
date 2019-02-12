@@ -31,6 +31,7 @@ class ListButton extends Component {
     return (
       <ListItem
         button
+        disabled={this.props.disabled}
         className={this.props.tabbed ? classes.sidebarItemTabbed : classes.root}
         onClick={this.props.onClick}
       >
