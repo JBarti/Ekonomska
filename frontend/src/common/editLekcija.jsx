@@ -77,7 +77,7 @@ class editLekcija extends Component {
                          <DeleteIcon />
           </IconButton>
 
-            <Button onClick={this.onClose} color="secondary">
+            <Button onClick={this.handleClose} color="secondary">
               Odustani
             </Button>
 
