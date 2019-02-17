@@ -84,6 +84,7 @@ const styles = theme => ({
   root: {
     display: "flex",
     overflowX: "hidden",
+    height: "100%",
     maxWidth: "100%"
   },
   appBar: {

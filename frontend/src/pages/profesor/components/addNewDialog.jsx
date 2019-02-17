@@ -115,7 +115,7 @@ class addNewDialog extends Component {
             <Choice whatIsChosen={this.state.value} />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.onClose} color="secondary">
+            <Button onClick={this.handleClose} color="secondary">
               Odustani
             </Button>
             <Button onClick={this.handleClose} color="primary">

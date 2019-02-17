@@ -79,7 +79,7 @@ class Dijalog extends Component {
           </DialogContent>
           <DialogActions> 
           <FormControlLabel control={<Checkbox value="checkedC" color="secondary" />} label="Važno" />
-            <Button onClick={this.onClose} color="secondary">
+            <Button onClick={this.handleClose} color="secondary">
               Odustani
             </Button>
             <Button onClick={this.handleClose} color="primary">
