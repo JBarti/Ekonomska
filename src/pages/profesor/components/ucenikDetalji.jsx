@@ -19,7 +19,10 @@ import GradesCard from "./gradesCard";
 import AddNewDialog from "./addNewDialog";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
-import { selectGrade } from "../../../actions/proffesorActions";
+import {
+  selectGrade,
+  getAllSolutions
+} from "../../../actions/proffesorActions";
 import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
@@ -102,10 +105,22 @@ function Transition(props) {
 }
 
 class LekcijaCard extends Component {
+  constructor(props) {
+    super(props);
+    let { dispatch, grade } = props;
+    dispatch(getAllSolutions(grade.students, grade.id));
+  }
   state = {
     open: false
   };
 
+  getTests = () => {
+    return this.props.grade.folders
+      .map(folder => {
+        return folder.tests;
+      })
+      .flat();
+  };
   handleClickOpen = () => {
     console.log("OPEN");
     this.setState({ open: true });
@@ -121,7 +136,7 @@ class LekcijaCard extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, grade } = this.props;
     const { name, students, id } = this.props.grade;
     return (
       <div>
@@ -155,13 +170,23 @@ class LekcijaCard extends Component {
                   color="inherit"
                   className={classes.flex}
                 >
-                  Ante Antic
+                  {this.props.grade.name}
                 </Typography>
               </Toolbar>
             </AppBar>
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              <GradesCard />
+              {grade.students.map(student => {
+                if (student.solutions) {
+                  return (
+                    <GradesCard
+                      solutions={student.solutions}
+                      tests={this.getTests()}
+                    />
+                  );
+                }
+                return <div />;
+              })}
             </main>
             <Drawer
               className={classes.drawer}
@@ -182,8 +207,7 @@ class LekcijaCard extends Component {
                     />
                   );
                 })}
-                >
-                <AddNewUcenik />
+                <AddNewUcenik gradeId={this.props.grade.id} />
               </List>
             </Drawer>
           </div>
@@ -196,4 +220,8 @@ LekcijaCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect()(withStyles(styles)(LekcijaCard));
+export default connect(store => {
+  return {
+    grades: store.grades || []
+  };
+})(withStyles(styles)(LekcijaCard));

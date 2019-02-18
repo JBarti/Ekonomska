@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const API_ENDPOINT_LOCAL = "http://0.0.0.0:3001";
-const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINT = "https://f-pismenost.herokuapp.com/";
 
 export function loadStudent(email, password) {
   return {
@@ -34,10 +34,13 @@ export function selectGrade(gradeId) {
   };
 }
 
-export function addTest(folderId, { name, active = false, questions = [] }) {
+export function addTest(folderId, test) {
   return {
     type: "ADD_TEST",
-    payload: { folderId, test: { name, active, questions } }
+    payload: axios.post(API_ENDPOINT + "/proffesor/test", {
+      folderId,
+      test: test
+    })
   };
 }
 
@@ -49,6 +52,37 @@ export function addFolder(gradeId, name, description) {
       gradeId,
       name,
       description
+    })
+  };
+}
+
+export function addGrade(name, proffesorId) {
+  return {
+    type: "ADD_GRADE",
+    payload: axios.post(API_ENDPOINT + "/proffesor/grade", {
+      name,
+      proffesorId
+    })
+  };
+}
+
+export function addStudent(student, gradeId) {
+  return {
+    type: "ADD_STUDENT",
+    payload: axios.post(API_ENDPOINT + "/students/register", {
+      student,
+      gradeId
+    })
+  };
+}
+
+export function getAllSolutions(students, gradeId) {
+  students = students.map(student => student.id);
+  return {
+    type: "GET_SOLUTIONS",
+    payload: axios.post(API_ENDPOINT + "/proffesor/solutions", {
+      ids: students,
+      gradeId
     })
   };
 }

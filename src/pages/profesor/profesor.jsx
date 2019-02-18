@@ -75,7 +75,7 @@ class Profesor extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, firstName, lastName } = this.props;
 
     return (
       <div>
@@ -83,6 +83,7 @@ class Profesor extends Component {
           expanded={this.state.expanded}
           onFullscreen={this.expandContent}
           onMenu={this.showMenu}
+          name={firstName + " " + lastName}
         />
         <Content expanded={this.state.expanded}>
           {this.state.content}
@@ -92,4 +93,9 @@ class Profesor extends Component {
     );
   }
 }
-export default connect()(withStyles(styles)(Profesor));
+export default connect(store => {
+  return {
+    firstName: store.proffesor.firstName,
+    lastName: store.proffesor.lastName
+  };
+})(withStyles(styles)(Profesor));

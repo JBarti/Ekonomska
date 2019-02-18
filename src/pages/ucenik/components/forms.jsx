@@ -69,35 +69,37 @@ class Forms extends Component {
     handleClose();
   };
 
-  genQuestion = (question, aIndex, classes) => (
-    <div className={classes.question}>
-      <Typography
-        align="left"
-        variant="title"
-        className={classes.questionTitle}
-      >
-        {question.text}
-      </Typography>
-      <RadioGroup
-        onChange={this.handleFormChange}
-        name={question.id.toString()}
-        value={this.state.answers[question.id]}
-      >
-        1
-        {question.answers.map((answer, qIndex) => {
-          console.log(question.id.toString() + qIndex.toString());
-          return (
-            <FormControlLabel
-              classes={{ label: classes.radioLabel }}
-              value={question.id.toString() + qIndex.toString()}
-              label={answer.answer}
-              control={<Radio />}
-            />
-          );
-        })}
-      </RadioGroup>
-    </div>
-  );
+  genQuestion = (question, aIndex, classes) => {
+    let answers = question.answers || [];
+    return (
+      <div className={classes.question}>
+        <Typography
+          align="left"
+          variant="title"
+          className={classes.questionTitle}
+        >
+          {question.text}
+        </Typography>
+        <RadioGroup
+          onChange={this.handleFormChange}
+          name={question.id.toString()}
+          value={this.state.answers[question.id]}
+        >
+          {answers.map((answer, qIndex) => {
+            console.log(question.id.toString() + qIndex.toString());
+            return (
+              <FormControlLabel
+                classes={{ label: classes.radioLabel }}
+                value={question.id.toString() + qIndex.toString()}
+                label={answer.answer}
+                control={<Radio />}
+              />
+            );
+          })}
+        </RadioGroup>
+      </div>
+    );
+  };
 
   render() {
     const { classes, test } = this.props;

@@ -48,7 +48,7 @@ const styles = theme => ({
 });
 
 function Choice(props) {
-  const whatIsChosen = props.whatIsChosen;
+  const { whatIsChosen, handleChange } = props;
   if (whatIsChosen == "Test") {
     return (
       <div>
@@ -59,7 +59,7 @@ function Choice(props) {
           label="Naziv"
           type="text"
           name={"testName"}
-          onChange={this.handleChange}
+          onChange={handleChange}
           value={this.state["testName"]}
         />
       </div>
@@ -88,8 +88,11 @@ function Choice(props) {
 
 class addNewDialog extends Component {
   state = {
-    open: false
+    open: false,
+    value: "PDF"
   };
+
+  Choice = Choice.bind(this);
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -101,6 +104,7 @@ class addNewDialog extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
   addNew = () => {
     let { value } = this.state;
     let { folderId } = this.props;
@@ -110,6 +114,7 @@ class addNewDialog extends Component {
         let { dispatch } = this.props;
         dispatch(addTest(folderId, { name: testName, active: true }));
     }
+    this.handleClose();
   };
   render() {
     const { classes } = this.props;
@@ -129,10 +134,9 @@ class addNewDialog extends Component {
           <DialogContent>
             <DialogContentText>Odaberite što želite dodati:</DialogContentText>
             <FormControl component="fieldset" className={classes.formControl}>
-              mimi
               <RadioGroup
                 aria-label="dodaj"
-                name="Dodaj"
+                name="value"
                 className={classes.group}
                 value={this.state.value}
                 onChange={this.handleChange}
@@ -140,20 +144,10 @@ class addNewDialog extends Component {
                 <FormControlLabel
                   value="PDF"
                   control={<Radio />}
-                  labemil={
-                    <div>
-                      <PdfIcon className={classes.icons} />
-                      Pdf
-                    </div>
-                  }
-                />
-                <FormControlLabel
-                  value="Word"
-                  control={<Radio />}
                   label={
                     <div>
-                      <WordIcon className={classes.icons} />
-                      Word
+                      <PdfIcon className={classes.icons} />
+                      PDF
                     </div>
                   }
                 />
@@ -169,7 +163,10 @@ class addNewDialog extends Component {
                 />
               </RadioGroup>
             </FormControl>
-            <Choice whatIsChosen={this.state.value} />
+            {this.Choice({
+              whatIsChosen: this.state.value,
+              handleChange: this.handleChange
+            })}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="secondary">
