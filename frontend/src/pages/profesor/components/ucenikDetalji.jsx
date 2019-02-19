@@ -22,7 +22,8 @@ import { connect } from "react-redux";
 import { selectGrade } from "../../../actions/proffesorActions";
 import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-
+import EditIcon from "@material-ui/icons/Edit"
+import EditUcenikCard from "./editUcenikCard"
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -101,6 +102,22 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
+var statusOvog = 1
+function changeValue(){
+  statusOvog = !statusOvog
+}
+
+function Choice() {
+  if (statusOvog) {
+    return (
+      <GradesCard/>
+    );
+  } else
+    return (
+      <EditUcenikCard/>
+    );
+  }
+
 class LekcijaCard extends Component {
   state = {
     open: false
@@ -161,7 +178,7 @@ class LekcijaCard extends Component {
             </AppBar>
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              <GradesCard />
+              <Choice />
             </main>
             <Drawer
               className={classes.drawer}
@@ -178,8 +195,13 @@ class LekcijaCard extends Component {
                       primary={student.firstName + " " + student.lastName}
                       classes={{ text: classes.buttonText }}
                       iconColor="white"
-                      icon={<UserIcon />}
-                    />
+                      icon={<UserIcon />}>
+                       <ListItemSecondaryAction onClick={changeValue}>
+                      <IconButton aria-label="Edit">
+                        <EditIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                    </ListButton>
                   );
                 })}
                 >

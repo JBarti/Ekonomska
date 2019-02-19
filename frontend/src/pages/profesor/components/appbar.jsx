@@ -44,8 +44,10 @@ class UcenikAppBar extends Component {
                 < div id="nameTag">
                     <div>
                         <Typography className={classes.username} variant='subheading'>Ante Horvat</Typography>
+                        
                     </div>
                 </div>
+                <Button style={{color: "white"}}> Odjava  </Button>
             </Appbar>
         )
     }
