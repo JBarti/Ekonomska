@@ -1,0 +1,28 @@
+  #nameTag{ 
+    padding: 0.5em;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    border-radius: 20px;
+    background-color: #1A237E;
+    display: inline;
+    transition: color 2s;
+    background: linear-gradient(132deg, #585858, #080808);
+    background-size: 400% 400%;
+    animation: BackgroundGradient 15s ease infinite;
+    position: absolute;
+    right: 7em;
+    display: inline;
+    transition: color 1s;
+   
+   }
+
+  
+  #nameTag:hover{
+    background-color: #283593;
+    cursor: pointer;
+  }
+  @keyframes BackgroundGradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
