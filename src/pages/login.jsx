@@ -105,10 +105,28 @@ class Login extends Component {
     loadStudent(this.state.email, this.state.password)
       .payload.then(({ data }) => {
         if (data.type === "student") {
-          this.setState({ redirect: <Redirect to="/ucenik" /> });
+          this.setState({
+            redirect: (
+              <Redirect
+                to={{
+                  pathname: "/ucenik",
+                  state: { loggedIn: true }
+                }}
+              />
+            )
+          });
           dispatch({ type: "LOAD_STUDENT_FULFILLED", payload: data });
         } else {
-          this.setState({ redirect: <Redirect to="/profesor" /> });
+          this.setState({
+            redirect: (
+              <Redirect
+                to={{
+                  pathname: "/profesor",
+                  state: { loggedIn: true }
+                }}
+              />
+            )
+          });
           dispatch({ type: "LOAD_PROFFESOR_FULFILLED", payload: data });
         }
       })

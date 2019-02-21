@@ -25,6 +25,14 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidUpdate() {
+    console.log("PROPOVI");
+    console.log(this.props.proffesor);
+  }
   render() {
     const { classes, grades } = this.props;
     const { selectedGrade } = this.props;
@@ -57,6 +65,7 @@ Dashboard.propTypes = {
 
 export default connect(store => {
   return {
+    proffesor: store.proffesor,
     grades: store.grades.all || [],
     selectedGrade: store.grades.selectedGrade || {}
   };
