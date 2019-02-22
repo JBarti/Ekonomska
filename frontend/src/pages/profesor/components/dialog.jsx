@@ -18,32 +18,33 @@ const styles = theme => ({
     },
     mutton: {
         overflowX: 'hidden',
+        display: 'flex',
         background: 'linear-gradient(135deg, #C33764 0%, #252E73 100%)',
         color: 'white',
-        height: "100%",
+        webkit_scrollbar: {
+          display: "none"
+        }
+        
     }, 
     dialog: {
-      position: "static",
+      position: "initial",
       zIndex: 1000000
       
     }
 })
 
 class Dijalog extends Component {
-  state = {
-    open: false
-  };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
+    state = {
+        open: false,
+      };
+    
+      handleClickOpen = () => {
+        this.setState({ open: true });
+      };
+    
+      handleClose = () => {
+        this.setState({ open: false });
+    };
 
       handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
@@ -54,10 +55,9 @@ class Dijalog extends Component {
         const { classes } = this.props
         return (
 
-<div>
+
 <Button color="white" label="Nova poruka" onClick={this.handleClickOpen} className={classes.mutton}>
                  <AddIcon />
-                 </Button>
                 <Dialog
                  open={this.state.open}
                  onClose={this.handleClose}
@@ -87,7 +87,8 @@ class Dijalog extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-        </div>
+        </Button>
+
 )
     }
 

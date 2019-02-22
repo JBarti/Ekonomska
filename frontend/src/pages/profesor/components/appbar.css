@@ -11,7 +11,7 @@
   background-size: 400% 400%;
   animation: BackgroundGradient 25s ease infinite;
   position: absolute;
-  right: 7em;
+  right: 1em;
   display: inline;
   transition: color 1s;
    }

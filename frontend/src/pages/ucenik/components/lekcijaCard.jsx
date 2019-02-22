@@ -225,11 +225,14 @@ class LekcijaCard extends Component {
   };
 
   showFile = file => () => {
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 250);
     this.setState({ content: <External url={file.url} /> });
   };
 
   showTest = test => () => {
-    console.log(test);
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 250);
     this.setState({
       content: (
         <StudentForms

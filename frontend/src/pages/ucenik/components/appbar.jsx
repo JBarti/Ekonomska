@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, Icon, Button, Chip, Avatar } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import Appbar from '../../../common/appbar/appbar'
 
 const styles = theme => ({
@@ -36,7 +36,6 @@ class UcenikAppBar extends Component {
                         <Typography className={classes.username} variant='subheading'>Ante Horvat</Typography>
                     </div>
                 </div>
-                <Button style={{color: "white"}}> Odjava  </Button>
             </Appbar>
         )
     }

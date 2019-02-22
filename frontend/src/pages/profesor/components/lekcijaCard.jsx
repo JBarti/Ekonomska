@@ -17,7 +17,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconBook from "@material-ui/icons/Book";
 import IconQA from "@material-ui/icons/QuestionAnswer";
 import External from "../../../common/external";
-import StudentForms from "../../ucenik/components/forms";
+import StudentForms from "../../profesor/components/forms";
 import EditIcon from "@material-ui/icons/Edit";
 import EditLekcija from "../../../common/editLekcija";
 import AddNewDialog from "../../../common/addNewDialog";
@@ -29,6 +29,7 @@ const styles = theme => ({
     zIndex: 2000
   },
   cardTitle: {
+    paddingLeft: 90,
     marginTop: "15%",
     textAlign: "right",
     marginRight: "10%",
@@ -228,12 +229,21 @@ class LekcijaCard extends Component {
   };
 
   showFile = file => () => {
-    this.setState({ content: <External url={file.url} /> });
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 350);
+    setTimeout(() => {
+      this.setState({ content: <External url={file.url} /> });
+    }, 10);
   };
 
   showTest = test => () => {
-    console.log(test);
-    this.setState({ content: <StudentForms test={test} /> });
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 350);
+    setTimeout(() => {
+      this.setState({
+        content: <StudentForms test={test} folderId={this.props.folder.id} />
+      });
+    }, 10);
   };
 
   render() {
@@ -322,7 +332,7 @@ class LekcijaCard extends Component {
                     onClick={this.showTest(test)}
                   />
                 ))}
-                <AddNewDialog />
+                <AddNewDialog folderId={folder.id} />
               </List>
             </Drawer>
           </div>
