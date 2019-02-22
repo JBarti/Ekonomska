@@ -3,16 +3,12 @@ let state = {
   gradeId: null,
   firstName: null,
   lastName: null,
-  email: null,
-  loggingIn: null
+  email: null
 };
 
 export default function reducer(state = state, action) {
   let newState = { ...state };
   switch (action.type) {
-    case "LOAD_PROFFESOR_PENDING": {
-      break;
-    }
     case "LOAD_PROFFESOR_FULFILLED": {
       console.log("OVO JE PAYLOAD");
       console.log(action);
