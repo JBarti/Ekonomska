@@ -37,7 +37,7 @@ class Dashboard extends Component {
             {folders.map(folder => (
               <LekcijaCard folder={folder} />
             ))}
-            {folders.length ? <DodajLekciju /> : undefined}
+            <DodajLekciju />
           </GridList>
         ) : (
           undefined

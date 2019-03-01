@@ -115,7 +115,12 @@ function Choice() {
 
 class LekcijaCard extends Component {
   state = {
-    open: false
+    open: false,
+    content: <GradesCard />
+  };
+
+  showStudentData = student => () => {
+    this.setState({ content: <EditUcenikCard student={student} /> });
   };
 
   handleClickOpen = () => {
@@ -173,7 +178,7 @@ class LekcijaCard extends Component {
             </AppBar>
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              <Choice />
+              {this.state.content}
             </main>
             <Drawer
               className={classes.drawer}
@@ -191,8 +196,9 @@ class LekcijaCard extends Component {
                       classes={{ text: classes.buttonText }}
                       iconColor="white"
                       icon={<UserIcon />}
+                      onClick={this.showStudentData(student)}
                     >
-                      <ListItemSecondaryAction onClick={changeValue}>
+                      <ListItemSecondaryAction>
                         <IconButton aria-label="Edit">
                           <EditIcon />
                         </IconButton>
@@ -200,7 +206,6 @@ class LekcijaCard extends Component {
                     </ListButton>
                   );
                 })}
-                >
                 <AddNewUcenik />
               </List>
             </Drawer>
