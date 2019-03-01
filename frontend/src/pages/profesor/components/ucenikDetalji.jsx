@@ -19,13 +19,11 @@ import GradesCard from "./gradesCard";
 import AddNewDialog from "./addNewDialog";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
-import {
-  selectGrade,
-  getAllSolutions
-} from "../../../actions/proffesorActions";
+import { selectGrade } from "../../../actions/proffesorActions";
 import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-
+import EditIcon from "@material-ui/icons/Edit";
+import EditUcenikCard from "./editUcenikCard";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -104,23 +102,22 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
+var statusOvog = 1;
+function changeValue() {
+  statusOvog = !statusOvog;
+}
+
+function Choice() {
+  if (statusOvog) {
+    return <GradesCard />;
+  } else return <EditUcenikCard />;
+}
+
 class LekcijaCard extends Component {
-  constructor(props) {
-    super(props);
-    let { dispatch, grade } = props;
-    dispatch(getAllSolutions(grade.students, grade.id));
-  }
   state = {
     open: false
   };
 
-  getTests = () => {
-    return this.props.grade.folders
-      .map(folder => {
-        return folder.tests;
-      })
-      .flat();
-  };
   handleClickOpen = () => {
     console.log("OPEN");
     this.setState({ open: true });
@@ -136,7 +133,7 @@ class LekcijaCard extends Component {
   };
 
   render() {
-    const { classes, grade } = this.props;
+    const { classes } = this.props;
     const { name, students, id } = this.props.grade;
     return (
       <div>
@@ -170,23 +167,13 @@ class LekcijaCard extends Component {
                   color="inherit"
                   className={classes.flex}
                 >
-                  {this.props.grade.name}
+                  Ante Antic
                 </Typography>
               </Toolbar>
             </AppBar>
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              {grade.students.map(student => {
-                if (student.solutions) {
-                  return (
-                    <GradesCard
-                      solutions={student.solutions}
-                      tests={this.getTests()}
-                    />
-                  );
-                }
-                return <div />;
-              })}
+              <Choice />
             </main>
             <Drawer
               className={classes.drawer}
@@ -204,10 +191,17 @@ class LekcijaCard extends Component {
                       classes={{ text: classes.buttonText }}
                       iconColor="white"
                       icon={<UserIcon />}
-                    />
+                    >
+                      <ListItemSecondaryAction onClick={changeValue}>
+                        <IconButton aria-label="Edit">
+                          <EditIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListButton>
                   );
                 })}
-                <AddNewUcenik gradeId={this.props.grade.id} />
+                >
+                <AddNewUcenik />
               </List>
             </Drawer>
           </div>
