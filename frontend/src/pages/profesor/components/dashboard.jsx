@@ -29,6 +29,7 @@ class Dashboard extends Component {
     const { classes, grades } = this.props;
     const { selectedGrade } = this.props;
     const folders = selectedGrade.folders || [];
+    const notifications = selectedGrade.notifications || [];
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         {Object.getOwnPropertyNames(selectedGrade).length !== 0 ? (
@@ -43,7 +44,14 @@ class Dashboard extends Component {
         )}
         <Row>
           <StdlistCard grades={grades} />
-          <NotificationCard />
+          {Object.keys(selectedGrade).length ? (
+            <NotificationCard
+              notifications={notifications}
+              gradeId={selectedGrade.id}
+            />
+          ) : (
+            undefined
+          )}
         </Row>
       </div>
     );

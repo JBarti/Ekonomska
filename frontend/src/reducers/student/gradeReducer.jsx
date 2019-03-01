@@ -2,7 +2,8 @@ let state = {
   id: null,
   name: null,
   proffesorId: null,
-  folders: null
+  folders: null,
+  notifications: null
 };
 
 export default function reducer(state = state, action) {

@@ -9,6 +9,8 @@ export default function reducer(state = state, action) {
     case "LOAD_PROFFESOR_FULFILLED": {
       let user = action.payload.data ? action.payload.data : action.payload;
       let all = user.grades;
+      console.log("GRADES");
+      console.log(all);
       newState = { ...state, all };
       break;
     }
@@ -49,8 +51,10 @@ export default function reducer(state = state, action) {
     case "ADD_GRADE_FULFILLED": {
       let { grade } = action.payload.data;
       grade.students = [];
-      state.all.push(grade);
-      newState = { ...state };
+      grade.folders = [];
+      let { all } = state;
+      all = [...all, grade];
+      newState = { ...state, all };
       break;
     }
     case "ADD_STUDENT_FULFILLED": {
@@ -60,8 +64,6 @@ export default function reducer(state = state, action) {
       let grade = all.filter(grade => {
         return grade.id === gradeId;
       })[0];
-      console.log("GRED");
-      console.log(grade);
       grade.students.push(user);
       newState = { ...state, all };
       break;
@@ -77,6 +79,30 @@ export default function reducer(state = state, action) {
         );
       });
       newState = { ...state, all: grades };
+      break;
+    }
+    case "ADD_NOTIFICATION_FULFILLED": {
+      let { notification, gradeId } = action.payload.data;
+      let { selectedGrade } = newState;
+      let newGrade = { ...selectedGrade };
+      newGrade.notifications.push(notification);
+      newState = { ...state, selectedGrade: newGrade };
+      break;
+    }
+    case "REMOVE_NOTIFICATION_FULFILLED": {
+      let { notificationId } = action.payload.data;
+      let { selectedGrade } = newState;
+      let newGrade = { ...selectedGrade };
+      let { notifications } = newGrade;
+      notifications = notifications.filter(notification => {
+        console.log(notification.id, notificationId);
+        return notification.id != notificationId;
+      });
+      newGrade.notifications = notifications;
+      console.log("NJU");
+      console.log(notifications);
+      newState = { ...state, selectedGrade: newGrade };
+      newState;
       break;
     }
   }

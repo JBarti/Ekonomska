@@ -222,6 +222,7 @@ LekcijaCard.propTypes = {
 
 export default connect(store => {
   return {
-    grades: store.grades || []
+    grades: store.grades || [],
+    all: store.grades.all || []
   };
 })(withStyles(styles)(LekcijaCard));

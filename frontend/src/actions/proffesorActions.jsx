@@ -2,8 +2,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_ENDPOINT_LOCAL = "http://0.0.0.0:3001";
-const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINT = "http://0.0.0.0:3001";
+const API_ENDPOINT_G = "https://f-pismenost.herokuapp.com";
 
 export function loadStudent(email, password) {
   return {
@@ -83,6 +83,26 @@ export function getAllSolutions(students, gradeId) {
     payload: axios.post(API_ENDPOINT + "/proffesor/solutions", {
       ids: students,
       gradeId
+    })
+  };
+}
+
+export function createNotification(title, description, gradeId) {
+  return {
+    type: "ADD_NOTIFICATION",
+    payload: axios.post(API_ENDPOINT + "/proffesor/notifications", {
+      title,
+      description,
+      gradeId
+    })
+  };
+}
+
+export function deleteNotification(notificationId) {
+  return {
+    type: "REMOVE_NOTIFICATION",
+    payload: axios.delete(API_ENDPOINT + "/proffesor/notifications", {
+      data: { notificationId }
     })
   };
 }
