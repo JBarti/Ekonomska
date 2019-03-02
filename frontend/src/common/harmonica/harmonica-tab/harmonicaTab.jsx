@@ -66,7 +66,7 @@ class HarmonicaTab extends Component {
           </Typography>
           {this.props.children}
         </ExpansionPanelDetails>
-        {deleteable ? (
+        {this.props.deleteable ? (
           <IconButton
             onClick={this.props.onTrash}
             className={classes.deleteBtn}

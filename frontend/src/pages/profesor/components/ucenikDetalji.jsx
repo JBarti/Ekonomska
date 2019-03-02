@@ -15,8 +15,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Visibility from "@material-ui/icons/Visibility";
 import UserIcon from "@material-ui/icons/Person";
-import GradesCard from "./gradesCard";
-import AddNewDialog from "./addNewDialog";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
 import { selectGrade } from "../../../actions/proffesorActions";
@@ -24,6 +22,8 @@ import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import EditIcon from "@material-ui/icons/Edit";
 import EditUcenikCard from "./editUcenikCard";
+import UcenikTests from "./ucenikTests";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -96,41 +96,90 @@ const styles = theme => ({
   },
   buttonText: {
     color: "white"
+  },
+  homePage: {
+    marginTop: 100
   }
 });
+
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-var statusOvog = 1;
-function changeValue() {
-  statusOvog = !statusOvog;
-}
-
-function Choice() {
-  if (statusOvog) {
-    return <GradesCard />;
-  } else return <EditUcenikCard />;
+function HomePage(props) {
+  const { classes, grade } = props;
+  return (
+    <div className={classes.homePage}>
+      <Typography align="center" variant="display3">
+        Popis učenika {grade}
+      </Typography>
+      <Typography align="center" variant="headline">
+        Odaberite učenika da pristupite njegovim podatcima
+      </Typography>
+    </div>
+  );
 }
 
 class LekcijaCard extends Component {
+  homePage = (
+    <HomePage classes={this.props.classes} grade={this.props.grade.name} />
+  );
   state = {
     open: false,
-    content: <GradesCard />
+    content: this.homePage
+  };
+
+  getTests = () => {
+    let { folders } = this.props.grade;
+    let tests = [];
+    folders.forEach(folder => {
+      tests.push(...folder.tests);
+    });
+    return tests;
   };
 
   showStudentData = student => () => {
-    this.setState({ content: <EditUcenikCard student={student} /> });
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 410);
+    setTimeout(() => {
+      this.setState({
+        content: (
+          <div>
+            <EditUcenikCard student={student} toHome={this.toHome} />
+            <UcenikTests
+              solutions={student.solutions || []}
+              tests={this.getTests()}
+            />
+          </div>
+        )
+      });
+    }, 420);
+  };
+
+  toHome = () => {
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 410);
+    setTimeout(() => {
+      this.setState({
+        content: (
+          <HomePage
+            classes={this.props.classes}
+            grade={this.props.grade.name}
+          />
+        )
+      });
+    }, 420);
   };
 
   handleClickOpen = () => {
-    console.log("OPEN");
     this.setState({ open: true });
   };
 
   handleClose = () => {
-    console.log("KLOOZ");
     this.setState({ open: false });
+    setTimeout(() => {
+      this.setState({ content: this.homePage });
+    }, 100);
   };
 
   selectGrade = gradeId => () => {
@@ -206,7 +255,7 @@ class LekcijaCard extends Component {
                     </ListButton>
                   );
                 })}
-                <AddNewUcenik />
+                <AddNewUcenik gradeId={id} />
               </List>
             </Drawer>
           </div>

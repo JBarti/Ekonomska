@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import ContentCard from "../../../common/content-card/contentCard";
 import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from "@material-ui/core";
+import { connect } from "react-redux";
+import {
+  updateStudent,
+  removeStudent
+} from "../../../actions/proffesorActions";
 
 const styles = theme => ({
   textField: {
@@ -12,11 +18,12 @@ const styles = theme => ({
   },
   controls: {
     marginTop: 10,
-    marginLeft: "5%"
+    marginLeft: "2%"
   },
   controlButton: {
-    marginLeft: 10,
-    marginTop: 15
+    marginLeft: 20,
+    marginTop: 15,
+    marginBottom: 15
   }
 });
 class EditUcenikCard extends Component {
@@ -26,6 +33,24 @@ class EditUcenikCard extends Component {
       ...this.props.student
     };
   }
+
+  updateStudentData = () => {
+    let { dispatch } = this.props;
+    let { id, firstName, lastName, password, email } = this.state;
+    console.log(this.state);
+    dispatch(updateStudent(id, firstName, lastName, email, password));
+  };
+
+  deleteStudent = () => {
+    let { dispatch } = this.props;
+    let { id } = this.state;
+    dispatch(removeStudent(id));
+    this.props.toHome();
+  };
+
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
   render() {
     const { classes } = this.props;
     const { value } = this.state;
@@ -42,6 +67,8 @@ class EditUcenikCard extends Component {
             label="Ime"
             className={classes.textField}
             value={this.state.firstName}
+            name="firstName"
+            onChange={this.onChange}
             margin="normal"
           />
           <TextField
@@ -49,6 +76,8 @@ class EditUcenikCard extends Component {
             label="Prezime"
             className={classes.textField}
             value={this.state.lastName}
+            name="lastName"
+            onChange={this.onChange}
             margin="normal"
           />
           <TextField
@@ -56,6 +85,8 @@ class EditUcenikCard extends Component {
             label="Korisničko ime"
             className={classes.textField}
             value={this.state.email}
+            name="email"
+            onChange={this.onChange}
             margin="normal"
           />
           <TextField
@@ -63,6 +94,8 @@ class EditUcenikCard extends Component {
             label="Šifra"
             className={classes.textField}
             value={this.state.password}
+            name="password"
+            onChange={this.onChange}
             margin="normal"
           />
         </div>
@@ -71,15 +104,18 @@ class EditUcenikCard extends Component {
             className={classes.controlButton}
             variant="raised"
             color="primary"
+            onClick={this.updateStudentData}
           >
             Promijeni
           </Button>
           <Button
             className={classes.controlButton}
-            variant="raised"
-            color="secondary"
+            variant="fab"
+            size="medium"
+            color="gray"
+            onClick={this.deleteStudent}
           >
-            Odustani
+            <DeleteIcon />
           </Button>
         </div>
       </ContentCard>
@@ -87,4 +123,4 @@ class EditUcenikCard extends Component {
   }
 }
 
-export default withStyles(styles)(EditUcenikCard);
+export default connect()(withStyles(styles)(EditUcenikCard));

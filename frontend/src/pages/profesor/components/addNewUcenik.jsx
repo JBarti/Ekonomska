@@ -57,6 +57,8 @@ class addNewUcenik extends Component {
   addNewUcenik = event => {
     let { dispatch, gradeId } = this.props;
     console.log(this.state.ucenik);
+    console.log("DEJTA");
+    console.log(gradeId);
     dispatch(addStudent(this.state.ucenik, gradeId));
     this.handleClose();
   };

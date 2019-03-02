@@ -22,13 +22,16 @@ export default function reducer(state = state, action) {
       newState = { ...state, selectedGrade };
       break;
     }
-    case "ADD_TEST": {
+    case "ADD_TEST_FULFILLED": {
+      let { test, folderId } = action.payload.data;
       let { selectedGrade } = state;
       let newGrade = { ...selectedGrade };
-      let { test, folderId } = action.payload;
       let folder = newGrade.folders.filter(folder => {
         return folderId === folder.id;
       })[0];
+      folder.tests = folder.tests.filter(testStari => {
+        return test.id != testStari.id;
+      });
       folder.tests.push(test);
       newState = { ...state, selectedGrade: newGrade };
     }
@@ -99,6 +102,42 @@ export default function reducer(state = state, action) {
       newState = { ...state, selectedGrade: newGrade };
       newState;
       break;
+    }
+    case "UPDATE_STUDENT_FULFILLED": {
+      let { id, firstName, lastName, password, email } = action.payload.data;
+      console.log("PEJLOD");
+      console.log(action.payload.data);
+      let { all } = newState;
+      all = [...all];
+      all.forEach(grade => {
+        console.log(grade);
+        grade.students.forEach(student => {
+          console.log(student);
+          console.log(id);
+          if (student.id === id) {
+            console.log("FOUND");
+            student.firstName = firstName;
+            student.lastName = lastName;
+            student.email = email;
+            student.password = password;
+          }
+        });
+      });
+      newState = { ...state, all };
+      break;
+    }
+    case "REMOVE_STUDENT_FULFILLED": {
+      let { studentId } = action.payload.data;
+      console.log(action.payload.data);
+      let { all } = newState;
+      all = [...all];
+      all.forEach(grade => {
+        grade.students = grade.students.filter(student => {
+          console.log(student.id, studentId);
+          return student.id != studentId;
+        });
+      });
+      newState = { ...state, all };
     }
   }
 

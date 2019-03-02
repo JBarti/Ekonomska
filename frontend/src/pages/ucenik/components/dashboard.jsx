@@ -50,12 +50,20 @@ class Dashboard extends Component {
             />
           ))}
         </GridList>
-        <Row>
-          <NotificationCard notifications={notifications} />
-        </Row>
-        <Row>
-          <GradesCard solutions={solutions} tests={tests} />
-        </Row>
+        {notifications.length ? (
+          <Row>
+            <NotificationCard notifications={notifications} />{" "}
+          </Row>
+        ) : (
+          <div />
+        )}
+        {solutions.length ? (
+          <Row>
+            <GradesCard solutions={solutions} tests={tests} />
+          </Row>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
@@ -68,7 +76,7 @@ Dashboard.propTypes = {
 
 export default connect(store => {
   return {
-    notifications: store.notifications.all || [],
+    notifications: store.grade.notifications || [],
     folders: store.grade.folders || [],
     studentId: store.student.id,
     solutions: store.student.solutions || []

@@ -59,6 +59,7 @@ class NotifiactionCard extends Component {
             console.log(index, "INDEEEX");
             return (
               <HarmonicaTab
+                deleteable={true}
                 type={notification.important ? "warning" : "message"}
                 heading={notification.title}
                 subheading={notification.description.substring(0, 20)}

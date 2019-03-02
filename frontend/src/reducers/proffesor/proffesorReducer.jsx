@@ -3,7 +3,8 @@ let state = {
   gradeId: null,
   firstName: null,
   lastName: null,
-  email: null
+  email: null,
+  fail: false
 };
 
 export default function reducer(state = state, action) {
@@ -14,7 +15,13 @@ export default function reducer(state = state, action) {
       console.log(action);
       let user = action.payload.data ? action.payload.data : action.payload;
       let { id, firstName, lastName, email } = user;
-      newState = { ...state, id, firstName, lastName, email };
+      newState = { ...state, id, firstName, lastName, email, fail: false };
+      break;
+    }
+    case "LOAD_PROFFESOR_REJECTED": {
+      console.log("OVO JE PAYLOAD");
+      console.log(action);
+      newState = { ...state, fail: true };
       break;
     }
   }

@@ -6,7 +6,7 @@ import UcenikAppBar from "./components/appbar";
 import NotificationCard from "./components/notificationCard";
 import NotesCard from "./components/notesCard";
 import Dashboard from "./components/dashboard";
-import External from "./components/external";
+import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { loadSession } from "../../actions/proffesorActions";
 
@@ -43,6 +43,12 @@ const defaultContent = (
 class Profesor extends Component {
   componentWillMount() {
     this.props.dispatch(loadSession());
+  }
+
+  componentDidUpdate() {
+    if (this.props.fail) {
+      this.setState({ redirect: <Redirect to="/" /> });
+    }
   }
 
   state = {
@@ -89,12 +95,14 @@ class Profesor extends Component {
           {this.state.content}
           <Dashboard />
         </Content>
+        {this.state.redirect}
       </div>
     );
   }
 }
 export default connect(store => {
   return {
+    fail: store.proffesor.fail,
     firstName: store.proffesor.firstName,
     lastName: store.proffesor.lastName
   };
