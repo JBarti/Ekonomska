@@ -4,7 +4,8 @@ let state = {
   firstName: null,
   lastName: null,
   email: null,
-  solutions: []
+  solutions: [],
+  fail: false
 };
 
 export default function reducer(state = state, action) {
@@ -14,7 +15,15 @@ export default function reducer(state = state, action) {
       console.log("OVO JE PAYLOAD");
       console.log(action.payload.data);
       let user = action.payload.data ? action.payload.data : action.payload;
-      let { id, gradeId, firstName, lastName, email, solutions } = user;
+      let {
+        id,
+        gradeId,
+        firstName,
+        lastName,
+        email,
+        solutions,
+        notifications
+      } = user;
       newState = {
         ...state,
         id,
@@ -22,7 +31,9 @@ export default function reducer(state = state, action) {
         firstName,
         lastName,
         email,
-        solutions
+        solutions,
+        notifications,
+        fail: false
       };
       break;
     }
@@ -36,7 +47,8 @@ export default function reducer(state = state, action) {
         firstName,
         lastName,
         email,
-        solutions
+        solutions,
+        fail: false
       };
       break;
     }
@@ -47,6 +59,9 @@ export default function reducer(state = state, action) {
       console.log("SADASŠDSAOŠPDOADJO");
       console.log(solutions);
       newState = { ...state, solutions: oldSolutions };
+    }
+    case "LOAD_STUDENT_REJECTED": {
+      newState = { ...state, fail: true };
     }
   }
 

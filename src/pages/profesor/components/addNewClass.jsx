@@ -108,6 +108,7 @@ class addNewClass extends Component {
 
 export default connect(store => {
   return {
-    proffesorId: store.proffesor.id
+    proffesorId: store.proffesor.id,
+    all: store.grades.all
   };
 })(withStyles(styles)(addNewClass));

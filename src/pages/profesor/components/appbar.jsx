@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, Icon, Button, Chip, Avatar } from "@material-ui/core";
 import Appbar from "../../../common/appbar/appbar";
-import IconButton from "@material-ui/core/IconButton";
-import Fullscreen from "@material-ui/icons/Fullscreen";
-import MenuIcon from "@material-ui/icons/Menu";
+import { logOut } from "../../../actions/proffesorActions";
+import { connect } from "react-redux";
+import { Redirect } from "react-router";
 import "./appbar.css";
 
 const styles = theme => ({
@@ -29,8 +29,18 @@ const styles = theme => ({
 });
 
 class UcenikAppBar extends Component {
+  state = {
+    redirect: null
+  };
+
+  logOut = () => {
+    let { dispatch } = this.props;
+    dispatch(logOut());
+    this.setState({ redirect: <Redirect to="/" /> });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, firstName, lastName } = this.props;
     return (
       <Appbar
         expanded={
@@ -44,13 +54,23 @@ class UcenikAppBar extends Component {
         <div id="nameTag">
           <div>
             <Typography className={classes.username} variant="subheading">
-              {this.props.name}
+              {firstName + " " + lastName}
             </Typography>
           </div>
         </div>
+        <Button onClick={this.logOut} style={{ color: "white" }}>
+          {" "}
+          Odjava{" "}
+        </Button>
+        {this.state.redirect}
       </Appbar>
     );
   }
 }
 
-export default withStyles(styles)(UcenikAppBar);
+export default connect(store => {
+  return {
+    firstName: store.proffesor.firstName,
+    lastName: store.proffesor.lastName
+  };
+})(withStyles(styles)(UcenikAppBar));

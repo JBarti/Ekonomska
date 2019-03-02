@@ -9,6 +9,8 @@ export default function reducer(state = state, action) {
     case "LOAD_PROFFESOR_FULFILLED": {
       let user = action.payload.data ? action.payload.data : action.payload;
       let all = user.grades;
+      console.log("GRADES");
+      console.log(all);
       newState = { ...state, all };
       break;
     }
@@ -21,19 +23,17 @@ export default function reducer(state = state, action) {
       break;
     }
     case "ADD_TEST_FULFILLED": {
+      let { test, folderId } = action.payload.data;
       let { selectedGrade } = state;
       let newGrade = { ...selectedGrade };
-      let { test, folderId, isNew } = action.payload.data;
       let folder = newGrade.folders.filter(folder => {
         return folderId === folder.id;
       })[0];
-      console.log(folderId);
-      console.log(folder);
-      if (isNew) {
-        folder.tests.push(test);
-      }
+      folder.tests = folder.tests.filter(testStari => {
+        return test.id != testStari.id;
+      });
+      folder.tests.push(test);
       newState = { ...state, selectedGrade: newGrade };
-      break;
     }
     case "ADD_FOLDER_FULFILLED": {
       let { selectedGrade } = state;
@@ -49,8 +49,10 @@ export default function reducer(state = state, action) {
     case "ADD_GRADE_FULFILLED": {
       let { grade } = action.payload.data;
       grade.students = [];
-      state.all.push(grade);
-      newState = { ...state };
+      grade.folders = [];
+      let { all } = state;
+      all = [...all, grade];
+      newState = { ...state, all };
       break;
     }
     case "ADD_STUDENT_FULFILLED": {
@@ -60,8 +62,6 @@ export default function reducer(state = state, action) {
       let grade = all.filter(grade => {
         return grade.id === gradeId;
       })[0];
-      console.log("GRED");
-      console.log(grade);
       grade.students.push(user);
       newState = { ...state, all };
       break;
@@ -78,6 +78,66 @@ export default function reducer(state = state, action) {
       });
       newState = { ...state, all: grades };
       break;
+    }
+    case "ADD_NOTIFICATION_FULFILLED": {
+      let { notification, gradeId } = action.payload.data;
+      let { selectedGrade } = newState;
+      let newGrade = { ...selectedGrade };
+      newGrade.notifications.push(notification);
+      newState = { ...state, selectedGrade: newGrade };
+      break;
+    }
+    case "REMOVE_NOTIFICATION_FULFILLED": {
+      let { notificationId } = action.payload.data;
+      let { selectedGrade } = newState;
+      let newGrade = { ...selectedGrade };
+      let { notifications } = newGrade;
+      notifications = notifications.filter(notification => {
+        console.log(notification.id, notificationId);
+        return notification.id != notificationId;
+      });
+      newGrade.notifications = notifications;
+      console.log("NJU");
+      console.log(notifications);
+      newState = { ...state, selectedGrade: newGrade };
+      newState;
+      break;
+    }
+    case "UPDATE_STUDENT_FULFILLED": {
+      let { id, firstName, lastName, password, email } = action.payload.data;
+      console.log("PEJLOD");
+      console.log(action.payload.data);
+      let { all } = newState;
+      all = [...all];
+      all.forEach(grade => {
+        console.log(grade);
+        grade.students.forEach(student => {
+          console.log(student);
+          console.log(id);
+          if (student.id === id) {
+            console.log("FOUND");
+            student.firstName = firstName;
+            student.lastName = lastName;
+            student.email = email;
+            student.password = password;
+          }
+        });
+      });
+      newState = { ...state, all };
+      break;
+    }
+    case "REMOVE_STUDENT_FULFILLED": {
+      let { studentId } = action.payload.data;
+      console.log(action.payload.data);
+      let { all } = newState;
+      all = [...all];
+      all.forEach(grade => {
+        grade.students = grade.students.filter(student => {
+          console.log(student.id, studentId);
+          return student.id != studentId;
+        });
+      });
+      newState = { ...state, all };
     }
   }
 

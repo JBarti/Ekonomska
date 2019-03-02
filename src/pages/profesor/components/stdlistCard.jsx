@@ -4,7 +4,8 @@ import ContentCard from "../../../common/content-card/contentCard";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import UcenikDetalji from "./ucenikDetalji";
-import AddNewClass from "./addNewClass"
+import AddNewClass from "./addNewClass";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -12,7 +13,7 @@ const styles = theme => ({
     width: "100%"
   },
   addBtn: {
-    float: "right",
+    float: "right"
   }
 });
 
@@ -27,9 +28,17 @@ class stdlistCard extends Component {
   render() {
     const { classes, grades } = this.props;
     return (
-      <ContentCard cardName={<div><div>Moji razredi</div><AddNewClass/></div>}  className={classes.root}>
+      <ContentCard
+        cardName={
+          <div>
+            <div>Moji razredi</div>
+            <AddNewClass />
+          </div>
+        }
+        className={classes.root}
+      >
         <List component="nav" className={classes.root}>
-          {grades.map(grade => (
+          {this.props.all.map(grade => (
             <UcenikDetalji grade={grade} />
           ))}
           <Divider />
@@ -39,4 +48,8 @@ class stdlistCard extends Component {
   }
 }
 
-export default withStyles(styles)(stdlistCard);
+export default connect(store => {
+  return {
+    all: store.grades.all || []
+  };
+})(withStyles(styles)(stdlistCard));

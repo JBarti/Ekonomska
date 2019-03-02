@@ -29,10 +29,11 @@ class NotifiactionCard extends Component {
             console.log(index, "INDEEEX");
             return (
               <HarmonicaTab
+                deleteable={false}
                 type={notification.important ? "warning" : "message"}
-                heading={notification.from}
-                subheading={notification.description}
-                bodyText={notification.text}
+                heading={notification.title}
+                subheading={notification.description.substring(0, 20)}
+                bodyText={notification.description}
                 name={index}
                 onClick={this.expandTab(index)}
                 expanded={this.state.open == index}

@@ -15,16 +15,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Visibility from "@material-ui/icons/Visibility";
 import UserIcon from "@material-ui/icons/Person";
-import GradesCard from "./gradesCard";
-import AddNewDialog from "./addNewDialog";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
-import {
-  selectGrade,
-  getAllSolutions
-} from "../../../actions/proffesorActions";
+import { selectGrade } from "../../../actions/proffesorActions";
 import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import EditIcon from "@material-ui/icons/Edit";
+import EditUcenikCard from "./editUcenikCard";
+import UcenikTests from "./ucenikTests";
 
 const drawerWidth = 240;
 
@@ -98,37 +96,90 @@ const styles = theme => ({
   },
   buttonText: {
     color: "white"
+  },
+  homePage: {
+    marginTop: 100
   }
 });
+
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
+function HomePage(props) {
+  const { classes, grade } = props;
+  return (
+    <div className={classes.homePage}>
+      <Typography align="center" variant="display3">
+        Popis učenika {grade}
+      </Typography>
+      <Typography align="center" variant="headline">
+        Odaberite učenika da pristupite njegovim podatcima
+      </Typography>
+    </div>
+  );
+}
+
 class LekcijaCard extends Component {
-  constructor(props) {
-    super(props);
-    let { dispatch, grade } = props;
-    dispatch(getAllSolutions(grade.students, grade.id));
-  }
+  homePage = (
+    <HomePage classes={this.props.classes} grade={this.props.grade.name} />
+  );
   state = {
-    open: false
+    open: false,
+    content: this.homePage
   };
 
   getTests = () => {
-    return this.props.grade.folders
-      .map(folder => {
-        return folder.tests;
-      })
-      .flat();
+    let { folders } = this.props.grade;
+    let tests = [];
+    folders.forEach(folder => {
+      tests.push(...folder.tests);
+    });
+    return tests;
   };
+
+  showStudentData = student => () => {
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 410);
+    setTimeout(() => {
+      this.setState({
+        content: (
+          <div>
+            <EditUcenikCard student={student} toHome={this.toHome} />
+            <UcenikTests
+              solutions={student.solutions || []}
+              tests={this.getTests()}
+            />
+          </div>
+        )
+      });
+    }, 420);
+  };
+
+  toHome = () => {
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 410);
+    setTimeout(() => {
+      this.setState({
+        content: (
+          <HomePage
+            classes={this.props.classes}
+            grade={this.props.grade.name}
+          />
+        )
+      });
+    }, 420);
+  };
+
   handleClickOpen = () => {
-    console.log("OPEN");
     this.setState({ open: true });
   };
 
   handleClose = () => {
-    console.log("KLOOZ");
     this.setState({ open: false });
+    setTimeout(() => {
+      this.setState({ content: this.homePage });
+    }, 100);
   };
 
   selectGrade = gradeId => () => {
@@ -136,7 +187,7 @@ class LekcijaCard extends Component {
   };
 
   render() {
-    const { classes, grade } = this.props;
+    const { classes } = this.props;
     const { name, students, id } = this.props.grade;
     return (
       <div>
@@ -170,23 +221,13 @@ class LekcijaCard extends Component {
                   color="inherit"
                   className={classes.flex}
                 >
-                  {this.props.grade.name}
+                  Ante Antic
                 </Typography>
               </Toolbar>
             </AppBar>
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              {grade.students.map(student => {
-                if (student.solutions) {
-                  return (
-                    <GradesCard
-                      solutions={student.solutions}
-                      tests={this.getTests()}
-                    />
-                  );
-                }
-                return <div />;
-              })}
+              {this.state.content}
             </main>
             <Drawer
               className={classes.drawer}
@@ -204,10 +245,17 @@ class LekcijaCard extends Component {
                       classes={{ text: classes.buttonText }}
                       iconColor="white"
                       icon={<UserIcon />}
-                    />
+                      onClick={this.showStudentData(student)}
+                    >
+                      <ListItemSecondaryAction>
+                        <IconButton aria-label="Edit">
+                          <EditIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListButton>
                   );
                 })}
-                <AddNewUcenik gradeId={this.props.grade.id} />
+                <AddNewUcenik gradeId={id} />
               </List>
             </Drawer>
           </div>
@@ -222,6 +270,7 @@ LekcijaCard.propTypes = {
 
 export default connect(store => {
   return {
-    grades: store.grades || []
+    grades: store.grades || [],
+    all: store.grades.all || []
   };
 })(withStyles(styles)(LekcijaCard));
