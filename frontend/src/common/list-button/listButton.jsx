@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import FileDownload from "@material-ui/icons/FileDownload";
 import Typography from "@material-ui/core/Typography";
 import Android from "@material-ui/icons/Android";
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 const styles = theme => ({
   listItemText: {
@@ -38,6 +39,9 @@ class ListButton extends Component {
         <ListItemIcon style={{ color: this.props.iconColor }}>
           {this.props.icon || <Android />}
         </ListItemIcon>
+        <ListItemSecondaryAction>
+                      {this.props.secondAction}
+                    </ListItemSecondaryAction>
         <ListItemText
           inset
           primary={this.props.primary}

@@ -3,16 +3,16 @@ import { withStyles } from "@material-ui/core/styles";
 import ContentCard from "../../../common/content-card/contentCard";
 import Harmonica from "../../../common/harmonica/harmonica";
 import HarmonicaTab from "../../../common/harmonica/harmonica-tab/harmonicaTab";
-import CreateNotificationDialog from "./dialog";
+import CreateNotificationDialog from "./newNotificationDialog";
 import { deleteNotification } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
-    overflow: "hidden"
+    overflow: "hidden",
+    position: "relative"
   },
   mutton: {
-    position: "absolute",
     zIndex: 25,
     right: 100,
     bottom: 100,
@@ -49,12 +49,16 @@ class NotifiactionCard extends Component {
     const { classes } = this.props;
     const { notifications, gradeId } = this.props;
     return (
-      <ContentCard cardName="Obavijesti" className={classes.root}>
-        <CreateNotificationDialog
-          className={classes.mutton}
-          gradeId={gradeId}
-        />
-        <Harmonica>
+      <ContentCard
+      cardName={
+        <div>
+          <div>Obavjesti</div>
+          <CreateNotificationDialog
+          gradeId={gradeId} />
+        </div>
+      }
+      className={classes.root}>
+        <Harmonica className={classes.hm}>
           {notifications.map((notification, index) => {
             console.log(index, "INDEEEX");
             return (

@@ -58,7 +58,7 @@ class editLekcija extends Component {
         const { classes } = this.props
         return (
             <div>
-                <IconButton className={classes.deleteBtn} onClick={this.handleClickOpen} aria-label="Edit">
+                <IconButton variant="outlined" className={classes.deleteBtn} onClick={this.handleClickOpen} aria-label="Edit">
                   <EditIcon />
                 </IconButton>
                 <Dialog
@@ -77,11 +77,11 @@ class editLekcija extends Component {
                          <DeleteIcon />
           </IconButton>
 
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.handleClose} variant="contained" color="secondary">
               Odustani
             </Button>
 
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} variant="contained" color="primary">
               Potvrdi
             </Button>
           </DialogActions>

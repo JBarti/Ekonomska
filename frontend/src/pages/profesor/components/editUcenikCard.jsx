@@ -102,7 +102,7 @@ class EditUcenikCard extends Component {
         <div className={classes.controls}>
           <Button
             className={classes.controlButton}
-            variant="raised"
+            variant="outlined"
             color="primary"
             onClick={this.updateStudentData}
           >
@@ -110,9 +110,10 @@ class EditUcenikCard extends Component {
           </Button>
           <Button
             className={classes.controlButton}
-            variant="fab"
+            variant="outlined"
+            color="secondary"
             size="medium"
-            color="gray"
+            
             onClick={this.deleteStudent}
           >
             <DeleteIcon />

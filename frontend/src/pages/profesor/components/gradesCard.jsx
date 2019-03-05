@@ -25,6 +25,11 @@ const styles = theme => ({
         padding: '1%',
         zIndex: 0
     },
+    row: {
+        '&:nth-of-type(odd)': {
+          backgroundColor: theme.palette.background.default,
+        }
+    }
 })
 
 
@@ -85,7 +90,7 @@ class GradesCard extends Component {
                         <TableBody>
                             {rows.map(row => {
                                 return (
-                                    <TableRow key={row.id}>
+                                    <TableRow className={classes.row}  key={row.id}>
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>

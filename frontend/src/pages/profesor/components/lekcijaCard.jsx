@@ -20,6 +20,7 @@ import External from "../../../common/external";
 import StudentForms from "../../profesor/components/forms";
 import EditLekcija from "../../../common/editLekcija";
 import AddNewDialog from "../../../common/addNewDialog";
+import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from "react-redux";
 const drawerWidth = 240;
 
@@ -109,14 +110,16 @@ const styles = theme => ({
   content: {
     width: "78%",
     height: "100%",
-    margin: "0 auto"
+    margin: "0 auto",
   },
   contentText: {
     fontSize: 24,
-    borderLeftWidth: "3px",
+    borderLeftWidth: "5px",
     borderLeftStyle: "solid",
     borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 1 100%",
-    paddingLeft: 15
+    paddingLeft: 15,
+    maxWidth: "60%",
+    margin: "0 auto"
   },
   contentTitle: {
     paddingBottom: 25,
@@ -131,11 +134,15 @@ const styles = theme => ({
   },
   appbarTitle: {
     paddingLeft: 10
+  },
+  landingTxt: {
+    textAlign: "center",
+    marginTop: "15%"
   }
 });
 
 const startingScreen = (classes, lekcija) => (
-  <div>
+  <div className={classes.landingTxt}>
     <Typography className={classes.contentTitle} variant="display2">
       {lekcija.name}
     </Typography>
@@ -256,7 +263,9 @@ class LekcijaCard extends Component {
                     iconColor="white"
                     icon={<IconBook />}
                     onClick={this.showFile(file)}
-                  />
+                    secondAction={<IconButton><DeleteIcon style={{color: "white", opacity: 0.4}}/></IconButton>}
+                  >
+                </ListButtom>
                 ))}
               </List>
               <Divider />
@@ -268,6 +277,7 @@ class LekcijaCard extends Component {
                     iconColor="white"
                     icon={<IconQA />}
                     onClick={this.showTest(test)}
+                    secondAction={<IconButton><DeleteIcon style={{color: "white", opacity: 0.4}}/></IconButton>}
                   />
                 ))}
                 <AddNewDialog folderId={folder.id} />

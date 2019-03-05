@@ -26,6 +26,7 @@ const styles = theme => ({
     zIndex: 2000
   },
   cardTitle: {
+    paddingLeft: 90,
     marginTop: "15%",
     textAlign: "right",
     marginRight: "10%",
@@ -81,8 +82,8 @@ const styles = theme => ({
   root: {
     display: "flex",
     overflowX: "hidden",
-    maxWidth: "100%",
-    height: "100%"
+    height: "100%",
+    maxWidth: "100%"
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -105,7 +106,8 @@ const styles = theme => ({
   content: {
     width: "78%",
     height: "100%",
-    margin: "0 auto"
+    margin: "0 auto",
+    zIndex: 1000000000
   },
   contentText: {
     fontSize: 24,

@@ -44,6 +44,9 @@ const styles = theme => ({
   icons: {
     transform: "translateY(5px)",
     marginRight: 10
+  },
+  btnNew: {
+    color: "#fff"
   }
 });
 
@@ -121,7 +124,7 @@ class addNewDialog extends Component {
     return (
       <div>
         <ListItem button onClick={this.handleClickOpen}>
-          <ListItemText primary="Novo" />
+          <ListItemText classes={{root: classes.btnNew}}><span className={classes.btnNew}>Novo</span></ListItemText>
         </ListItem>
         <Dialog
           open={this.state.open}
@@ -130,7 +133,7 @@ class addNewDialog extends Component {
           className={classes.dialog}
           classes={{ paper: classes.dialog }}
         >
-          <DialogTitle id="form-dialog-title">Novo</DialogTitle>
+          <DialogTitle id="form-dialog-title" >Novo</DialogTitle>
           <DialogContent>
             <DialogContentText>Odaberite što želite dodati:</DialogContentText>
             <FormControl component="fieldset" className={classes.formControl}>
@@ -169,10 +172,10 @@ class addNewDialog extends Component {
             })}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.handleClose} variant="contained" color="secondary">
               Odustani
             </Button>
-            <Button onClick={this.addNew} color="primary">
+            <Button onClick={this.addNew} variant="contained" color="primary">
               Dodaj
             </Button>
           </DialogActions>
