@@ -164,6 +164,19 @@ class LekcijaCard extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    this.setState({
+      content: startingScreen(this.props.classes, {
+        name: this.props.folder.name,
+        description: this.props.folder.description
+      })
+    });
+  };
+
+  reload = () => {
+    this.handleClose();
+    setTimeout(() => {
+      this.handleClickOpen();
+    }, 450);
   };
 
   showFile = file => () => {
@@ -179,7 +192,13 @@ class LekcijaCard extends Component {
     setTimeout(this.handleClickOpen, 350);
     setTimeout(() => {
       this.setState({
-        content: <StudentForms test={test} folderId={this.props.folder.id} />
+        content: (
+          <StudentForms
+            reload={this.reload}
+            test={test}
+            folderId={this.props.folder.id}
+          />
+        )
       });
     }, 10);
   };

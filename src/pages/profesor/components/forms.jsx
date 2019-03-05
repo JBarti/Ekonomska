@@ -115,7 +115,10 @@ class Forms extends Component {
 
   submit = () => {
     let { dispatch, folderId } = this.props;
+    console.log("STEJT TEST");
+    console.log(this.state.test);
     dispatch(addTest(folderId, this.state.test));
+    this.props.reload();
   };
 
   genQuestion = (question, qIndex, classes) => {

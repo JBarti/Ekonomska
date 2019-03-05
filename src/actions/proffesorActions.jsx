@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const API_ENDPOINT = "http://0.0.0.0:3001";
-const API_ENDPOINT_G = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
 
 export function loadStudent(email, password) {
   return {
@@ -61,6 +61,13 @@ export function addTest(folderId, test) {
       folderId,
       test: test
     })
+  };
+}
+
+export function addPdf(folderId, pdf) {
+  return {
+    type: "ADD_PDF",
+    payload: axios.post(API_ENDPOINT + "/proffesor/file", { folderId, pdf })
   };
 }
 

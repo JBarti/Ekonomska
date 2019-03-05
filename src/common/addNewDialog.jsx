@@ -13,7 +13,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
-import { addTest } from "../actions/proffesorActions";
+import { addTest, addPdf } from "../actions/proffesorActions";
 import { connect } from "react-redux";
 import PdfIcon from "@material-ui/icons/PictureAsPdf";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
@@ -72,12 +72,18 @@ function Choice(props) {
           style={{ width: 400, marginLeft: 30 }}
           id="text"
           label="Naziv"
+          name="pdfName"
+          onChange={handleChange}
           type="text"
+          value={this.state.pdfName}
         />
         <TextField
           style={{ width: 400, marginLeft: 30 }}
           id="text"
           label="Link"
+          name={"url"}
+          onChange={handleChange}
+          value={this.state.url}
           type="text"
         />
       </div>
@@ -108,11 +114,15 @@ class addNewDialog extends Component {
   addNew = () => {
     let { value } = this.state;
     let { folderId } = this.props;
+    let { dispatch } = this.props;
     switch (value) {
       case "Test":
         let { testName } = this.state;
-        let { dispatch } = this.props;
         dispatch(addTest(folderId, { name: testName, active: true }));
+      case "PDF":
+        let { pdfName, url } = this.state;
+        console.log(pdfName, url);
+        dispatch(addPdf(folderId, { name: pdfName, url }));
     }
     this.handleClose();
   };
