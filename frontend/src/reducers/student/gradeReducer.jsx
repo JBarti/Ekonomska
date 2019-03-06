@@ -10,6 +10,7 @@ export default function reducer(state = state, action) {
   let newState = { ...state };
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
+      console.log("PLZ RADIIIII");
       console.log(action.payload.data);
       let user = action.payload.data ? action.payload.data : action.payload;
       let {

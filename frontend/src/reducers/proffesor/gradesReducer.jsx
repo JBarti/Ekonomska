@@ -23,17 +23,18 @@ export default function reducer(state = state, action) {
       break;
     }
     case "ADD_TEST_FULFILLED": {
-      let { test, folderId } = action.payload.data;
+      let { test, folderId, oldId } = action.payload.data;
       let { selectedGrade } = state;
       let newGrade = { ...selectedGrade };
       let folder = newGrade.folders.filter(folder => {
         return folderId === folder.id;
       })[0];
-      folder.tests = folder.tests.filter(testStari => {
-        return test.id != testStari.id;
+      folder.tests = folder.tests.filter(test => {
+        return test.id !== oldId;
       });
       folder.tests.push(test);
       newState = { ...state, selectedGrade: newGrade };
+      break;
     }
     case "ADD_FOLDER_FULFILLED": {
       let { selectedGrade } = state;
@@ -43,6 +44,18 @@ export default function reducer(state = state, action) {
       folder.files = [];
       console.log(action.payload.data);
       newGrade.folders.push(folder);
+      newState = { ...state, selectedGrade: newGrade };
+      break;
+    }
+    case "ADD_PDF_FULFILLED": {
+      let { folderId, file } = action.payload.data;
+      let { selectedGrade } = state;
+      let newGrade = { ...selectedGrade };
+      newGrade.folders
+        .find(folder => {
+          return folder.id === folderId;
+        })
+        .files.push(file);
       newState = { ...state, selectedGrade: newGrade };
       break;
     }
@@ -99,7 +112,12 @@ export default function reducer(state = state, action) {
       newGrade.notifications = notifications;
       console.log("NJU");
       console.log(notifications);
-      newState = { ...state, selectedGrade: newGrade };
+      let newAll = [...state.all];
+      newAll.find(grade => {
+        return grade.id == newGrade.id;
+      }).notifications = newGrade.notifications;
+
+      newState = { ...state, all: newAll, selectedGrade: newGrade };
       newState;
       break;
     }
