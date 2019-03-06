@@ -112,7 +112,12 @@ export default function reducer(state = state, action) {
       newGrade.notifications = notifications;
       console.log("NJU");
       console.log(notifications);
-      newState = { ...state, selectedGrade: newGrade };
+      let newAll = [...state.all];
+      newAll.find(grade => {
+        return grade.id == newGrade.id;
+      }).notifications = newGrade.notifications;
+
+      newState = { ...state, all: newAll, selectedGrade: newGrade };
       newState;
       break;
     }

@@ -221,7 +221,7 @@ class LekcijaCard extends Component {
                   color="inherit"
                   className={classes.flex}
                 >
-                  Ante Antic
+                  {name}
                 </Typography>
               </Toolbar>
             </AppBar>
