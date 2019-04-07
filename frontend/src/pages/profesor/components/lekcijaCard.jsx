@@ -20,6 +20,9 @@ import External from "../../../common/external";
 import StudentForms from "../../profesor/components/forms";
 import EditLekcija from "../../../common/editLekcija";
 import AddNewDialog from "../../../common/addNewDialog";
+import DeleteIcon from "@material-ui/icons/Delete";
+import LockedIcon from "@material-ui/icons/Lock";
+import { deleteFile, deleteTest } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
 const drawerWidth = 240;
 
@@ -113,10 +116,12 @@ const styles = theme => ({
   },
   contentText: {
     fontSize: 24,
-    borderLeftWidth: "3px",
+    borderLeftWidth: "5px",
     borderLeftStyle: "solid",
     borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 1 100%",
-    paddingLeft: 15
+    paddingLeft: 15,
+    maxWidth: "60%",
+    margin: "0 auto"
   },
   contentTitle: {
     paddingBottom: 25,
@@ -131,11 +136,15 @@ const styles = theme => ({
   },
   appbarTitle: {
     paddingLeft: 10
+  },
+  landingTxt: {
+    textAlign: "center",
+    marginTop: "15%"
   }
 });
 
 const startingScreen = (classes, lekcija) => (
-  <div>
+  <div className={classes.landingTxt}>
     <Typography className={classes.contentTitle} variant="display2">
       {lekcija.name}
     </Typography>
@@ -175,6 +184,12 @@ class LekcijaCard extends Component {
   reload = () => {
     this.handleClose();
     setTimeout(() => {
+      this.setState({
+        content: startingScreen(this.props.classes, {
+          name: this.props.folder.name,
+          description: this.props.folder.description
+        })
+      });
       this.handleClickOpen();
     }, 450);
   };
@@ -203,9 +218,23 @@ class LekcijaCard extends Component {
     }, 10);
   };
 
+  removeFile = fileId => () => {
+    let { dispatch } = this.props;
+    let folderId = this.props.folder.id;
+    dispatch(deleteFile(fileId, folderId));
+    this.reload();
+  };
+
+  removeTest = testId => () => {
+    let { dispatch } = this.props;
+    let folderId = this.props.folder.id;
+    dispatch(deleteTest(testId, folderId));
+    this.reload();
+  };
+
   render() {
     const { classes, folder } = this.props;
-    const { name, description, tests, files } = folder;
+    const { name, description, tests, files, id } = folder;
     return (
       <ContentCard
         classes={{
@@ -251,7 +280,10 @@ class LekcijaCard extends Component {
                 >
                   {name} - {description}
                 </Typography>
-                <EditLekcija />
+                <EditLekcija
+                  reload={this.reload}
+                  folder={{ name, description, id }}
+                />
               </Toolbar>
             </AppBar>
 
@@ -275,6 +307,11 @@ class LekcijaCard extends Component {
                     iconColor="white"
                     icon={<IconBook />}
                     onClick={this.showFile(file)}
+                    secondaryAction={
+                      <IconButton onClick={this.removeFile(file.id)}>
+                        <DeleteIcon style={{ color: "white", opacity: 0.4 }} />
+                      </IconButton>
+                    }
                   />
                 ))}
               </List>
@@ -287,6 +324,21 @@ class LekcijaCard extends Component {
                     iconColor="white"
                     icon={<IconQA />}
                     onClick={this.showTest(test)}
+                    secondaryAction={
+                      test.locked ? (
+                        <IconButton>
+                          <LockedIcon
+                            style={{ color: "white", opacity: 0.4 }}
+                          />
+                        </IconButton>
+                      ) : (
+                        <IconButton onClick={this.removeTest(test.id)}>
+                          <DeleteIcon
+                            style={{ color: "white", opacity: 0.4 }}
+                          />
+                        </IconButton>
+                      )
+                    }
                   />
                 ))}
                 <AddNewDialog folderId={folder.id} />

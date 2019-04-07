@@ -58,7 +58,7 @@ class UcenikAppBar extends Component {
             </Typography>
           </div>
         </div>
-        <Button onClick={this.logOut} style={{ color: "white" }}>
+        <Button onClick={this.logOut} variant="outlined" style={{ color: "white" }}>
           {" "}
           Odjava{" "}
         </Button>

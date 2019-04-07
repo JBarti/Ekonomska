@@ -56,12 +56,13 @@ export default function reducer(state = state, action) {
       let oldSolutions = state.solutions;
       let solutions = action.payload.data;
       oldSolutions.push(solutions);
-      console.log("SADASŠDSAOŠPDOADJO");
       console.log(solutions);
       newState = { ...state, solutions: oldSolutions };
+      break;
     }
     case "LOAD_STUDENT_REJECTED": {
       newState = { ...state, fail: true };
+      break;
     }
   }
 

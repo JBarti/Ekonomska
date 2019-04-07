@@ -12,6 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Redirect } from "react-router";
+import axios from "axios";
 
 const styles = theme => {
   console.log(theme);
@@ -91,12 +92,22 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isRegister: false };
+    this.state = { isRegister: false, grades: [] };
     this.regHandleClick = this.regHandleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
+    const API_ENDPOINT = "http://0.0.0.0:3001";
+    axios.get(API_ENDPOINT + "/grades").then(res => {
+      console.table(res.data);
+      this.setState({ grades: res.data });
+    });
   }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    console.log(this.state);
   };
 
   login = () => {
@@ -125,7 +136,8 @@ class Login extends Component {
         this.state.name,
         this.state.surname,
         this.state.email,
-        this.state.password
+        this.state.password,
+        this.state.razred
       )
     );
     dispatch({ type: "REGISER_STUDENT_PENDING" });
@@ -213,9 +225,9 @@ class Login extends Component {
                 id: "razred"
               }}
             >
-              <MenuItem value={"A"}>4.A</MenuItem>
-              <MenuItem value={"B"}>4.B</MenuItem>
-              <MenuItem value={"C"}>4.C</MenuItem>
+              {this.state.grades.map(grade => {
+                return <MenuItem value={grade.id}>{grade.name}</MenuItem>;
+              })}
             </Select>
             <Button
               variant="contained"

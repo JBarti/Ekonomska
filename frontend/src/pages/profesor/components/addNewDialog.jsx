@@ -34,7 +34,8 @@ const styles = theme => ({
 });
 function Choice(props) {
   const whatIsChosen = props.whatIsChosen;
-  if (whatIsChosen == "Test") {
+  const tests = ["PDF", "Word", "Quiz"]
+  if (tests.includes(whatIsChosen)) {
     return (
       <div>
         {" "}
@@ -88,7 +89,7 @@ class addNewDialog extends Component {
           fullWidth
           scroll="paper"
         >
-          <DialogTitle id="form-dialog-title">Novo</DialogTitle>
+          <DialogTitle id="form-dialog-title"><span style={{ color: "white" }}>Novo</span></DialogTitle>
           <DialogContent>
             <DialogContentText>Odaberite što želite dodati:</DialogContentText>
             <FormControl component="fieldset" className={classes.formControl}>
@@ -115,10 +116,10 @@ class addNewDialog extends Component {
             <Choice whatIsChosen={this.state.value} />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.handleClose} variant="contained" color="secondary">
               Odustani
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} variant="contained" color="primary">
               Dodaj
             </Button>
           </DialogActions>

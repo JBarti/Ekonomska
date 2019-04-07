@@ -1,7 +1,6 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-
 const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
 const API_ENDPOINT = "http://0.0.0.0:3001";
 
@@ -27,14 +26,15 @@ export function logOut() {
   };
 }
 
-export function registerStudent(firstName, lastName, email, password) {
+export function registerStudent(firstName, lastName, email, password, grade) {
   return {
     type: "REGISTER_STUDENT",
     payload: axios.post(API_ENDPOINT + "/students/register", {
       firstName,
       lastName,
       email,
-      password
+      password,
+      grade
     })
   };
 }

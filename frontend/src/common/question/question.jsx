@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import RadioGroup from '@material-ui/core/RadioGroup'
-import Radio from '@material-ui/core/Radio'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Check from '@material-ui/icons/RadioButtonChecked'
-import Uncheck from '@material-ui/icons/RadioButtonUnchecked'
 import ContentCard from '../content-card/contentCard'
 import Button from '@material-ui/core/Button/Button'
-import Icon from '@material-ui/core/Icon'
 import Fade from '@material-ui/core/Fade'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styles from './questionStyle'
