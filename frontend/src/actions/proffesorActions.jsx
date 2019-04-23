@@ -59,7 +59,7 @@ export function addTest(folderId, test) {
     type: "ADD_TEST",
     payload: axios.post(API_ENDPOINT + "/proffesor/test", {
       folderId,
-      test: test,
+      test: test
     })
   };
 }

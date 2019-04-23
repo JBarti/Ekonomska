@@ -22,6 +22,8 @@ import EditLekcija from "../../../common/editLekcija";
 import AddNewDialog from "../../../common/addNewDialog";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LockedIcon from "@material-ui/icons/Lock";
+import IconQuiz from "@material-ui/icons/School";
+import Quiz from "./quiz";
 import { deleteFile, deleteTest } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
 const drawerWidth = 240;
@@ -218,6 +220,22 @@ class LekcijaCard extends Component {
     }, 10);
   };
 
+  showQuiz = quiz => () => {
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 350);
+    setTimeout(() => {
+      this.setState({
+        content: (
+          <Quiz
+            reload={this.reload}
+            test={quiz}
+            folderId={this.props.folder.id}
+          />
+        )
+      });
+    }, 10);
+  };
+
   removeFile = fileId => () => {
     let { dispatch } = this.props;
     let folderId = this.props.folder.id;
@@ -317,30 +335,62 @@ class LekcijaCard extends Component {
               </List>
               <Divider />
               <List>
-                {tests.map(test => (
-                  <ListButtom
-                    primary={test.name}
-                    classes={{ text: classes.buttonText }}
-                    iconColor="white"
-                    icon={<IconQA />}
-                    onClick={this.showTest(test)}
-                    secondaryAction={
-                      test.locked ? (
-                        <IconButton>
-                          <LockedIcon
-                            style={{ color: "white", opacity: 0.4 }}
-                          />
-                        </IconButton>
-                      ) : (
-                        <IconButton onClick={this.removeTest(test.id)}>
-                          <DeleteIcon
-                            style={{ color: "white", opacity: 0.4 }}
-                          />
-                        </IconButton>
-                      )
-                    }
-                  />
-                ))}
+                {tests
+                  .filter(test => !test.isQuiz)
+                  .map(test => (
+                    <ListButtom
+                      primary={test.name}
+                      classes={{ text: classes.buttonText }}
+                      iconColor="white"
+                      icon={<IconQA />}
+                      onClick={this.showTest(test)}
+                      secondaryAction={
+                        test.locked ? (
+                          <IconButton>
+                            <LockedIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        ) : (
+                          <IconButton onClick={this.removeTest(test.id)}>
+                            <DeleteIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        )
+                      }
+                    />
+                  ))}
+              </List>
+              <Divider />
+              <List>
+                {tests
+                  .filter(test => test.isQuiz)
+                  .map(test => (
+                    <ListButtom
+                      primary={test.name}
+                      classes={{ text: classes.buttonText }}
+                      iconColor="white"
+                      icon={<IconQuiz />}
+                      onClick={this.showQuiz(test)}
+                      secondaryAction={
+                        test.locked ? (
+                          <IconButton>
+                            <LockedIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        ) : (
+                          <IconButton onClick={this.removeTest(test.id)}>
+                            <DeleteIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        )
+                      }
+                    />
+                  ))}
+                <Divider />
                 <AddNewDialog folderId={folder.id} />
               </List>
             </Drawer>
