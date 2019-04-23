@@ -11,16 +11,13 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import Collapse from "@material-ui/core/Collapse";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconBook from "@material-ui/icons/Book";
 import IconQA from "@material-ui/icons/QuestionAnswer";
-import IconQuiz from "@material-ui/icons/School";
 import External from "./external";
 import StudentForms from "./forms";
-import Quiz from "./quiz";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -109,16 +106,15 @@ const styles = theme => ({
   content: {
     width: "78%",
     height: "100%",
-    margin: "0 auto"
+    margin: "0 auto",
+    zIndex: 1000000000
   },
   contentText: {
     fontSize: 24,
-    borderLeftWidth: "5px",
+    borderLeftWidth: "3px",
     borderLeftStyle: "solid",
     borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 1 100%",
-    paddingLeft: 15,
-    maxWidth: "60%",
-    margin: "0 auto"
+    paddingLeft: 15
   },
   contentTitle: {
     paddingBottom: 25,
@@ -133,10 +129,6 @@ const styles = theme => ({
   },
   appbarTitle: {
     paddingLeft: 10
-  },
-  landingTxt: {
-    textAlign: "center",
-    marginTop: "15%"
   }
 });
 
@@ -158,11 +150,6 @@ function Transition(props) {
 class LekcijaCard extends Component {
   state = {
     open: false,
-    drawer: {
-      file: false,
-      test: false,
-      quiz: false
-    },
     content: startingScreen(this.props.classes, {
       name: this.props.folder.name,
       description: this.props.folder.description
@@ -171,13 +158,6 @@ class LekcijaCard extends Component {
 
   handleClickOpen = () => {
     this.setState({ open: true });
-  };
-
-  openDrawer = name => () => {
-    let drawer = { ...this.state.drawer };
-    drawer[name] = !drawer[name];
-    this.setState({ drawer: drawer });
-    console.log(this.state);
   };
 
   handleClose = () => {
@@ -195,6 +175,7 @@ class LekcijaCard extends Component {
   };
 
   showTest = test => () => {
+    console.log(test);
     this.setState({
       content: (
         <StudentForms
@@ -206,22 +187,9 @@ class LekcijaCard extends Component {
     });
   };
 
-  showQuiz = quiz => () => {
-    this.setState({
-      content: (
-        <Quiz
-          test={quiz}
-          studentId={this.props.studentId}
-          handleClose={this.handleClose}
-        />
-      )
-    });
-  };
-
   render() {
     const { classes, folder, solvedTests } = this.props;
     const { name, description, tests, files } = folder;
-    const { drawer } = this.state;
     return (
       <ContentCard
         classes={{
@@ -281,69 +249,30 @@ class LekcijaCard extends Component {
               anchor="right"
             >
               <div className={classes.toolbar} />
+              <Divider />
               <List>
-                <ListButtom
-                  primary={"Fileovi"}
-                  classes={{ text: classes.buttonText }}
-                  iconColor="white"
-                  icon={<IconBook />}
-                  onClick={this.openDrawer("file")}
-                />
-                <Collapse in={drawer.file}>
-                  {files.map(file => (
-                    <ListButtom
-                      primary={file.name}
-                      classes={{ text: classes.buttonText }}
-                      onClick={this.showFile(file)}
-                      tabbed={true}
-                      icon={<div />}
-                    />
-                  ))}
-                </Collapse>
-                <ListButtom
-                  primary={"Testovi"}
-                  classes={{ text: classes.buttonText }}
-                  iconColor="white"
-                  icon={<IconQA />}
-                  onClick={this.openDrawer("test")}
-                />
-                <Collapse in={drawer.test}>
-                  {tests
-                    .filter(test => !test.isQuiz)
-                    .map(test => (
-                      <ListButtom
-                        disabled={solvedTests.includes(test.id) || !test.locked}
-                        primary={test.name}
-                        classes={{ text: classes.buttonText }}
-                        iconColor="white"
-                        icon={<div />}
-                        onClick={this.showTest(test)}
-                        tabbed={true}
-                      />
-                    ))}
-                </Collapse>
-                <ListButtom
-                  primary={"Kvizovi"}
-                  classes={{ text: classes.buttonText }}
-                  iconColor="white"
-                  icon={<IconQuiz />}
-                  onClick={this.openDrawer("quiz")}
-                />
-                <Collapse in={drawer.quiz}>
-                  {tests
-                    .filter(test => test.isQuiz)
-                    .map(test => (
-                      <ListButtom
-                        disabled={solvedTests.includes(test.id) || !test.locked}
-                        primary={test.name}
-                        classes={{ text: classes.buttonText }}
-                        iconColor="white"
-                        icon={<div />}
-                        onClick={this.showQuiz(test)}
-                        tabbed={true}
-                      />
-                    ))}
-                </Collapse>
+                {files.map(file => (
+                  <ListButtom
+                    primary={file.name}
+                    classes={{ text: classes.buttonText }}
+                    iconColor="white"
+                    icon={<IconBook />}
+                    onClick={this.showFile(file)}
+                  />
+                ))}
+              </List>
+              <Divider />
+              <List>
+                {tests.map(test => (
+                  <ListButtom
+                    disabled={solvedTests.includes(test.id) || !test.locked}
+                    primary={test.name}
+                    classes={{ text: classes.buttonText }}
+                    iconColor="white"
+                    icon={<IconQA />}
+                    onClick={this.showTest(test)}
+                  />
+                ))}
               </List>
             </Drawer>
           </div>

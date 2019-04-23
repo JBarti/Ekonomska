@@ -13,17 +13,8 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
+  Tooltip
 } from "recharts";
-
-let data = [
-  { name: "Test 1", Postotak: 66 },
-  { name: "Test 2", Postotak: 76 },
-  { name: "Test 3", Postotak: 86 },
-  { name: "Test 4", Postotak: 56 },
-  { name: "Test 5", Postotak: 96 }
-];
 
 const styles = theme => ({
   cardDiv: {
