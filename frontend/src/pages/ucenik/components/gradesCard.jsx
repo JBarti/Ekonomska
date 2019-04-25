@@ -1,39 +1,109 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import ContentCard from "../../../common/content-card/contentCard";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
 import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend
-} from "recharts";
-
-let data = [
-  { name: "Test 1", Postotak: 66 },
-  { name: "Test 2", Postotak: 76 },
-  { name: "Test 3", Postotak: 86 },
-  { name: "Test 4", Postotak: 56 },
-  { name: "Test 5", Postotak: 96 }
-];
+  Card,
+  CardHeader,
+  CardContent,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  Divider,
+  ListSubheader
+} from "@material-ui/core";
 
 const styles = theme => ({
+  root: {
+    width: "100%",
+    marginLeft: 10,
+    overflowY: "auto"
+  },
+  cardContent: {},
   cardDiv: {
     width: "100%",
     boxSizing: "content-box",
     overflow: "hidden",
     padding: "1%",
     zIndex: 0
+  },
+  grade: {
+    borderRadius: 20,
+    background:
+      "-moz-linear-gradient(-45deg, rgba(78,84,200,1) 0%, rgba(143,148,251,1) 100%);",
+
+    paddingBottom: 20
+  },
+  gradeNum: {
+    fontSize: 40,
+    height: 58,
+    width: 58,
+    textAlign: "center",
+    border: "5px solid #66BB6A",
+    borderRadius: 1000,
+    display: "inline-block"
+  },
+  gradeRatio: {
+    display: "inline-block",
+    fontSize: 16,
+    marginLeft: 40
+  },
+  status: {
+    display: "inline-block",
+    width: "58%",
+    paddingBottom: 10,
+    paddingRight: 50
+  },
+  bar: {
+    width: "100%",
+    height: 20,
+    borderRadius: 1000
+  },
+  testName: {
+    fontSize: 25,
+    paddingLeft: 2,
+    paddingRight: 2
+  },
+  ratio: {
+    float: "right"
   }
 });
+
+const GradeDisplay = props => {
+  let { classes, solution } = props;
+  let { name, percentage, grade, testPoints, isQuiz } = solution;
+  let achievedPoints = testPoints * (percentage / 100);
+  console.log(solution);
+  return (
+    <ListItem>
+      <ListItemText
+        classes={{
+          primary: classes.gradeNum,
+          secondary: classes.gradeRatio
+        }}
+        primary={grade}
+        secondary={
+          <div>
+            <span className={classes.testName}>{name}</span>{" "}
+          </div>
+        }
+      />
+      <ListItemSecondaryAction className={classes.status}>
+        <div style={{ width: "100%" }}>
+          <span className={classes.precentage}>{percentage}%</span>
+          <span className={classes.ratio}>
+            {achievedPoints}/{testPoints}
+          </span>
+        </div>
+        <div
+          className={classes.bar}
+          style={{
+            background: `-moz-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`
+          }}
+        />
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+};
 
 class GradesCard extends Component {
   state = { open: null };
@@ -49,18 +119,6 @@ class GradesCard extends Component {
     const { classes, tests, solutions } = this.props;
     const { value } = this.state;
     let id = 0;
-    function createData(name, postotak, ocjena, total) {
-      id += 1;
-      return { id, name, postotak, ocjena, total };
-    }
-
-    // const rows = [
-    //   createData("Test 1", 59, 68, 80),
-    //   createData("Test 2", 2, 3, 4),
-    //   createData("Test 3", 20, 13, 7),
-    //   createData("Test 4", 20, 13, 7),
-    //   createData("Test 5", 20, 13, 7)
-    // ];
 
     const rows = solutions
       .map(solution => {
@@ -100,7 +158,13 @@ class GradesCard extends Component {
         console.log("GRADE");
         console.log(testPoints);
 
-        return createData(test.name, percentage, grade, testPoints);
+        return {
+          name: test.name,
+          percentage: percentage,
+          grade: grade,
+          testPoints: testPoints,
+          isQuiz: test.isQuiz
+        };
       })
       .filter(data => !!data);
 
@@ -108,56 +172,24 @@ class GradesCard extends Component {
       return { name: row.name, Postotak: row.postotak };
     });
 
+    console.log(rows);
     return (
-      <ContentCard
-        cardName="Moji rezultati"
-        classes={{ root: classes.customCard }}
-      >
-        <div className={classes.cardDiv}>
-          <ResponsiveContainer width="90%" height="100%">
-            <BarChart
-              width={600}
-              height={300}
-              data={data}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              maxBarSize={40}
-            >
-              <CartesianGrid strokeDasharray="4 4" />
-              <XAxis dataKey="name" />
-              <YAxis domain={[0, 100]} />
-              <Tooltip />
-              <Bar dataKey="Postotak" fill="#8A3369" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className={classes.cardDiv}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell numeric>Postotak</TableCell>
-                <TableCell numeric>Ocjena</TableCell>
-                <TableCell numeric>Test</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map(row => {
-                return (
-                  <TableRow key={row.id}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell numeric>{row.postotak}</TableCell>
-                    <TableCell numeric>{row.ocjena}</TableCell>
-                    <TableCell numeric>{row.total}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </div>
-      </ContentCard>
+      <Card elevation={5} className={classes.root}>
+        <ListSubheader component="div" className={classes.subheader}>
+          Ocjene
+          <Divider />
+        </ListSubheader>
+        <CardContent className={classes.cardContent}>
+          <List>
+            {rows.map(solution => (
+              <div>
+                <GradeDisplay classes={classes} solution={solution} />
+                <Divider />
+              </div>
+            ))}
+          </List>
+        </CardContent>
+      </Card>
     );
   }
 }

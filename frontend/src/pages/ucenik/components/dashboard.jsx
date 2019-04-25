@@ -50,20 +50,18 @@ class Dashboard extends Component {
             />
           ))}
         </GridList>
-        {notifications.length ? (
-          <Row>
-            <NotificationCard notifications={notifications} />{" "}
-          </Row>
-        ) : (
-          <div />
-        )}
-        {solutions.length ? (
-          <Row>
+        <Row>
+          {notifications.length ? (
+            <NotificationCard notifications={notifications} />
+          ) : (
+            <div />
+          )}
+          {solutions.length ? (
             <GradesCard solutions={solutions} tests={tests} />
-          </Row>
-        ) : (
-          <div />
-        )}
+          ) : (
+            <div />
+          )}
+        </Row>
       </div>
     );
   }

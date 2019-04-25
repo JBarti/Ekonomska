@@ -9,6 +9,7 @@ export default function reducer(state = state, action) {
     case "LOAD_STUDENT_FULFILLED": {
       let user = action.payload.data ? action.payload.data : action.payload;
       let { notifications } = user;
+      console.log("USER DVA", user);
       newState.all = notifications;
       break;
     }
