@@ -30,6 +30,9 @@ const styles = theme => ({
     marginTop: 2,
     marginLeft: "75%",
     color: theme.palette.grey[500]
+  },
+  cardContent: {
+    paddingTop: 0
   }
 });
 
@@ -72,7 +75,7 @@ class NotifiactionCard extends Component {
       <Card cardName="Obavijesti" className={classes.root} elevation={5}>
         <CardHeader subheader={"Obavjesti"} className={classes.cardHeader} />
         <Divider />
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <List>
             {notifications.map(notification => (
               <div>

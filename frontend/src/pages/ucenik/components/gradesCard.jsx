@@ -9,8 +9,10 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   Divider,
-  ListSubheader
+  ListSubheader,
+  Chip
 } from "@material-ui/core";
+import { red, green, blue, orange, yellow } from "@material-ui/core/colors";
 
 const styles = theme => ({
   root: {
@@ -18,7 +20,7 @@ const styles = theme => ({
     marginLeft: 10,
     overflowY: "auto"
   },
-  cardContent: {},
+  cardContent: { paddingTop: 0 },
   cardDiv: {
     width: "100%",
     boxSizing: "content-box",
@@ -26,21 +28,15 @@ const styles = theme => ({
     padding: "1%",
     zIndex: 0
   },
-  grade: {
-    borderRadius: 20,
-    background:
-      "-moz-linear-gradient(-45deg, rgba(78,84,200,1) 0%, rgba(143,148,251,1) 100%);",
-
-    paddingBottom: 20
-  },
   gradeNum: {
-    fontSize: 40,
-    height: 58,
-    width: 58,
-    textAlign: "center",
-    border: "5px solid #66BB6A",
-    borderRadius: 1000,
-    display: "inline-block"
+    borderRadius: 5,
+    display: "inline-block",
+    paddingTop: 2,
+    paddingBottom: 3,
+    paddingLeft: 7,
+    paddingRight: 7,
+    marginBottom: 8,
+    color: theme.palette.grey[100]
   },
   gradeRatio: {
     display: "inline-block",
@@ -49,19 +45,15 @@ const styles = theme => ({
   },
   status: {
     display: "inline-block",
-    width: "58%",
-    paddingBottom: 10,
-    paddingRight: 50
+    width: "58%"
   },
   bar: {
     width: "100%",
     height: 20,
     borderRadius: 1000
   },
-  testName: {
-    fontSize: 25,
-    paddingLeft: 2,
-    paddingRight: 2
+  listTest: {
+    flexDirection: "column"
   },
   ratio: {
     float: "right"
@@ -72,18 +64,24 @@ const GradeDisplay = props => {
   let { classes, solution } = props;
   let { name, percentage, grade, testPoints, isQuiz } = solution;
   let achievedPoints = testPoints * (percentage / 100);
+  let gradeNumStyle = {
+    background: `-moz-linear-gradient(326deg, ${grade.gradient[0]} 36%, ${
+      grade.gradient[1]
+    } 100%)`
+  };
   console.log(solution);
   return (
     <ListItem>
       <ListItemText
-        classes={{
-          primary: classes.gradeNum,
-          secondary: classes.gradeRatio
-        }}
-        primary={grade}
+        className={classes.listText}
+        primary={
+          <div className={classes.gradeNum} style={gradeNumStyle}>
+            Ocjena: {grade.num}
+          </div>
+        }
         secondary={
           <div>
-            <span className={classes.testName}>{name}</span>{" "}
+            <span>{`Ime testa: ${name}`}</span>
           </div>
         }
       />
@@ -130,26 +128,30 @@ class GradesCard extends Component {
         let acquiredPoints = solution.points;
         let percentage = (acquiredPoints / testPoints) * 100;
         let grade = (() => {
-          grade = 1;
+          grade = { num: 1, gradient: [red[500], red[600]] };
           switch (percentage) {
             case percentage <= 50: {
-              grade = 1;
+              grade.num = 1;
               break;
             }
             case percentage <= 60: {
-              grade = 2;
+              grade.num = 2;
+              grade.gradient = [orange[(500, orange[600])]];
               break;
             }
             case percentage <= 75: {
-              grade = 3;
+              grade.num = 3;
+              grade.gradient = [yellow[500], yellow[600]];
               break;
             }
             case percentage <= 90: {
-              grade = 4;
+              grade.num = 4;
+              grade.gradient[(blue[500], blue[600])];
               break;
             }
             case percentage <= 100: {
-              grade = 5;
+              grade.num = 5;
+              grade.gradient = [green[500], green[600]];
               break;
             }
           }
