@@ -1,9 +1,11 @@
-let state = {
+import { selectGrade } from "../../actions/proffesorActions";
+
+let stateDefault = {
   selectedGrade: null,
   all: null
 };
 
-export default function reducer(state = state, action) {
+export default function reducer(state = stateDefault, action) {
   let newState = { ...state };
   switch (action.type) {
     case "LOAD_PROFFESOR_FULFILLED": {
@@ -118,7 +120,6 @@ export default function reducer(state = state, action) {
       }).notifications = newGrade.notifications;
 
       newState = { ...state, all: newAll, selectedGrade: newGrade };
-      newState;
       break;
     }
     case "UPDATE_STUDENT_FULFILLED": {
@@ -156,6 +157,59 @@ export default function reducer(state = state, action) {
         });
       });
       newState = { ...state, all };
+      break;
+    }
+    case "UPDATE_FOLDER_FULFILLED": {
+      let { folderId, name } = action.payload.data;
+      let { selectedGrade } = state;
+      let { folders } = selectedGrade;
+      folders = [...folders];
+      let folder = folders.find(folder => {
+        return (folder.id = folderId);
+      });
+      folder.name = name;
+      selectedGrade.folders = folders;
+      newState = { ...state, selectGrade };
+      break;
+    }
+    case "REMOVE_FILE_FULFILLED": {
+      let { folderId, fileId } = action.payload.data;
+      let { selectedGrade } = state;
+      let { folders } = selectedGrade;
+      let folder = folders.find(folder => folder.id === folderId);
+      let files = [...folder.files];
+      files = files.filter(file => {
+        return file.id != fileId;
+      });
+      folder.files = files;
+      newState = { ...state, selectGrade };
+      break;
+    }
+    case "REMOVE_TEST_FULFILLED": {
+      let { folderId, testId } = action.payload.data;
+      let { selectedGrade } = state;
+      let { folders } = selectedGrade;
+      let folder = folders.find(folder => folder.id === folderId);
+      let tests = [...folder.tests];
+      tests = tests.filter(test => {
+        return test.id != testId;
+      });
+      folder.tests = tests;
+      newState = { ...state, selectGrade };
+      break;
+    }
+    case "LOCK_TEST_FULFILLED": {
+      let { folderId, testId } = action.payload.data;
+      let { selectedGrade } = state;
+      let { folders } = selectedGrade;
+      let folder = folders.find(folder => folder.id === folderId);
+      let tests = [...folder.tests];
+      tests.find(test => {
+        return test.id === testId;
+      }).locked = true;
+      folder.tests = tests;
+      newState = { ...state, selectGrade };
+      break;
     }
   }
 

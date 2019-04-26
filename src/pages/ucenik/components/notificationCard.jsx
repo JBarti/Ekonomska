@@ -1,14 +1,64 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import ContentCard from "../../../common/content-card/contentCard";
-import Harmonica from "../../../common/harmonica/harmonica";
-import HarmonicaTab from "../../../common/harmonica/harmonica-tab/harmonicaTab";
+import { Card, CardHeader, CardContent, Typography } from "@material-ui/core/";
+import { List, ListItem, ListItemText, Divider } from "@material-ui/core/";
 
 const styles = theme => ({
   root: {
-    overflow: "hidden"
+    overflow: "hidden",
+    width: "100%",
+    border: "none",
+    marginRight: 10
+  },
+  title: {
+    display: "inline-block",
+    paddingLeft: 4,
+    paddingRight: 6,
+    borderBottom: "solid 3px #4e54c8"
+  },
+  description: {
+    marginTop: 10,
+    fontSize: 15
+  },
+  date: {
+    paddingLeft: 12,
+    paddingRight: 20,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 1000,
+    fontSize: 14,
+    marginTop: 2,
+    marginLeft: "75%",
+    color: theme.palette.grey[500]
+  },
+  cardContent: {
+    paddingTop: 0
   }
 });
+
+const Notification = props => {
+  let { classes, notification } = props;
+  let { title, description, createdAt } = notification;
+  let date = createdAt.split("T")[0];
+  return (
+    <ListItem alignItems="flex-start">
+      <ListItemText
+        classes={{
+          secondary: classes.description
+        }}
+        primary={
+          <div>
+            <span className={classes.title}>{title}</span>
+            <span variant="caption" className={classes.date}>
+              {date}
+            </span>
+          </div>
+        }
+        secondary={description}
+      />
+    </ListItem>
+  );
+};
 
 class NotifiactionCard extends Component {
   state = { open: null };
@@ -19,29 +69,24 @@ class NotifiactionCard extends Component {
       this.setState({ open: panel });
     }
   };
-
   render() {
     const { classes, notifications } = this.props;
     return (
-      <ContentCard cardName="Obavijesti" className={classes.root}>
-        <Harmonica>
-          {notifications.map((notification, index) => {
-            console.log(index, "INDEEEX");
-            return (
-              <HarmonicaTab
-                deleteable={false}
-                type={notification.important ? "warning" : "message"}
-                heading={notification.title}
-                subheading={notification.description.substring(0, 20)}
-                bodyText={notification.description}
-                name={index}
-                onClick={this.expandTab(index)}
-                expanded={this.state.open == index}
-              />
-            );
-          })}
-        </Harmonica>
-      </ContentCard>
+      <Card className={classes.root} elevation={5}>
+        <CardHeader title={"Obavjesti"} className={classes.cardHeader} />
+        <Divider />
+        <CardContent className={classes.cardContent}>
+          <List>
+            {notifications.map(notification => (
+              <div>
+                <Notification classes={classes} notification={notification} />
+                <Divider />
+              </div>
+            ))}
+            <Divider />
+          </List>
+        </CardContent>
+      </Card>
     );
   }
 }

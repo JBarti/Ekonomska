@@ -6,8 +6,10 @@ import Radio from "@material-ui/core/Radio";
 import Button from "@material-ui/core/Button";
 import IconDone from "@material-ui/icons/Done";
 import TextField from "@material-ui/core/TextField";
+import LockedIcon from "@material-ui/icons/Lock";
+import UnlockedIcon from "@material-ui/icons/LockOpen";
 import { connect } from "react-redux";
-import { addTest } from "../../../actions/proffesorActions";
+import { addTest, lockTestUp } from "../../../actions/proffesorActions";
 
 const styles = theme => ({
   root: {
@@ -60,7 +62,6 @@ class Forms extends Component {
   }
 
   handleChange = event => {
-    console.log("CHAAAAAAAAAAAAAAAAAANG");
     console.log(event.target.name);
     console.log(this.state);
     this.setState({ [event.target.name]: event.target.value });
@@ -121,7 +122,14 @@ class Forms extends Component {
     this.props.reload();
   };
 
-  genQuestion = (question, qIndex, classes) => {
+  lockTest = () => {
+    let { id, folderId } = this.state.test;
+    let { dispatch } = this.props;
+    dispatch(lockTestUp(id, folderId));
+    this.props.reload();
+  };
+
+  genQuestion = (question, qIndex, classes, locked) => {
     let answers = question.answers || [];
     return (
       <div className={classes.question}>
@@ -159,14 +167,18 @@ class Forms extends Component {
             );
           })}
         </RadioGroup>
-        <Button
-          classes={{ root: classes.addAnswer }}
-          onClick={this.addNewAnswer(qIndex)}
-          icon={<div />}
-          variant="outlined"
-        >
-          +
-        </Button>
+        {!locked ? (
+          <Button
+            classes={{ root: classes.addAnswer }}
+            onClick={this.addNewAnswer(qIndex)}
+            icon={<div />}
+            variant="outlined"
+          >
+            +
+          </Button>
+        ) : (
+            <div />
+          )}
       </div>
     );
   };
@@ -174,7 +186,7 @@ class Forms extends Component {
   render() {
     const { classes } = this.props;
     const { test } = this.state;
-    const { questions } = test;
+    const { questions, locked } = test;
     return (
       <div className={classes.root}>
         <TextField
@@ -187,25 +199,45 @@ class Forms extends Component {
           {test.name}
         </TextField>
         {questions.map((question, index) => {
-          return this.genQuestion(question, index, classes);
+          return this.genQuestion(question, index, classes, locked);
         })}
-        <Button
-          classes={{ root: classes.addQuestion }}
-          icon={<div />}
-          variant="outlined"
-          onClick={this.addNewQuestion}
-        >
-          Novo pitanje
-        </Button>
+        {!locked ? (
+          <Button
+            classes={{ root: classes.addQuestion }}
+            icon={<div />}
+            variant="outlined"
+            onClick={this.addNewQuestion}
+          >
+            Novo pitanje
+          </Button>
+        ) : (
+            <div />
+          )}
         <br />
         <Button
           variant="extendedFab"
           color="primary"
           className={classes.submitButton}
           onClick={this.submit}
+          disabled={test.locked}
         >
           <IconDone style={{ marginRight: 8 }} />
           Submit
+        </Button>
+        <Button
+          variant="extendedFab"
+          color="primary"
+          className={classes.submitButton}
+          onClick={this.lockTest}
+          style={{ backgroundColor: "#ffd600", marginLeft: 10 }}
+          disabled={test.locked}
+        >
+          {locked ? (
+            <LockedIcon style={{ marginRight: 8 }} />
+          ) : (
+              <UnlockedIcon style={{ marginRight: 8 }} />
+            )}
+          {locked ? "Locked" : "Lock"}
         </Button>
       </div>
     );

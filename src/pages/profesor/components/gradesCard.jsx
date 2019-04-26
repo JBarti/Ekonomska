@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import ContentCard from '../../../common/content-card/contentCard'
@@ -7,7 +6,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
-import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 let data = [
     { name: 'Test 1', Postotak: 66 },
@@ -25,6 +24,11 @@ const styles = theme => ({
         padding: '1%',
         zIndex: 0
     },
+    row: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.background.default,
+        }
+    }
 })
 
 
@@ -60,14 +64,14 @@ class GradesCard extends Component {
             <ContentCard cardName='Moji rezultati' classes={{ root: classes.customCard }}>
                 <div className={classes.cardDiv}>
                     <ResponsiveContainer width="90%" height="100%">
-                    <BarChart width={600} height={300} data={data}
-                     margin={{top: 5, right: 30, left: 20, bottom: 5}} maxBarSize={40} >
-                     <CartesianGrid strokeDasharray="4 4"/>
-                     <XAxis dataKey="name"/>
-                     <YAxis domain={[0, 100]}/>
-                     <Tooltip/>
-                     <Bar dataKey="Postotak" fill="#8A3369" />
-                     </BarChart>
+                        <BarChart width={600} height={300} data={data}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }} maxBarSize={40} >
+                            <CartesianGrid strokeDasharray="4 4" />
+                            <XAxis dataKey="name" />
+                            <YAxis domain={[0, 100]} />
+                            <Tooltip />
+                            <Bar dataKey="Postotak" fill="#8A3369" />
+                        </BarChart>
                     </ResponsiveContainer>
                 </div>
 
@@ -85,7 +89,7 @@ class GradesCard extends Component {
                         <TableBody>
                             {rows.map(row => {
                                 return (
-                                    <TableRow key={row.id}>
+                                    <TableRow className={classes.row} key={row.id}>
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>

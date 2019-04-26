@@ -6,11 +6,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Checkbox from "@material-ui/core/Checkbox";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { updateFolder } from "../actions/proffesorActions";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -35,19 +35,31 @@ const styles = theme => ({
 });
 
 class editLekcija extends Component {
-  state = {
-    open: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+      name: props.folder.name
+    };
+  }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({ open: true, name: this.props.folder.name });
   };
 
   handleClose = () => {
     this.setState({ open: false });
   };
-  handleChange = event => {
-    this.setState({ value: event.target.value });
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  submitChange = () => {
+    let { dispatch } = this.props;
+    dispatch(updateFolder(this.props.folder.id, this.state.name));
+    this.handleClose();
+    this.props.reload();
   };
 
   render() {
@@ -55,6 +67,7 @@ class editLekcija extends Component {
     return (
       <div>
         <IconButton
+          variant="outlined"
           className={classes.deleteBtn}
           onClick={this.handleClickOpen}
           aria-label="Edit"
@@ -71,11 +84,14 @@ class editLekcija extends Component {
         >
           <DialogTitle id="form-dialog-title">Uredite lekciju </DialogTitle>
           <DialogContent>
-            <TextField fullWidth id="text" label="Novi naziv" type="text" />
-            <FormControlLabel
-              control={<Checkbox value="checkedC" color="secondary" />}
-              label="Vidljivo"
-              className={classes.checkVid}
+            <TextField
+              fullWidth
+              id="text"
+              label="Novi naziv"
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.onChange}
             />
           </DialogContent>
           <DialogActions>
@@ -83,11 +99,19 @@ class editLekcija extends Component {
               <DeleteIcon />
             </IconButton>
 
-            <Button onClick={this.handleClose} color="secondary">
+            <Button
+              onClick={this.handleClose}
+              variant="contained"
+              color="secondary"
+            >
               Odustani
             </Button>
 
-            <Button onClick={this.handleClose} color="primary">
+            <Button
+              onClick={this.submitChange}
+              variant="contained"
+              color="primary"
+            >
               Potvrdi
             </Button>
           </DialogActions>
@@ -97,4 +121,4 @@ class editLekcija extends Component {
   }
 }
 
-export default withStyles(styles)(editLekcija);
+export default connect()(withStyles(styles)(editLekcija));

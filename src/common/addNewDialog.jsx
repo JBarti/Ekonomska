@@ -16,8 +16,8 @@ import ListItem from "@material-ui/core/ListItem";
 import { addTest, addPdf } from "../actions/proffesorActions";
 import { connect } from "react-redux";
 import PdfIcon from "@material-ui/icons/PictureAsPdf";
+import QuizIcon from "@material-ui/icons/School";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
-import WordIcon from "@material-ui/icons/InsertDriveFile";
 
 const styles = theme => ({
   root: {
@@ -44,12 +44,16 @@ const styles = theme => ({
   icons: {
     transform: "translateY(5px)",
     marginRight: 10
+  },
+  btnNew: {
+    color: "#fff"
   }
 });
 
 function Choice(props) {
   const { whatIsChosen, handleChange } = props;
-  if (whatIsChosen == "Test") {
+  const testovi = ["Kviz", "Test"]
+  if (testovi.includes(whatIsChosen)) {
     return (
       <div>
         {" "}
@@ -117,12 +121,18 @@ class addNewDialog extends Component {
     let { dispatch } = this.props;
     switch (value) {
       case "Test":
-        let { testName } = this.state;
+        var { testName } = this.state;
         dispatch(addTest(folderId, { name: testName, active: true }));
+        break;
+      case "Kviz":
+        var { testName } = this.state;
+        dispatch(addTest(folderId, { name: testName, active: true, isQuiz: true }));
+        break;
       case "PDF":
         let { pdfName, url } = this.state;
         console.log(pdfName, url);
         dispatch(addPdf(folderId, { name: pdfName, url }));
+        break;
     }
     this.handleClose();
   };
@@ -131,7 +141,9 @@ class addNewDialog extends Component {
     return (
       <div>
         <ListItem button onClick={this.handleClickOpen}>
-          <ListItemText primary="Novo" />
+          <ListItemText classes={{ root: classes.btnNew }}>
+            <span className={classes.btnNew}>Novo</span>
+          </ListItemText>
         </ListItem>
         <Dialog
           open={this.state.open}
@@ -171,6 +183,16 @@ class addNewDialog extends Component {
                     </div>
                   }
                 />
+                <FormControlLabel
+                  value="Kviz"
+                  control={<Radio />}
+                  label={
+                    <div>
+                      <QuizIcon className={classes.icons} />
+                      Kviz
+                    </div>
+                  }
+                />
               </RadioGroup>
             </FormControl>
             {this.Choice({
@@ -179,10 +201,14 @@ class addNewDialog extends Component {
             })}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button
+              onClick={this.handleClose}
+              variant="contained"
+              color="secondary"
+            >
               Odustani
             </Button>
-            <Button onClick={this.addNew} color="primary">
+            <Button onClick={this.addNew} variant="contained" color="primary">
               Dodaj
             </Button>
           </DialogActions>

@@ -2,8 +2,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_ENDPOINTL = "http://0.0.0.0:3001";
-const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINT = "http://0.0.0.0:3001";
+const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
 
 export function loadStudent(email, password) {
   return {
@@ -83,6 +83,16 @@ export function addFolder(gradeId, name, description) {
   };
 }
 
+export function updateFolder(folderId, name) {
+  return {
+    type: "UPDATE_FOLDER",
+    payload: axios.post(API_ENDPOINT + "/proffesor/folder/update", {
+      folderId,
+      name
+    })
+  };
+}
+
 export function addGrade(name, proffesorId) {
   return {
     type: "ADD_GRADE",
@@ -139,6 +149,40 @@ export function deleteNotification(notificationId) {
     type: "REMOVE_NOTIFICATION",
     payload: axios.delete(API_ENDPOINT + "/proffesor/notifications", {
       data: { notificationId }
+    })
+  };
+}
+
+export function deleteFile(fileId, folderId) {
+  return {
+    type: "REMOVE_FILE",
+    payload: axios.delete(API_ENDPOINT + "/proffesor/file", {
+      data: {
+        fileId,
+        folderId
+      }
+    })
+  };
+}
+
+export function deleteTest(testId, folderId) {
+  return {
+    type: "REMOVE_TEST",
+    payload: axios.delete(API_ENDPOINT + "/proffesor/test", {
+      data: {
+        testId,
+        folderId
+      }
+    })
+  };
+}
+
+export function lockTestUp(testId, folderId) {
+  return {
+    type: "LOCK_TEST",
+    payload: axios.post(API_ENDPOINT + "/proffesor/test/lock", {
+      testId,
+      folderId
     })
   };
 }

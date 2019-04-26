@@ -92,11 +92,11 @@ class addNewClass extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.handleClose} variant="contained" color="secondary">
               Odustani
             </Button>
 
-            <Button onClick={this.createNewClass} color="primary">
+            <Button onClick={this.createNewClass} variant="contained" color="primary">
               Dodaj
             </Button>
           </DialogActions>

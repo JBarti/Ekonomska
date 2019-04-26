@@ -4,9 +4,8 @@ import { withStyles, createMuiTheme } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import FileDownload from "@material-ui/icons/FileDownload";
-import Typography from "@material-ui/core/Typography";
 import Android from "@material-ui/icons/Android";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
 const styles = theme => ({
   listItemText: {
@@ -45,6 +44,9 @@ class ListButton extends Component {
           className={classes.listItemText}
           classes={{ primary: classes.text }}
         />
+        <ListItemSecondaryAction>
+          {this.props.secondaryAction}
+        </ListItemSecondaryAction>
       </ListItem>
     );
   }

@@ -32,6 +32,9 @@ const styles = theme => ({
   dialog: {
     position: "initial",
     zIndex: 1000000
+  },
+  btnNew: {
+    color: "white"
   }
 });
 
@@ -68,7 +71,7 @@ class addNewUcenik extends Component {
     return (
       <div>
         <ListItem button onClick={this.handleClickOpen}>
-          <ListItemText primary="Novo" />
+          <ListItemText> <span className={classes.btnNew}>Novo</span></ListItemText>
         </ListItem>
         <Dialog
           open={this.state.open}
@@ -118,10 +121,10 @@ class addNewUcenik extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.handleClose} variant="contained" color="secondary">
               Odustani
             </Button>
-            <Button onClick={this.addNewUcenik} color="primary">
+            <Button onClick={this.addNewUcenik} variant="contained" color="primary">
               Dodaj
             </Button>
           </DialogActions>
