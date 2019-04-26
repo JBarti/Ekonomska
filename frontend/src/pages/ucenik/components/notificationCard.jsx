@@ -72,8 +72,8 @@ class NotifiactionCard extends Component {
   render() {
     const { classes, notifications } = this.props;
     return (
-      <Card cardName="Obavijesti" className={classes.root} elevation={5}>
-        <CardHeader subheader={"Obavjesti"} className={classes.cardHeader} />
+      <Card className={classes.root} elevation={5}>
+        <CardHeader title={"Obavjesti"} className={classes.cardHeader} />
         <Divider />
         <CardContent className={classes.cardContent}>
           <List>

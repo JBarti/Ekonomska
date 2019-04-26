@@ -36,7 +36,7 @@ const styles = theme => ({
     paddingLeft: 7,
     paddingRight: 7,
     marginBottom: 8,
-    color: theme.palette.grey[100]
+    color: "white"
   },
   gradeRatio: {
     display: "inline-block",
@@ -63,7 +63,8 @@ const styles = theme => ({
 const GradeDisplay = props => {
   let { classes, solution } = props;
   let { name, percentage, grade, testPoints, isQuiz } = solution;
-  let achievedPoints = testPoints * (percentage / 100);
+  percentage = Math.round(percentage);
+  let achievedPoints = Math.round(testPoints * (percentage / 100));
   let gradeNumStyle = {
     background: `-moz-linear-gradient(326deg, ${grade.gradient[0]} 36%, ${
       grade.gradient[1]
@@ -81,7 +82,7 @@ const GradeDisplay = props => {
         }
         secondary={
           <div>
-            <span>{`Ime testa: ${name}`}</span>
+            <span>{`Ime testa: ${name.toUpperCase()}`}</span>
           </div>
         }
       />
@@ -128,7 +129,7 @@ class GradesCard extends Component {
         let acquiredPoints = solution.points;
         let percentage = (acquiredPoints / testPoints) * 100;
         let grade = (() => {
-          grade = { num: 1, gradient: [red[500], red[600]] };
+          let grade = { num: 1, gradient: [red[500], red[600]] };
           switch (percentage) {
             case percentage <= 50: {
               grade.num = 1;
@@ -146,7 +147,7 @@ class GradesCard extends Component {
             }
             case percentage <= 90: {
               grade.num = 4;
-              grade.gradient[(blue[500], blue[600])];
+              grade.gradient = [(blue[500], blue[600])];
               break;
             }
             case percentage <= 100: {
@@ -177,10 +178,8 @@ class GradesCard extends Component {
     console.log(rows);
     return (
       <Card elevation={5} className={classes.root}>
-        <ListSubheader component="div" className={classes.subheader}>
-          Ocjene
-          <Divider />
-        </ListSubheader>
+        <CardHeader title={"Ocjene"} className={classes.subheader} />
+        <Divider />
         <CardContent className={classes.cardContent}>
           <List>
             {rows.map(solution => (

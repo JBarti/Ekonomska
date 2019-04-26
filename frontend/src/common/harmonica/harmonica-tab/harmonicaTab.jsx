@@ -82,14 +82,4 @@ class HarmonicaTab extends Component {
   }
 }
 
-HarmonicaTab.propTypes = {
-  classes: PropTypes.object.isRequired,
-  heading: PropTypes.string.isRequired,
-  subheading: PropTypes.string,
-  bodyText: PropTypes.string,
-  onClick: PropTypes.function,
-  expanded: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-};
-
 export default withStyles(styles)(HarmonicaTab);

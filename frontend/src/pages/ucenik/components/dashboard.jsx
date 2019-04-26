@@ -7,6 +7,8 @@ import GradesCard from "./gradesCard";
 import LekcijaCard from "./lekcijaCard";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import IncomeCard from "../../../common/incomeCard";
+import OutcomeCard from "../../../common/outcomeCard";
 
 const styles = theme => ({
   fix: {
@@ -24,6 +26,30 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    let payment = { name: "Web dev", amount: 2000 };
+    let fees = [
+      { name: "f1", amount: 500 },
+      { name: "fee3", amount: 300 },
+      { name: "foo1", amount: 200 }
+    ];
+    let outcomes = [
+      { type: "Režije", amount: 200, change: -10 },
+      { type: "Zabava", amount: 400, change: 20 },
+      { type: "Kredit", amount: 650, change: undefined },
+      { type: "Neočekivano", amount: 500, change: undefined }
+    ];
+    this.state = { outcomes, payment, fees };
+  }
+
+  outcomeSliderChange = event => {
+    let outcomes = [...this.state.outcomes];
+    outcomes[event.target.name].change = Number(event.target.value);
+    this.setState({ outcomes });
+    console.log("STEJTOVI", this.state);
+  };
+
   render() {
     const {
       classes,
@@ -36,9 +62,6 @@ class Dashboard extends Component {
     let solvedTests = solutions
       .filter(solution => !!solution)
       .map(solution => solution.testId);
-    console.log("notifikacjeeee");
-    console.log(tests);
-    console.log(notifications);
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         <GridList className={classes.gridList} rows={2.5}>
@@ -61,6 +84,15 @@ class Dashboard extends Component {
           ) : (
             <div />
           )}
+        </Row>
+        <Row>
+          <IncomeCard payment={this.state.payment} fees={this.state.fees} />
+          <OutcomeCard
+            outcomes={this.state.outcomes}
+            sliderChange={this.outcomeSliderChange}
+            credit={{}}
+            unexpected={{}}
+          />
         </Row>
       </div>
     );

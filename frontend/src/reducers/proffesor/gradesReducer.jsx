@@ -1,11 +1,11 @@
 import { selectGrade } from "../../actions/proffesorActions";
 
-let state = {
+let stateDefault = {
   selectedGrade: null,
   all: null
 };
 
-export default function reducer(state = state, action) {
+export default function reducer(state = stateDefault, action) {
   let newState = { ...state };
   switch (action.type) {
     case "LOAD_PROFFESOR_FULFILLED": {
@@ -120,7 +120,6 @@ export default function reducer(state = state, action) {
       }).notifications = newGrade.notifications;
 
       newState = { ...state, all: newAll, selectedGrade: newGrade };
-      newState;
       break;
     }
     case "UPDATE_STUDENT_FULFILLED": {

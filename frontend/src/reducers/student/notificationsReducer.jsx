@@ -1,8 +1,8 @@
-let state = {
+let stateDefault = {
   all: null
 };
 
-export default function reducer(state = state, action) {
+export default function reducer(state = stateDefault, action) {
   let newState = { ...state };
 
   switch (action.type) {
