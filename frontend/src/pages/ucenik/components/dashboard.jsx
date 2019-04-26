@@ -95,12 +95,6 @@ class Dashboard extends Component {
             unexpected={{}}
           />
         </Row>
-        ) : (
-        <div />
-        )}
-        <Row>
-          <FinPlaner />
-        </Row>
       </div>
     );
   }
