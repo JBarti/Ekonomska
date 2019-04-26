@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import {
+<<<<<<< HEAD
   Card,
   CardHeader,
   CardContent,
@@ -13,6 +14,16 @@ import {
   Chip
 } from "@material-ui/core";
 import { red, green, blue, orange, yellow } from "@material-ui/core/colors";
+=======
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip
+} from "recharts";
+>>>>>>> b5a20334fb9612e69b49e1d32cd7a087c1f18120
 
 const styles = theme => ({
   root: {

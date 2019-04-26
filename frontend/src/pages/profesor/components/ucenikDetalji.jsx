@@ -15,6 +15,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Visibility from "@material-ui/icons/Visibility";
 import UserIcon from "@material-ui/icons/Person";
+import NoteAdd from "@material-ui/icons/NoteAdd";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
 import { selectGrade } from "../../../actions/proffesorActions";
@@ -256,6 +257,12 @@ class LekcijaCard extends Component {
                   );
                 })}
                 <AddNewUcenik gradeId={id} />
+                <ListButton
+                  classes={{ text: classes.buttonText }}
+                  primary="Pokreni sljedeci korak"
+                  iconColor="white"
+                  icon={<NoteAdd />}
+                />
               </List>
             </Drawer>
           </div>

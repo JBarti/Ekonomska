@@ -5,6 +5,7 @@ import Row from "../../../common/content/row/row";
 import NotificationCard from "./notificationCard";
 import GradesCard from "./gradesCard";
 import LekcijaCard from "./lekcijaCard";
+import FinPlaner from "./finPlanerComp";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
@@ -93,6 +94,12 @@ class Dashboard extends Component {
             credit={{}}
             unexpected={{}}
           />
+        </Row>
+        ) : (
+        <div />
+        )}
+        <Row>
+          <FinPlaner />
         </Row>
       </div>
     );
