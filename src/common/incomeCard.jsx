@@ -27,7 +27,7 @@ const IncomeCard = props => {
   let { classes, payment, fees } = props;
   let total =
     payment.amount +
-    fees.map(fee => fee.amount).reduce((prev, amount) => (prev += amount));
+    fees.map(fee => fee.amount).reduce((prev, amount) => prev + amount, 0);
   let labels = [payment.name].concat(fees.map(fee => fee.name));
   let data = [payment.amount].concat(fees.map(fee => fee.amount));
   let colors = [green[400]].concat(fees.map(() => blue[400]));
