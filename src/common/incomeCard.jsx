@@ -25,13 +25,9 @@ const styles = theme => ({
 
 const IncomeCard = props => {
   let { classes, payment, fees } = props;
-  try {
-    let total =
-      payment.amount +
-      fees.map(fee => fee.amount).reduce((prev, amount) => (prev += amount));
-  } catch (error) {
-    let total = 0;
-  }
+  let total =
+    payment.amount +
+    fees.map(fee => fee.amount).reduce((prev, amount) => (prev += amount));
   let labels = [payment.name].concat(fees.map(fee => fee.name));
   let data = [payment.amount].concat(fees.map(fee => fee.amount));
   let colors = [green[400]].concat(fees.map(() => blue[400]));
