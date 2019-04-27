@@ -14,15 +14,18 @@ import { addTest, lockTestUp } from "../../../actions/proffesorActions";
 const styles = theme => ({
   root: {
     position: "relative",
-    marginTop: 35,
-    alignContent: "left"
+    background: "linear-gradient(180deg, purple 40%, white 40%)",
+    backgroundAttachment: "fixed",
+    paddingTop: 20
   },
   question: {
-    marginBottom: 40,
-    paddingLeft: 15,
-    borderLeftWidth: "3px",
-    borderLeftStyle: "solid",
-    borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 2 100%"
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 25,
+    display: "table",
+    margin: "0 auto",
+    boxShadow: " 0px 0px 15px -5px rgba(0,0,0,0.75)",
+    backgroundColor: "white"
   },
   submitButton: {
     marginLeft: 0,
@@ -31,7 +34,8 @@ const styles = theme => ({
   testName: {
     position: "fixed",
     width: "35%",
-    marginLeft: "40%"
+    float: "right",
+    clear: "left"
   },
   testNameInput: {
     fontSize: "3.5rem"
@@ -47,11 +51,16 @@ const styles = theme => ({
     fontSize: 16
   },
   addAnswer: {
-    width: 400
+    float: "right"
   },
   addQuestion: {
     width: 450,
+    margin: "0 auto",
     marginBottom: 40
+  },
+  btnalign: {
+    width: "450px",
+    margin: "0 auto"
   }
 });
 
@@ -160,6 +169,7 @@ class Forms extends Component {
                 />
                 <TextField
                   onChange={this.handleAnswerChange(qIndex, aIndex)}
+                  classes={{ root: classes.txtfix }}
                   value={
                     this.state.test.questions[qIndex].answers[aIndex].answer
                   }
@@ -173,7 +183,8 @@ class Forms extends Component {
             classes={{ root: classes.addAnswer }}
             onClick={this.addNewAnswer(qIndex)}
             icon={<div />}
-            variant="outlined"
+            variant="fab"
+            color={"primary"}
           >
             +
           </Button>
@@ -190,56 +201,49 @@ class Forms extends Component {
     const { questions, locked } = test;
     return (
       <div className={classes.root}>
-        <TextField
-          onChange={this.handleTestNameChange}
-          className={classes.testName}
-          InputProps={{ classes: { input: classes.testNameInput } }}
-          value={test.name}
-          align="right"
-        >
-          {test.name}
-        </TextField>
         {questions.map((question, index) => {
           return this.genQuestion(question, index, classes, locked);
         })}
-        {!locked ? (
-          <Button
-            classes={{ root: classes.addQuestion }}
-            icon={<div />}
-            variant="outlined"
-            onClick={this.addNewQuestion}
-          >
-            Novo pitanje
-          </Button>
-        ) : (
-          <div />
-        )}
-        <br />
-        <Button
-          variant="extendedFab"
-          color="primary"
-          className={classes.submitButton}
-          onClick={this.submit}
-          disabled={test.locked}
-        >
-          <IconDone style={{ marginRight: 8 }} />
-          Submit
-        </Button>
-        <Button
-          variant="extendedFab"
-          color="primary"
-          className={classes.submitButton}
-          onClick={this.lockTest}
-          style={{ backgroundColor: "#ffd600", marginLeft: 10 }}
-          disabled={test.locked}
-        >
-          {locked ? (
-            <LockedIcon style={{ marginRight: 8 }} />
+        <div className={classes.btnalign}>
+          {!locked ? (
+            <Button
+              classes={{ root: classes.addQuestion }}
+              icon={<div />}
+              variant="outlined"
+              onClick={this.addNewQuestion}
+            >
+              Novo pitanje
+            </Button>
           ) : (
-            <UnlockedIcon style={{ marginRight: 8 }} />
+            <div />
           )}
-          {locked ? "Locked" : "Lock"}
-        </Button>
+          <br />
+          <Button
+            variant="extendedFab"
+            color="primary"
+            className={classes.submitButton}
+            onClick={this.submit}
+            disabled={test.locked}
+          >
+            <IconDone style={{ marginRight: 8 }} />
+            Submit
+          </Button>
+          <Button
+            variant="extendedFab"
+            color="primary"
+            className={classes.submitButton}
+            onClick={this.lockTest}
+            style={{ backgroundColor: "#ffd600", marginLeft: 10 }}
+            disabled={test.locked}
+          >
+            {locked ? (
+              <LockedIcon style={{ marginRight: 8 }} />
+            ) : (
+              <UnlockedIcon style={{ marginRight: 8 }} />
+            )}
+            {locked ? "Locked" : "Lock"}
+          </Button>
+        </div>
       </div>
     );
   }
