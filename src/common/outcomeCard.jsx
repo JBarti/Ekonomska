@@ -27,10 +27,10 @@ import {
 
 const styles = theme => ({
   root: {
-    width: "40%",
+    width: "45%",
     marginLeft: 10,
-    overflowY: "hidden",
-    overflowX: "auto"
+    overflowY: "auto",
+    overflowX: "hidden"
   },
   cardContent: {
     paddingTop: 0

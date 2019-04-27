@@ -13,7 +13,7 @@ export default function reducer(state = stateDefault, action) {
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
       console.log("OVO JE PAYLOAD");
-      console.log(action.payload.data);
+      console.log(action.payload);
       let user = action.payload.data ? action.payload.data : action.payload;
       let {
         id,

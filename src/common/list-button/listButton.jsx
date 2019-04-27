@@ -4,6 +4,7 @@ import { withStyles, createMuiTheme } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import SecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Android from "@material-ui/icons/Android";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 

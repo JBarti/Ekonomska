@@ -9,6 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
+import PersonAdd from "@material-ui/icons/PersonAdd";
 import { connect } from "react-redux";
 import { addStudent } from "../../../actions/proffesorActions";
 
@@ -71,7 +72,10 @@ class addNewUcenik extends Component {
     return (
       <div>
         <ListItem button onClick={this.handleClickOpen}>
-          <ListItemText> <span className={classes.btnNew}>Novo</span></ListItemText>
+          <ListItemText>
+            {" "}
+            <span className={classes.btnNew}>Novi učenik</span>
+          </ListItemText>
         </ListItem>
         <Dialog
           open={this.state.open}
@@ -121,10 +125,18 @@ class addNewUcenik extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} variant="contained" color="secondary">
+            <Button
+              onClick={this.handleClose}
+              variant="contained"
+              color="secondary"
+            >
               Odustani
             </Button>
-            <Button onClick={this.addNewUcenik} variant="contained" color="primary">
+            <Button
+              onClick={this.addNewUcenik}
+              variant="contained"
+              color="primary"
+            >
               Dodaj
             </Button>
           </DialogActions>
