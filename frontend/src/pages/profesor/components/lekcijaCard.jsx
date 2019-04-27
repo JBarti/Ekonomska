@@ -16,13 +16,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconBook from "@material-ui/icons/Book";
 import IconQA from "@material-ui/icons/QuestionAnswer";
-import ShareIcon from "@material-ui/icons/Share";
 import External from "../../../common/external";
 import StudentForms from "../../profesor/components/forms";
 import EditLekcija from "../../../common/editLekcija";
 import AddNewDialog from "../../../common/addNewDialog";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LockedIcon from "@material-ui/icons/Lock";
+import IconQuiz from "@material-ui/icons/School";
+import Quiz from "./quiz";
 import { deleteFile, deleteTest } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
 const drawerWidth = 240;
@@ -37,8 +38,7 @@ const styles = theme => ({
     marginTop: "15%",
     textAlign: "right",
     marginRight: "10%",
-    fontSize: 24,
-    display: "inlineBlock"
+    fontSize: 24
   },
   cardSubtitle: {
     marginTop: "2%",
@@ -142,10 +142,6 @@ const styles = theme => ({
   landingTxt: {
     textAlign: "center",
     marginTop: "15%"
-  },
-  shareBtn: {
-    display: "inline",
-    float: "right"
   }
 });
 
@@ -224,6 +220,22 @@ class LekcijaCard extends Component {
     }, 10);
   };
 
+  showQuiz = quiz => () => {
+    this.handleClose();
+    setTimeout(this.handleClickOpen, 350);
+    setTimeout(() => {
+      this.setState({
+        content: (
+          <Quiz
+            reload={this.reload}
+            test={quiz}
+            folderId={this.props.folder.id}
+          />
+        )
+      });
+    }, 10);
+  };
+
   removeFile = fileId => () => {
     let { dispatch } = this.props;
     let folderId = this.props.folder.id;
@@ -250,9 +262,6 @@ class LekcijaCard extends Component {
       >
         <div className={classes.circle} />
         <div className={classes.square} />
-        <IconButton className={classes.shareBtn}>
-          <ShareIcon />
-        </IconButton>
         <div className={classes.cardTitle}>{name}</div>
         <div className={classes.cardSubtitle}>{description}</div>
         <div>
@@ -326,30 +335,62 @@ class LekcijaCard extends Component {
               </List>
               <Divider />
               <List>
-                {tests.map(test => (
-                  <ListButtom
-                    primary={test.name}
-                    classes={{ text: classes.buttonText }}
-                    iconColor="white"
-                    icon={<IconQA />}
-                    onClick={this.showTest(test)}
-                    secondaryAction={
-                      test.locked ? (
-                        <IconButton>
-                          <LockedIcon
-                            style={{ color: "white", opacity: 0.4 }}
-                          />
-                        </IconButton>
-                      ) : (
-                        <IconButton onClick={this.removeTest(test.id)}>
-                          <DeleteIcon
-                            style={{ color: "white", opacity: 0.4 }}
-                          />
-                        </IconButton>
-                      )
-                    }
-                  />
-                ))}
+                {tests
+                  .filter(test => !test.isQuiz)
+                  .map(test => (
+                    <ListButtom
+                      primary={test.name}
+                      classes={{ text: classes.buttonText }}
+                      iconColor="white"
+                      icon={<IconQA />}
+                      onClick={this.showTest(test)}
+                      secondaryAction={
+                        test.locked ? (
+                          <IconButton>
+                            <LockedIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        ) : (
+                          <IconButton onClick={this.removeTest(test.id)}>
+                            <DeleteIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        )
+                      }
+                    />
+                  ))}
+              </List>
+              <Divider />
+              <List>
+                {tests
+                  .filter(test => test.isQuiz)
+                  .map(test => (
+                    <ListButtom
+                      primary={test.name}
+                      classes={{ text: classes.buttonText }}
+                      iconColor="white"
+                      icon={<IconQuiz />}
+                      onClick={this.showQuiz(test)}
+                      secondaryAction={
+                        test.locked ? (
+                          <IconButton>
+                            <LockedIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        ) : (
+                          <IconButton onClick={this.removeTest(test.id)}>
+                            <DeleteIcon
+                              style={{ color: "white", opacity: 0.4 }}
+                            />
+                          </IconButton>
+                        )
+                      }
+                    />
+                  ))}
+                <Divider />
                 <AddNewDialog folderId={folder.id} />
               </List>
             </Drawer>
@@ -359,8 +400,5 @@ class LekcijaCard extends Component {
     );
   }
 }
-LekcijaCard.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default connect()(withStyles(styles)(LekcijaCard));
