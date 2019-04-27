@@ -35,47 +35,42 @@ const styles = theme => ({
   addClassBtn: {
     position: "absolute",
     right: 10,
-    top: 0,
-    overflowX: "hidden"
-  },
-  dialog: {
-    overflowY: "hidden",
-    overflowX: "hidden"
+    top: 0
   }
 });
 
 class newNotificationDialog extends Component {
-  state = {
-    open: false,
-    title: "",
-    description: ""
-  };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    let newState = { ...this.state };
-    newState.open = false;
-    this.setState(newState);
-  };
-
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  submitNotification = () => {
-    let { dispatch, gradeId } = this.props;
-    let { title, description } = this.state;
-    dispatch(createNotification(title, description, gradeId));
-    console.log(this.state);
-    this.setState({ open: false });
-    this.handleClose();
-    console.log(this.state);
-    console.log(this.state);
-    console.log(this.state);
-  };
+    state = {
+        open: false,
+        title: "",
+        description: ""
+      };
+    
+      handleClickOpen = () => {
+        this.setState({ open: true });
+      };
+    
+      handleClose = () => {
+        let newState = { ...this.state };
+        newState.open = false;
+        this.setState(newState);
+      };
+    
+      handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+      };
+    
+      submitNotification = () => {
+        let { dispatch, gradeId } = this.props;
+        let { title, description } = this.state;
+        dispatch(createNotification(title, description, gradeId));
+        console.log(this.state);
+        this.setState({ open: false });
+        this.handleClose();
+        console.log(this.state);
+        console.log(this.state);
+        console.log(this.state);
+      };
   render() {
     const { classes } = this.props;
     return (
@@ -87,10 +82,11 @@ class newNotificationDialog extends Component {
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
-          classes={{ paper: classes.dialog }}
+          className={classes.dialog}
           fullWidth
+          scroll="paper"
         >
-          <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
+         <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Pošaljite obavijest razredima kojim predajete.
@@ -115,19 +111,11 @@ class newNotificationDialog extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={this.handleClose}
-              variant="contained"
-              color="secondary"
-            >
+            <Button onClick={this.handleClose} variant="contained" color="secondary">
               Odustani
             </Button>
 
-            <Button
-              onClick={this.submitNotification}
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={this.submitNotification} variant="contained" color="primary">
               Pošalji
             </Button>
           </DialogActions>

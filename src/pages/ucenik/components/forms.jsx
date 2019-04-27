@@ -66,6 +66,7 @@ class Forms extends Component {
     let answers = this.state.answers;
     let { dispatch, studentId, test, handleClose } = this.props;
     dispatch(solveTest(test.id, answers, studentId));
+    handleClose();
   };
 
   genQuestion = (question, aIndex, classes) => {

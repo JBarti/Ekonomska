@@ -62,7 +62,6 @@ class Forms extends Component {
   }
 
   handleChange = event => {
-    console.log("CHAAAAAAAAAAAAAAAAAANG");
     console.log(event.target.name);
     console.log(this.state);
     this.setState({ [event.target.name]: event.target.value });
@@ -178,8 +177,8 @@ class Forms extends Component {
             +
           </Button>
         ) : (
-          <div />
-        )}
+            <div />
+          )}
       </div>
     );
   };
@@ -212,8 +211,8 @@ class Forms extends Component {
             Novo pitanje
           </Button>
         ) : (
-          <div />
-        )}
+            <div />
+          )}
         <br />
         <Button
           variant="extendedFab"
@@ -236,8 +235,8 @@ class Forms extends Component {
           {locked ? (
             <LockedIcon style={{ marginRight: 8 }} />
           ) : (
-            <UnlockedIcon style={{ marginRight: 8 }} />
-          )}
+              <UnlockedIcon style={{ marginRight: 8 }} />
+            )}
           {locked ? "Locked" : "Lock"}
         </Button>
       </div>
