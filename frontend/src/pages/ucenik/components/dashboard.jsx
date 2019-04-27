@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
 import OutcomeCard from "../../../common/outcomeCard";
+import TotalCard from "./totalCard";
 
 const styles = theme => ({
   fix: {
@@ -94,6 +95,7 @@ class Dashboard extends Component {
             credit={{}}
             unexpected={{}}
           />
+          <TotalCard />
         </Row>
       </div>
     );
