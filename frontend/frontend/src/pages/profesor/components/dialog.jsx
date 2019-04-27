@@ -8,9 +8,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
 import { createNotification } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
+import "./dialog.css";
 
 const styles = theme => ({
   root: {
@@ -18,75 +18,75 @@ const styles = theme => ({
   },
   mutton: {
     overflowX: "hidden",
-    display: "flex",
+    display: "block",
     background: "linear-gradient(135deg, #C33764 0%, #252E73 100%)",
-    color: "white"
+    color: "white",
+    webkit_scrollbar: {
+      display: "none"
+    },
+    height: "100%",
+    position: "sticky",
+    clear: "left",
+    zIndex: 100000,
   },
-  tfield: {
-    width: 400,
-    marginLeft: 20
-  },
-  formControl: {
-    float: "left"
-  },
-  checkVid: {
-    float: "left"
-  },
-  addClassBtn: {
-    position: "absolute",
-    right: 10,
-    top: 0
+  dialog: { 
+    zIndex: 1000000
   }
 });
 
-class newNotificationDialog extends Component {
-    state = {
-        open: false,
-        title: "",
-        description: ""
-      };
-    
-      handleClickOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        let newState = { ...this.state };
-        newState.open = false;
-        this.setState(newState);
-      };
-    
-      handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-      };
-    
-      submitNotification = () => {
-        let { dispatch, gradeId } = this.props;
-        let { title, description } = this.state;
-        dispatch(createNotification(title, description, gradeId));
-        console.log(this.state);
-        this.setState({ open: false });
-        this.handleClose();
-        console.log(this.state);
-        console.log(this.state);
-        console.log(this.state);
-      };
+class CreateNotificationDialog extends Component {
+  state = {
+    open: false,
+    title: "",
+    description: ""
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    let newState = { ...this.state };
+    newState.open = false;
+    this.setState(newState);
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  submitNotification = () => {
+    let { dispatch, gradeId } = this.props;
+    let { title, description } = this.state;
+    dispatch(createNotification(title, description, gradeId));
+    console.log(this.state);
+    this.setState({ open: false });
+    this.handleClose();
+    console.log(this.state);
+    console.log(this.state);
+    console.log(this.state);
+  };
+
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.addClassBtn}>
-        <IconButton onClick={this.handleClickOpen}>
+      <div>
+        <Button
+          color="white"
+          label="Nova poruka"
+          onClick={this.handleClickOpen}
+          className={classes.mutton}
+        >
           <AddIcon />
-        </IconButton>
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
           className={classes.dialog}
-          fullWidth
-          scroll="paper"
+          classes={{ paper: classes.dialog }}
         >
-         <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
+          <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Pošaljite obavijest razredima kojim predajete.
@@ -111,11 +111,14 @@ class newNotificationDialog extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} variant="contained" color="secondary">
+            {/* <FormControlLabel
+              control={<Checkbox value="checkedC" color="secondary" />}
+              label="Važno"
+            /> */}
+            <Button variant="contained" onClick={this.handleClose} color="secondary">
               Odustani
             </Button>
-
-            <Button onClick={this.submitNotification} variant="contained" color="primary">
+            <Button variant="contained" onClick={this.submitNotification} color="primary">
               Pošalji
             </Button>
           </DialogActions>
@@ -125,4 +128,4 @@ class newNotificationDialog extends Component {
   }
 }
 
-export default connect()(withStyles(styles)(newNotificationDialog));
+export default connect()(withStyles(styles)(CreateNotificationDialog));

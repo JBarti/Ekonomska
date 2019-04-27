@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
-import { createNotification } from "../../../actions/proffesorActions";
+import { addGrade } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
 
 const styles = theme => ({
@@ -39,38 +39,31 @@ const styles = theme => ({
   }
 });
 
-class newNotificationDialog extends Component {
-    state = {
-        open: false,
-        title: "",
-        description: ""
-      };
-    
-      handleClickOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        let newState = { ...this.state };
-        newState.open = false;
-        this.setState(newState);
-      };
-    
-      handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-      };
-    
-      submitNotification = () => {
-        let { dispatch, gradeId } = this.props;
-        let { title, description } = this.state;
-        dispatch(createNotification(title, description, gradeId));
-        console.log(this.state);
-        this.setState({ open: false });
-        this.handleClose();
-        console.log(this.state);
-        console.log(this.state);
-        console.log(this.state);
-      };
+class addNewClass extends Component {
+  state = {
+    open: false
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  handleChange = event => {
+    console.log(event.target.value);
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  createNewClass = () => {
+    let { dispatch, proffesorId } = this.props;
+    let name = this.state.value;
+    console.log(name, proffesorId);
+    dispatch(addGrade(name, proffesorId));
+    this.handleClose();
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -86,28 +79,16 @@ class newNotificationDialog extends Component {
           fullWidth
           scroll="paper"
         >
-         <DialogTitle id="form-dialog-title">Nova obavijest</DialogTitle>
+          <DialogTitle id="form-dialog-title">Dodajte razred: </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Pošaljite obavijest razredima kojim predajete.
-            </DialogContentText>
             <TextField
-              autoFocus
-              id="text"
-              label="Naslov"
-              type="text"
-              name="title"
-              onChange={this.handleChange}
               fullWidth
-            />
-            <TextField
-              autoFocus
               id="text"
-              name="description"
-              onChange={this.handleChange}
-              label="Poruka"
+              label="Naziv"
               type="text"
-              fullWidth
+              name="value"
+              onChange={this.handleChange}
+              value={this.state.value}
             />
           </DialogContent>
           <DialogActions>
@@ -115,8 +96,8 @@ class newNotificationDialog extends Component {
               Odustani
             </Button>
 
-            <Button onClick={this.submitNotification} variant="contained" color="primary">
-              Pošalji
+            <Button onClick={this.createNewClass} variant="contained" color="primary">
+              Dodaj
             </Button>
           </DialogActions>
         </Dialog>
@@ -125,4 +106,9 @@ class newNotificationDialog extends Component {
   }
 }
 
-export default connect()(withStyles(styles)(newNotificationDialog));
+export default connect(store => {
+  return {
+    proffesorId: store.proffesor.id,
+    all: store.grades.all
+  };
+})(withStyles(styles)(addNewClass));

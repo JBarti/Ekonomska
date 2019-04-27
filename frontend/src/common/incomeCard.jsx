@@ -13,7 +13,7 @@ import { red, blue, purple, green } from "@material-ui/core/colors";
 
 const styles = theme => ({
   root: {
-    width: "25%",
+    width: "20%",
     marginLeft: 10,
     overflowY: "hidden"
   },
@@ -27,13 +27,14 @@ const IncomeCard = props => {
   let { classes, payment, fees } = props;
   let total =
     payment.amount +
-    fees.map(fee => fee.amount).reduce((prev, amount) => (prev += amount));
+    fees.map(fee => fee.amount).reduce((prev, amount) => prev + amount, 0);
+
   let labels = [payment.name].concat(fees.map(fee => fee.name));
   let data = [payment.amount].concat(fees.map(fee => fee.amount));
   let colors = [green[400]].concat(fees.map(() => blue[400]));
   return (
     <Card elevation={5} className={classes.root}>
-      <CardHeader title={`Prihodi`} />
+      <CardHeader title={`Prihodi: ${total} kn/mj`} />
       <Divider />
       <CardContent className={classes.cardContent}>
         <Doughnut
@@ -48,7 +49,7 @@ const IncomeCard = props => {
             ]
           }}
           width={"100%"}
-          height={"80%"}
+          height={"100%"}
           options={{ maintainAspectRatio: true, cutoutPercentage: 70 }}
         />
       </CardContent>

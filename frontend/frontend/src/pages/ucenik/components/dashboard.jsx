@@ -5,6 +5,7 @@ import Row from "../../../common/content/row/row";
 import NotificationCard from "./notificationCard";
 import GradesCard from "./gradesCard";
 import LekcijaCard from "./lekcijaCard";
+import FinPlaner from "./finPlanerComp";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
@@ -41,18 +42,14 @@ class Dashboard extends Component {
       { type: "Kredit", amount: 650, change: undefined },
       { type: "Neočekivano", amount: 500, change: undefined }
     ];
-
-    this.state = { job: { name: "", amount: 0 }, outcomes: [], fees: [] };
-  }
-
-  componentWillReceiveProps(newProp) {
-    this.setState(newProp);
+    this.state = { outcomes, payment, fees };
   }
 
   outcomeSliderChange = event => {
     let outcomes = [...this.state.outcomes];
     outcomes[event.target.name].change = Number(event.target.value);
     this.setState({ outcomes });
+    console.log("STEJTOVI", this.state);
   };
 
   render() {
@@ -91,17 +88,14 @@ class Dashboard extends Component {
           )}
         </Row>
         <Row>
-          <IncomeCard payment={this.state.job} fees={this.state.fees} />
+          <IncomeCard payment={this.state.payment} fees={this.state.fees} />
           <OutcomeCard
             outcomes={this.state.outcomes}
             sliderChange={this.outcomeSliderChange}
             credit={{}}
             unexpected={{}}
           />
-          <TotalCard
-            outcomes={this.state.outcomes}
-            incomes={this.state.fees.concat([this.state.job])}
-          />
+          <TotalCard />
         </Row>
       </div>
     );
@@ -115,9 +109,6 @@ Dashboard.propTypes = {
 
 export default connect(store => {
   return {
-    job: store.finance.job || { amount: 0 },
-    fees: store.finance.fees || [],
-    outcomes: store.finance.outcomes || [],
     notifications: store.grade.notifications || [],
     folders: store.grade.folders || [],
     studentId: store.student.id,

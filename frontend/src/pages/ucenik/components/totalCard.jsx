@@ -29,7 +29,17 @@ const styles = theme => ({
 class TotalCard extends Component {
   render() {
     let { classes, outcomes, incomes } = this.props;
-
+    let totalOutcome = outcomes
+      .map(
+        outcome =>
+          outcome.amount + (outcome.change === undefined ? 0 : outcome.change)
+      )
+      .reduce((prev, next) => prev + next, 0);
+    let totalIncome = incomes
+      .map(income => income.amount)
+      .reduce((prev, next) => prev + next, 0);
+    let difference = totalIncome - totalOutcome;
+    console.log(totalIncome, totalOutcome);
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader title={`Ukupno stanje`} />
@@ -54,8 +64,8 @@ class TotalCard extends Component {
                       borderWidth: 2,
                       borderColor: [green[400], red[400]],
                       data: [
-                        { x: "2016-12-25", y: 20 },
-                        { x: "2016-12-26", y: 10 }
+                        { x: "prihodi", y: totalIncome },
+                        { x: "rashodi", y: totalOutcome }
                       ]
                     }
                   ]
@@ -104,14 +114,22 @@ class TotalCard extends Component {
                     classes={{ colorPrimary: classes.arrowUpColor }}
                   />
                 </span>
-                <span style={{ fontSize: 30, color: green[400] }}>
-                  +400 kn/mj
+                <span
+                  style={{
+                    fontSize: 30,
+                    color: difference > 0 ? green[500] : red[500]
+                  }}
+                >
+                  {difference} kn/mj
                 </span>
               </div>
-              <div style={{ height: "100%", width: "80%" }}>
+              <div style={{ height: "100%", width: "50%" }}>
                 <div style={{ fontSize: 20, color: grey[700] }}>
-                  <span style={{ textAlign: "left" }}>Prihodi:</span>{" "}
-                  <span style={{ textAlign: "right" }}>100 kn/mj</span>
+                  Prihodi: {totalIncome} kn/mj
+                </div>
+                <br />
+                <div style={{ fontSize: 20, color: grey[700] }}>
+                  Rashodi: {totalOutcome} kn/mj
                 </div>
               </div>
             </div>

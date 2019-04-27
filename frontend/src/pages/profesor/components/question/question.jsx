@@ -65,6 +65,7 @@ class Question extends Component {
                     <div className={classes.answer}>
                       <TextField
                         multiline={true}
+                        className={classes.quizInput}
                         name={index}
                         onChange={changeAnswer}
                         InputProps={{

@@ -29,6 +29,7 @@ export default theme => ({
     width: "100%",
     marginLeft: -25,
     zIndex: 10000,
+
     marginTop: 10
   },
   card: {
@@ -51,7 +52,8 @@ export default theme => ({
     width: "100%",
     height: "100%",
     position: "relative",
-    display: "flex"
+    display: "flex",
+    background: "linear-gradient(270deg, purple 40%, white 40%)"
   },
   answerContainer: {
     width: "100%",
@@ -94,13 +96,13 @@ export default theme => ({
   },
   answer: {
     width: "100%",
-    background: "linear-gradient(160deg, #C33764 0%, #252E73 100%)",
-    borderRadius: 10,
-    color: theme.palette.grey[100],
+    background: "white",
+    marginTop: "1em",
     "&:-moz-any(div)": answerStyle,
-
+    boxShadow: " 0px 0px 15px -5px rgba(0,0,0,0.75)",
     "&:hover": {},
-    "&:active": {}
+    "&:active": {},
+    textAlign: "center"
   },
   answerSelected: {
     "&:-moz-any(div)": answerStyle,
@@ -120,8 +122,7 @@ export default theme => ({
     }
   },
   answerInput: {
-    width: "100%",
-    color: theme.palette.grey[100]
+    width: "100%"
   },
   answerNum: {
     fontSize: 22,
@@ -137,7 +138,6 @@ export default theme => ({
   },
   answerText: {
     fontSize: 20,
-    color: "white",
     paddingTop: 5,
     textAlign: "center",
     marginLeft: 20,
@@ -170,5 +170,8 @@ export default theme => ({
     position: "absolute",
     width: "100%",
     height: "100%"
+  },
+  quizInput: {
+    marginTop: "1.5em"
   }
 });
