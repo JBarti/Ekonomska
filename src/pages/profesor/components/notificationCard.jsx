@@ -6,6 +6,8 @@ import HarmonicaTab from "../../../common/harmonica/harmonica-tab/harmonicaTab";
 import CreateNotificationDialog from "./newNotificationDialog";
 import { deleteNotification } from "../../../actions/proffesorActions";
 import { connect } from "react-redux";
+import { Card, CardHeader, CardContent, Typography } from "@material-ui/core/";
+import { List, ListItem, ListItemText, Divider } from "@material-ui/core/";
 
 const styles = theme => ({
   root: {
@@ -20,8 +22,53 @@ const styles = theme => ({
   },
   dialog: {
     overflowX: "hidden"
+  },
+  title: {
+    display: "inline-block",
+    paddingLeft: 4,
+    paddingRight: 6,
+    borderBottom: "solid 3px #4e54c8"
+  },
+  description: {
+    marginTop: 10,
+    fontSize: 15
+  },
+  date: {
+    paddingLeft: 12,
+    paddingRight: 20,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 1000,
+    fontSize: 14,
+    marginTop: 2,
+    marginLeft: "75%",
+    color: theme.palette.grey[500]
   }
 });
+
+const Notification = props => {
+  let { classes, notification } = props;
+  let { title, description, createdAt } = notification;
+  let date = createdAt.split("T")[0];
+  return (
+    <ListItem alignItems="flex-start">
+      <ListItemText
+        classes={{
+          secondary: classes.description
+        }}
+        primary={
+          <div>
+            <span className={classes.title}>{title}</span>
+            <span variant="caption" className={classes.date}>
+              {date}
+            </span>
+          </div>
+        }
+        secondary={description}
+      />
+    </ListItem>
+  );
+};
 
 class NotifiactionCard extends Component {
   state = { open: null };
@@ -50,31 +97,21 @@ class NotifiactionCard extends Component {
     const { notifications, gradeId } = this.props;
     return (
       <ContentCard
-      cardName={
-        <div>
-          <div>Obavjesti</div>
-          <CreateNotificationDialog
-          gradeId={gradeId} />
-        </div>
-      }
-      className={classes.root}>
+        cardName={
+          <div>
+            <div>Obavjesti</div>
+            <CreateNotificationDialog gradeId={gradeId} />
+          </div>
+        }
+        className={classes.root}
+      >
         <Harmonica className={classes.hm}>
-          {notifications.map((notification, index) => {
-            console.log(index, "INDEEEX");
-            return (
-              <HarmonicaTab
-                deleteable={true}
-                type={notification.important ? "warning" : "message"}
-                heading={notification.title}
-                subheading={notification.description.substring(0, 20)}
-                bodyText={notification.description}
-                name={index}
-                onClick={this.expandTab(index)}
-                onTrash={this.removeNotification(notification.id)}
-                expanded={this.state.open == index}
-              />
-            );
-          })}
+          {notifications.map(notification => (
+            <div>
+              <Notification classes={classes} notification={notification} />
+              <Divider />
+            </div>
+          ))}
         </Harmonica>
       </ContentCard>
     );

@@ -55,12 +55,7 @@ class ContentCard extends Component {
       );
     }
     return (
-      <Paper
-        elevation={
-          this.props.elevation === undefined ? 1 : this.props.elevation
-        }
-        className={classes.root}
-      >
+      <Paper elevation={5} className={classes.root}>
         {subheader ? (
           <List subheader={subheader} className={classes.subheaderList} />
         ) : null}

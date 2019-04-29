@@ -34,7 +34,7 @@ const IncomeCard = props => {
   let colors = [green[400]].concat(fees.map(() => blue[400]));
   return (
     <Card elevation={5} className={classes.root}>
-      <CardHeader title={`Prihodi: ${total} kn/mj`} />
+      <CardHeader title={`Prihodi`} />
       <Divider />
       <CardContent className={classes.cardContent}>
         <Doughnut
