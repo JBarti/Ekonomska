@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.3",
     "@material-ui/core": "^1.5.1",
+    "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "chart.js": "^2.8.0",
     "material-ui-slider": "^3.0.0",
