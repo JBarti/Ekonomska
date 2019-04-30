@@ -74,7 +74,7 @@ const styles = theme => ({
     flexShrink: 0
   },
   drawerPaper: {
-    background: "linear-gradient(180deg, #C33764 0%, #252E73 100%)",
+    background: "rgba(78, 84, 200, 1)",
     width: drawerWidth
   },
   toolbar: theme.mixins.toolbar,

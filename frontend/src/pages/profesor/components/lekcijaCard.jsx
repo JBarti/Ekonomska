@@ -99,15 +99,14 @@ const styles = theme => ({
     marginRight: drawerWidth,
     color: "black",
     backgroundColor: theme.palette.background.default,
-    textAlign: "center",
-    boxShadow: "0px 7px 50px 0px rgba(255,255,255,1)"
+    textAlign: "center"
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
-    background: "linear-gradient(180deg, #C33764 0%, #252E73 100%)",
+    background: "rgba(78, 84, 200, 1)",
     width: drawerWidth
   },
   toolbar: theme.mixins.toolbar,
