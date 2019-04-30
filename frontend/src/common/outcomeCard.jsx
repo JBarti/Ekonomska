@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import FinPlanChoice from "./finPlanChoice";
 import {
   Card,
   CardContent,
@@ -181,7 +182,13 @@ class OutcomeCard extends Component {
 
     return (
       <Card elevation={5} className={classes.root}>
-        <CardHeader title={`Rashodi`} />
+        <CardHeader
+          title={
+            <div>
+              Rashodi <FinPlanChoice />
+            </div>
+          }
+        />
         <Divider />
         <CardContent className={classes.cardContent}>
           <List>

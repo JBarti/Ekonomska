@@ -13,33 +13,53 @@ import { connect } from "react-redux";
 const styles = theme => ({
   root: {
     position: "relative",
-    marginTop: 35,
-    alignContent: "left"
+    background: "linear-gradient(180deg, rgba(78,84,200,1) 40%, white 40%)",
+    backgroundAttachment: "fixed",
+    paddingTop: 20,
+    margin: "0 auto"
   },
   question: {
-    marginBottom: 40,
-    marginLeft: 15,
-    paddingLeft: 15,
-    borderLeftWidth: "3px",
-    borderLeftStyle: "solid",
-    borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 2 100%"
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 25,
+    display: "table",
+    margin: "0 auto",
+    boxShadow: " 0px 0px 15px -5px rgba(0,0,0,0.75)",
+    backgroundColor: "white"
   },
   submitButton: {
-    marginLeft: 15,
-    marginBottom: 15,
-    textAlign: "none"
+    margin: "0 auto",
+    textAlign: "center"
   },
   testName: {
-    position: "fixed",
-    width: "35%",
-    marginLeft: "40%"
+    marginLeft: 10,
+    color: "white",
+    display: "table-row"
+  },
+  testNameInput: {
+    fontSize: "3.5rem"
+  },
+  questionTitleInput: {
+    fontSize: 24
   },
   questionTitle: {
     marginBottom: 15,
-    fontSize: 24
+    width: 400
   },
   radioLabel: {
     fontSize: 16
+  },
+  addAnswer: {
+    float: "right"
+  },
+  addQuestion: {
+    width: 450,
+    margin: "0 auto",
+    marginBottom: 40
+  },
+  btnalign: {
+    width: "450px",
+    margin: "0 auto"
   }
 });
 
@@ -116,15 +136,17 @@ class Forms extends Component {
         {questions.map((question, index) => {
           return this.genQuestion(question, index, classes);
         })}
-        <Button
-          variant="extendedFab"
-          color="primary"
-          className={classes.submitButton}
-          onClick={this.submitTest}
-        >
-          <IconDone style={{ marginRight: 8 }} />
-          Submit
-        </Button>
+        <div className={classes.btnalign}>
+          <Button
+            variant="extendedFab"
+            color="primary"
+            className={classes.submitButton}
+            onClick={this.submitTest}
+          >
+            <IconDone style={{ marginRight: 8 }} />
+            Submit
+          </Button>
+        </div>
       </div>
     );
   }

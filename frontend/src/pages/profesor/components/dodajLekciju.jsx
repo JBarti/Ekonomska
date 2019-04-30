@@ -17,7 +17,8 @@ const styles = theme => ({
   mutton: {
     marginTop: 10,
     overflowX: "hidden",
-    background: "linear-gradient(135deg, #C33764 0%, #252E73 100%)",
+    background:
+      "linear-gradient(135deg, rgba(78, 84, 200, 1) 0%, rgba(143,148,251,1) 100%)",
     color: "white",
     width: 280,
     height: "100%",

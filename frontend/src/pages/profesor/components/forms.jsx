@@ -14,7 +14,7 @@ import { addTest, lockTestUp } from "../../../actions/proffesorActions";
 const styles = theme => ({
   root: {
     position: "relative",
-    background: "linear-gradient(180deg, purple 40%, white 40%)",
+    background: "linear-gradient(180deg, rgba(143,148,251,1) 40%, white 40%)",
     backgroundAttachment: "fixed",
     paddingTop: 20
   },

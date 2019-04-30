@@ -52,7 +52,8 @@ export default theme => ({
     height: "90%",
     position: "relative",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    background: "linear-gradient(270deg, purple 40%, white 40%)"
   },
   answerContainer: {
     width: "100%",
@@ -97,9 +98,9 @@ export default theme => ({
     width: "100%",
     height: "100%",
     marginTop: 20,
-    background: "linear-gradient(160deg, #C33764 0%, #252E73 100%)",
-    borderRadius: 10,
-    color: theme.palette.grey[100],
+    background: "white",
+    boxShadow: " 0px 0px 15px -5px rgba(0,0,0,0.75)",
+    color: "black",
     "&:-moz-any(div)": answerStyle,
 
     "&:hover": {},
