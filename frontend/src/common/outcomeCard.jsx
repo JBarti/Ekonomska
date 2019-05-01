@@ -182,19 +182,12 @@ class OutcomeCard extends Component {
 
     return (
       <Card elevation={5} className={classes.root}>
-        <CardHeader
-          title={
-            <div>
-              Rashodi <FinPlanChoice />
-            </div>
-          }
-        />
+        <CardHeader title={"Rashodi"} action={<FinPlanChoice />} />
         <Divider />
         <CardContent className={classes.cardContent}>
           <List>
             {outcomes.map((outcome, index) => {
               let { type, amount, change } = outcome;
-              console.log("NEzNAN", outcome);
               return (
                 <div>
                   <OutcomeListItem

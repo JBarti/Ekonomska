@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import ContentCard from "./content-card/contentCard";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  IconButton,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+  CardMedia
+} from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,17 +16,89 @@ import Dialog from "@material-ui/core/Dialog";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { Error } from "@material-ui/icons/";
+import graphicDesignImage from "../images/grafickiDesign.png";
 
 const styles = theme => ({
   dialogfix: {
     overflowX: "hidden",
     overflowY: "hidden"
   },
-  fpSubmitBtn: {
-    float: "right",
-    display: "inline"
+  cardContainer: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1
+  },
+  selectionContainer: {
+    display: "flex",
+    flexDirection: "column",
+    height: "40%",
+    width: "60%",
+    marginTop: 15
+  },
+  selectionCard: {
+    marginRight: 15,
+    width: "82%",
+    display: "flex",
+    flexDirection: "row"
+  },
+  selectionCardText: {
+    marginLeft: 15,
+    marginTop: 15
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit
+  },
+  iconButton: {
+    marginBottom: -10,
+    marginRight: 5
+  },
+  background: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "#4e54c8"
+  },
+  backgroundLight: {
+    position: "absolute",
+    top: "-17%",
+    left: "-8%",
+    width: "110%",
+    height: "60vh",
+    backgroundColor: "#8f94fb",
+    transform: "rotate(-10deg)",
+    "-webkit-box-shadow": "2px 10px 5px 0px rgba(0,0,0,0.45)",
+    "-moz-box-shadow": "2px 10px 5px 0px rgba(0,0,0,0.45)",
+    "box-shadow": "2px 10px 5px 0px rgba(0,0,0,0.45)"
+  },
+  dialog: {
+    display: "flex"
+  },
+  card: {
+    width: "60%",
+    paddingTop: 15
+  },
+  dotContainer: {
+    marginTop: 10,
+    display: "flex",
+    flexDirection: "row"
+  },
+  dot: {
+    width: 15,
+    height: 15,
+    borderRadius: 1000,
+    backgroundColor: theme.palette.grey[400],
+    marginRight: 10
   }
 });
+
+const selectionCard = () => {};
 
 class finPlanChoice extends Component {
   constructor(props) {
@@ -34,9 +113,9 @@ class finPlanChoice extends Component {
     }
   }
 
-  handleEntering = () => {
-    this.radioGroupRef.focus();
-  };
+  // handleEntering = () => {
+  //   this.radioGroupRef.focus();
+  // };
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -54,15 +133,14 @@ class finPlanChoice extends Component {
     const { value, ...other } = this.props;
     return (
       <div>
-        <Button
-          className={classes.fpSubmitBtn}
-          variant="contained"
-          color="secondary"
+        <IconButton
           onClick={this.handleClickListItem}
+          className={classes.iconButton}
+          color={"secondary"}
+          ripp
         >
-          {" "}
-          Novi odabir
-        </Button>
+          <Error />
+        </IconButton>
         <Dialog
           disableBackdropClick
           disableEscapeKeyDown
@@ -73,9 +151,76 @@ class finPlanChoice extends Component {
           scroll="paper"
           aria-labelledby="confirmation-dialog-title"
           classes={{ paper: classes.dialogfix }}
-          fullWidth
+          className={classes.dialog}
+          fullScreen
         >
-          <DialogTitle id="confirmation-dialog-title">
+          <div className={classes.background}>
+            <div className={classes.backgroundLight} />
+          </div>
+          <div className={classes.cardContainer}>
+            <Card className={classes.card}>
+              <CardHeader
+                title={
+                  <div>
+                    <div style={{ fontSize: 30 }}>
+                      Nakon završenog školovanja dobili ste svoj prvi posao.
+                      Čestitamo!
+                    </div>
+                    <div className={classes.dotContainer}>
+                      <div className={classes.dot} />
+                      <div className={classes.dot} />
+                      <div className={classes.dot} />
+                    </div>
+                  </div>
+                }
+              />
+              <CardContent>
+                <Typography style={{ fontSize: 20 }} variant={"body1"}>
+                  To znači da sada imate svoje vlastite prihode s kojima možete
+                  upravljati! Na zaslonu prikazani su vaši mjesečni prihodi i
+                  rashodi. Vaš cilj je nakon 5 godina ostvariti dovoljnu uštedu
+                  da si priuštite kupnju kvalitetnog laptopa. Na tom putu
+                  očekuju vas financijski usponi i padovi. Stoga upravljajte
+                  mudro svojim novcem! Sretno!
+                  <br />
+                  <br />
+                  <div
+                    style={{ borderTop: "2px #4e54c8 solid", paddingTop: 5 }}
+                  >
+                    Prvi zadatak vam je odabrati glavni glavni životni put:
+                  </div>
+                </Typography>
+              </CardContent>
+            </Card>
+            <div className={classes.selectionContainer}>
+              <Card className={classes.selectionCard}>
+                <CardMedia
+                  style={{ height: "100%", width: "20%" }}
+                  image={graphicDesignImage}
+                />
+                <div className={classes.selectionCardText}>
+                  <Typography variant={"headline"}>Graficki dizajn</Typography>
+                  <Typography variant={"subheading"}>
+                    Vaš poslodavac oduševljen je odlukom i vašu plaću će
+                    postaviti na 5.500 HRK
+                  </Typography>
+                  <Typography variant={"subheading"}>
+                    Cijena tečaja: 25.000 HRK
+                  </Typography>
+                  <Typography
+                    variant={"caption"}
+                    style={{ marginTop: 15, fontSize: 15 }}
+                  >
+                    S obzirom da još nemate novca prisiljeni ste podignuti
+                    kredit. Njega otplačujete 4 godine svaki mjesec uz kamatnu
+                    stopu 4%.
+                  </Typography>
+                </div>
+              </Card>
+              <Card className={classes.selectionCard} />
+            </div>
+          </div>
+          {/* <DialogTitle id="confirmation-dialog-title">
             Odaberite scenarij
           </DialogTitle>
           <DialogContent>
@@ -129,12 +274,12 @@ class finPlanChoice extends Component {
               />
               <br />
             </RadioGroup>
-          </DialogContent>
+          </DialogContent> 
           <DialogActions>
             <Button onClick={this.handleClose} color="primary" variant="raised">
               Spremi
             </Button>
-          </DialogActions>
+            </DialogActions>*/}
         </Dialog>
       </div>
     );
