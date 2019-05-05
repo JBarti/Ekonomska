@@ -51,7 +51,7 @@ const styles = theme => ({
     height: 150,
     top: -60,
     left: -40,
-    backgroundColor: "#C33764",
+    backgroundColor: "#f50057",
     opacity: 0.9
   },
   circle: {
@@ -61,7 +61,7 @@ const styles = theme => ({
     top: 70,
     left: -20,
     borderRadius: "100%",
-    backgroundColor: "rgba(31,38,103,0.9)",
+    backgroundColor: "rgba(78,84,200,0.9)",
     opacity: 0.9
   },
   container: {
@@ -114,7 +114,8 @@ const styles = theme => ({
     fontSize: 24,
     borderLeftWidth: "5px",
     borderLeftStyle: "solid",
-    borderImage: "linear-gradient(180deg, #C33764 0%, #252E73 100%) 1 100%",
+    borderImage:
+      "linear-gradient(180deg, #f50057 0%, rgba(143,148,251,1) 100%) 1 100%",
     paddingLeft: 15,
     maxWidth: "60%",
     margin: "0 auto"

@@ -56,7 +56,7 @@ const styles = theme => ({
     height: 150,
     top: -60,
     left: -40,
-    backgroundColor: "#C33764",
+    backgroundColor: "#f50057",
     opacity: 0.9
   },
   circle: {
@@ -66,7 +66,7 @@ const styles = theme => ({
     top: 70,
     left: -20,
     borderRadius: "100%",
-    backgroundColor: "rgba(31,38,103,0.9)",
+    backgroundColor: "rgba(78,84,200,0.9)",
     opacity: 0.9
   },
   container: {

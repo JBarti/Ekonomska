@@ -183,7 +183,7 @@ class Forms extends Component {
             onClick={this.addNewAnswer(qIndex)}
             icon={<div />}
             variant="fab"
-            color={"primary"}
+            color={"secondary"}
           >
             +
           </Button>
