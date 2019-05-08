@@ -103,12 +103,15 @@ export function addGrade(name, proffesorId) {
   };
 }
 
-export function addStudent(student, gradeId) {
+export function addStudent(firstName, lastName, email, password, grade) {
   return {
     type: "ADD_STUDENT",
     payload: axios.post(API_ENDPOINT + "/students/register", {
-      student,
-      gradeId
+      firstName,
+      lastName,
+      email,
+      password,
+      grade
     })
   };
 }
@@ -183,6 +186,16 @@ export function lockTestUp(testId, folderId) {
     payload: axios.post(API_ENDPOINT + "/proffesor/test/lock", {
       testId,
       folderId
+    })
+  };
+}
+
+export function updateFinancialYear(financialYear, gradeId) {
+  return {
+    type: "UPDATE_FINANCIALYEAR",
+    payload: axios.post(API_ENDPOINT + "/proffesor/financialYear", {
+      financialYear,
+      gradeId
     })
   };
 }

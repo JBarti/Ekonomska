@@ -57,3 +57,16 @@ export function solveTest(testId, answers, studentId) {
     })
   };
 }
+
+export function newJob(jobName, jobPayment, jobCredit, studentId) {
+  console.log({ jobName, jobPayment, jobCredit, studentId });
+  return {
+    type: "NEW_JOB",
+    payload: axios.post(API_ENDPOINT + "/students/year/1", {
+      jobName,
+      jobPayment,
+      jobCredit,
+      studentId
+    })
+  };
+}

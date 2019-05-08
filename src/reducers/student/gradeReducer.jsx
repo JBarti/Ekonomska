@@ -3,7 +3,8 @@ let stateDefault = {
   name: null,
   proffesorId: null,
   folders: null,
-  notifications: null
+  notifications: null,
+  financialYear: null
 };
 
 export default function reducer(state = stateDefault, action) {
@@ -20,7 +21,8 @@ export default function reducer(state = stateDefault, action) {
         files,
         tests,
         folders,
-        notifications
+        notifications,
+        financialYear
       } = user.grade;
       newState = {
         ...state,
@@ -30,7 +32,8 @@ export default function reducer(state = stateDefault, action) {
         files,
         tests,
         folders,
-        notifications
+        notifications,
+        financialYear
       };
       break;
     }

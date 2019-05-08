@@ -211,6 +211,14 @@ export default function reducer(state = stateDefault, action) {
       newState = { ...state, selectGrade };
       break;
     }
+    case "UPDATE_FINANCIALYEAR_FULFILLED": {
+      let { gradeId, financialYear } = action.payload.data;
+      let newAll = [...state.all];
+      let grade = newAll.find(grade => grade.id === gradeId);
+      grade.financialYear = financialYear;
+      newState = { ...state, all: newAll };
+      break;
+    }
   }
 
   return newState;

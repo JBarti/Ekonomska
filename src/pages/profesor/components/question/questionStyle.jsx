@@ -53,7 +53,7 @@ export default theme => ({
     height: "100%",
     position: "relative",
     display: "flex",
-    background: "linear-gradient(270deg, purple 40%, white 40%)"
+    background: "linear-gradient(270deg, rgba(143,148,251,1) 40%, white 40%)"
   },
   answerContainer: {
     width: "100%",

@@ -56,7 +56,7 @@ const styles = theme => ({
     height: 150,
     top: -60,
     left: -40,
-    backgroundColor: "#C33764",
+    backgroundColor: "#f50057",
     opacity: 0.9
   },
   circle: {
@@ -66,7 +66,7 @@ const styles = theme => ({
     top: 70,
     left: -20,
     borderRadius: "100%",
-    backgroundColor: "rgba(31,38,103,0.9)",
+    backgroundColor: "rgba(78,84,200,0.9)",
     opacity: 0.9
   },
   container: {
@@ -99,15 +99,14 @@ const styles = theme => ({
     marginRight: drawerWidth,
     color: "black",
     backgroundColor: theme.palette.background.default,
-    textAlign: "center",
-    boxShadow: "0px 7px 50px 0px rgba(255,255,255,1)"
+    textAlign: "center"
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
-    background: "linear-gradient(180deg, #C33764 0%, #252E73 100%)",
+    background: "rgba(78, 84, 200, 1)",
     width: drawerWidth
   },
   toolbar: theme.mixins.toolbar,

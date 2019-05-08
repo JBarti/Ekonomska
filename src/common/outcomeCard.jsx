@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import FinPlanChoice from "./finPlanChoice";
 import {
   Card,
   CardContent,
@@ -24,6 +25,7 @@ import {
   LocalCarWashOutlined,
   WarningOutlined
 } from "@material-ui/icons";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -171,27 +173,36 @@ const OutcomeListItem = props => {
 };
 
 class OutcomeCard extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
-    let { classes, outcomes, sliderChange } = this.props;
-    //console.log(typeof outcomes);
-    // let total = outcomes.map(
-    //   (outcome, index) => outcome.amount + Number(this.state[index])
-    // );
-    //total = total.reduce((prev, next) => prev + next);
+    let { classes, outcomes, sliderChange, financialYear } = this.props;
+    let isNewYear =
+      financialYear !== 0 &&
+      !Boolean(outcomes.find(outcome => outcome.year === financialYear));
 
     return (
       <Card elevation={5} className={classes.root}>
-        <CardHeader title={`Rashodi`} />
+        <CardHeader
+          title={"Rashodi"}
+          action={
+            isNewYear ? (
+              <FinPlanChoice studentId={this.props.studentId} />
+            ) : (
+              <div />
+            )
+          }
+        />
         <Divider />
         <CardContent className={classes.cardContent}>
           <List>
             {outcomes.map((outcome, index) => {
               let { type, amount, change } = outcome;
-              console.log("NEzNAN", outcome);
               return (
                 <div>
                   <OutcomeListItem
-                    name={index}
+                    name={outcome.id}
                     primary={type}
                     classes={classes}
                     amount={{ total: amount, change: change }}
