@@ -14,10 +14,14 @@ import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Visibility from "@material-ui/icons/Visibility";
+import PlusOne from "@material-ui/icons/PlusOne";
 import UserIcon from "@material-ui/icons/Person";
 import ListButton from "../../../common/list-button/listButton";
 import { connect } from "react-redux";
-import { selectGrade } from "../../../actions/proffesorActions";
+import {
+  selectGrade,
+  updateFinancialYear
+} from "../../../actions/proffesorActions";
 import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import EditIcon from "@material-ui/icons/Edit";
@@ -186,15 +190,56 @@ class LekcijaCard extends Component {
     this.props.dispatch(selectGrade(gradeId));
   };
 
+  incrementFinancialYear = () => {
+    console.log("ODHSAID");
+    let financialYear = this.props.grade.financialYear + 1;
+    let gradeId = this.props.grade.id;
+    this.props.dispatch(updateFinancialYear(financialYear, gradeId));
+  };
+
   render() {
     const { classes } = this.props;
-    const { name, students, id } = this.props.grade;
+    const { name, students, id, financialYear } = this.props.grade;
     return (
       <div>
         <ListItem button onClick={this.selectGrade(id)}>
           <ListItemText primary={name} />
-          <ListItemSecondaryAction onClick={this.handleClickOpen}>
-            <IconButton aria-label="Delete">
+          <ListItemSecondaryAction>
+            <div
+              style={{
+                display: "inline",
+                marginRight: 20,
+                backgroundColor: "#e0e0e0",
+                borderRadius: 1000,
+                paddingTop: "4%",
+                paddingBottom: "4%",
+                paddingLeft: 10
+              }}
+            >
+              <Typography
+                variant={"subheading"}
+                style={{ display: "inline", marginRight: 20 }}
+              >
+                Financijska Razina: {Number(financialYear)}
+              </Typography>
+              <IconButton
+                disabled={financialYear >= 1}
+                onCLick={() => {
+                  console.log("ASPDJAS");
+                }}
+              >
+                <PlusOne
+                  onClick={
+                    financialYear < 1
+                      ? this.incrementFinancialYear
+                      : () => {
+                          console.log("NON");
+                        }
+                  }
+                />
+              </IconButton>
+            </div>
+            <IconButton onClick={this.handleClickOpen} aria-label="Delete">
               <Visibility />
             </IconButton>
           </ListItemSecondaryAction>

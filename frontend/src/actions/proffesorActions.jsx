@@ -2,8 +2,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_ENDPOINTG = "http://0.0.0.0:3001";
-const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINT = "http://0.0.0.0:3001";
 
 export function loadStudent(email, password) {
   return {
@@ -64,10 +64,14 @@ export function addTest(folderId, test) {
   };
 }
 
-export function addPdf(folderId, pdf) {
+export function addFile(folderId, uploadFile) {
+  console.log("UPLOAD FILEEE", uploadFile);
+  let data = new FormData();
+  data.append("uploadFile", uploadFile);
+  data.append("folderId", folderId);
   return {
     type: "ADD_PDF",
-    payload: axios.post(API_ENDPOINT + "/proffesor/file", { folderId, pdf })
+    payload: axios.post(API_ENDPOINT + "/proffesor/file", data)
   };
 }
 
@@ -103,12 +107,15 @@ export function addGrade(name, proffesorId) {
   };
 }
 
-export function addStudent(student, gradeId) {
+export function addStudent(firstName, lastName, email, password, grade) {
   return {
     type: "ADD_STUDENT",
     payload: axios.post(API_ENDPOINT + "/students/register", {
-      student,
-      gradeId
+      firstName,
+      lastName,
+      email,
+      password,
+      grade
     })
   };
 }
@@ -183,6 +190,16 @@ export function lockTestUp(testId, folderId) {
     payload: axios.post(API_ENDPOINT + "/proffesor/test/lock", {
       testId,
       folderId
+    })
+  };
+}
+
+export function updateFinancialYear(financialYear, gradeId) {
+  return {
+    type: "UPDATE_FINANCIALYEAR",
+    payload: axios.post(API_ENDPOINT + "/proffesor/financialYear", {
+      financialYear,
+      gradeId
     })
   };
 }

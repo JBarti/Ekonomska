@@ -25,6 +25,12 @@ export default function reducer(state = stateDefault, action) {
       console.log("novi stejt", newState);
       break;
     }
+    case "FIRST_CHOICE_FULFILLED": {
+      let finance = action.payload.data;
+      let { outcomes, job } = finance;
+      newState = { ...state, outcomes, job };
+      break;
+    }
   }
 
   return newState;

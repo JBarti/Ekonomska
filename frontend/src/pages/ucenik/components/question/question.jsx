@@ -11,7 +11,19 @@ import styles from "./questionStyle";
 class Question extends Component {
   constructor(props) {
     super(props);
+    this.state = { time: 20 };
+    setTimeout(this.timer, 1000);
   }
+
+  timer = () => {
+    let time = this.state.time - 1;
+    if (time === 0) {
+      this.props.answerQuestion(String(this.props.question.id) + "5");
+      return;
+    }
+    this.setState({ time: time });
+    setTimeout(this.timer, 1000);
+  };
 
   render() {
     const { classes } = this.props;
@@ -33,7 +45,7 @@ class Question extends Component {
                 value={100 - 20}
                 className={classes.circle}
               />
-              <div className={classes.time}>{10}</div>
+              <div className={classes.time}>{this.state.time}</div>
             </div>
             <Typography variant="headline">{text}</Typography>
           </div>

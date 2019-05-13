@@ -2,8 +2,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
-const API_ENDPOINTG = "http://0.0.0.0:3001";
+const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINT = "http://0.0.0.0:3001";
 
 export function loadStudent(email, password) {
   return {
@@ -53,6 +53,19 @@ export function solveTest(testId, answers, studentId) {
     payload: axios.post(API_ENDPOINT + "/students/test/solve", {
       testId,
       answers,
+      studentId
+    })
+  };
+}
+
+export function newJob(jobName, jobPayment, jobCredit, studentId) {
+  console.log({ jobName, jobPayment, jobCredit, studentId });
+  return {
+    type: "FIRST_CHOICE",
+    payload: axios.post(API_ENDPOINT + "/students/year/1", {
+      jobName,
+      jobPayment,
+      jobCredit,
       studentId
     })
   };

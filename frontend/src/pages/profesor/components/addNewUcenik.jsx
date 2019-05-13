@@ -62,7 +62,9 @@ class addNewUcenik extends Component {
     console.log(this.state.ucenik);
     console.log("DEJTA");
     console.log(gradeId);
-    dispatch(addStudent(this.state.ucenik, gradeId));
+    console.log(this.state.ucenik);
+    let { firstName, lastName, email, password } = this.state.ucenik;
+    dispatch(addStudent(firstName, lastName, email, password, gradeId));
     this.handleClose();
   };
 
@@ -71,7 +73,10 @@ class addNewUcenik extends Component {
     return (
       <div>
         <ListItem button onClick={this.handleClickOpen}>
-          <ListItemText> <span className={classes.btnNew}>Novo</span></ListItemText>
+          <ListItemText>
+            {" "}
+            <span className={classes.btnNew}>Novo</span>
+          </ListItemText>
         </ListItem>
         <Dialog
           open={this.state.open}
@@ -121,10 +126,18 @@ class addNewUcenik extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} variant="contained" color="secondary">
+            <Button
+              onClick={this.handleClose}
+              variant="contained"
+              color="secondary"
+            >
               Odustani
             </Button>
-            <Button onClick={this.addNewUcenik} variant="contained" color="primary">
+            <Button
+              onClick={this.addNewUcenik}
+              variant="contained"
+              color="primary"
+            >
               Dodaj
             </Button>
           </DialogActions>

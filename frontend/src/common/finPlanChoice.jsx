@@ -7,17 +7,15 @@ import {
   CardContent,
   CardHeader,
   Typography,
-  CardMedia
+  CardMedia,
+  CardActions
 } from "@material-ui/core";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Error } from "@material-ui/icons/";
 import graphicDesignImage from "../images/grafickiDesign.png";
+import schoolImage from "../images/collage.png";
+import { connect } from "react-redux";
+import { newJob } from "../actions/studentActions";
 
 const styles = theme => ({
   dialogfix: {
@@ -35,21 +33,19 @@ const styles = theme => ({
   },
   selectionContainer: {
     display: "flex",
-    flexDirection: "column",
-    height: "40%",
+    flexDirection: "row",
+    height: "45%",
     width: "60%",
     marginTop: 15
   },
   selectionCard: {
     marginRight: 15,
-    width: "82%",
+    width: "40%",
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "column",
+    height: "100%"
   },
-  selectionCardText: {
-    marginLeft: 15,
-    marginTop: 15
-  },
+
   extendedIcon: {
     marginRight: theme.spacing.unit
   },
@@ -98,9 +94,46 @@ const styles = theme => ({
   }
 });
 
-const selectionCard = () => {};
+const SelectionCard = props => {
+  let {
+    image,
+    title,
+    primaryText,
+    priceText,
+    secondaryText,
+    onSelect,
+    classes,
+    onClick
+  } = props;
+  return (
+    <Card className={classes.selectionCard}>
+      <CardMedia style={{ height: 200 }} image={image} />
+      <CardContent>
+        <Typography variant={"headline"}>{title}</Typography>
+        <Typography variant={"subheading"} style={{ marginTop: 8 }}>
+          {primaryText}
+        </Typography>
+        <Typography variant={"subheading"}>{priceText}</Typography>
+        <Typography variant={"caption"} style={{ marginTop: 8, fontSize: 15 }}>
+          {secondaryText}
+        </Typography>
+      </CardContent>
 
-class finPlanChoice extends Component {
+      <CardActions style={{ position: "relative", height: "15%" }}>
+        <Button
+          onClick={onClick}
+          style={{ position: "absolute", bottom: 0 }}
+          variant={"contained"}
+          color={"secondary"}
+        >
+          Odaberi
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
+
+class FinPlanChoice extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -128,9 +161,14 @@ class finPlanChoice extends Component {
     this.setState({ value, open: false });
   };
 
+  createJob = (jobName, jobPayment, jobCredit) => () => {
+    let studentId = this.props.studentId;
+    this.props.dispatch(newJob(jobName, jobPayment, jobCredit, studentId));
+    this.handleClose();
+  };
+
   render() {
     const { classes } = this.props;
-    const { value, ...other } = this.props;
     return (
       <div>
         <IconButton
@@ -193,31 +231,40 @@ class finPlanChoice extends Component {
               </CardContent>
             </Card>
             <div className={classes.selectionContainer}>
-              <Card className={classes.selectionCard}>
-                <CardMedia
-                  style={{ height: "100%", width: "20%" }}
-                  image={graphicDesignImage}
-                />
-                <div className={classes.selectionCardText}>
-                  <Typography variant={"headline"}>Graficki dizajn</Typography>
-                  <Typography variant={"subheading"}>
-                    Vaš poslodavac oduševljen je odlukom i vašu plaću će
-                    postaviti na 5.500 HRK
-                  </Typography>
-                  <Typography variant={"subheading"}>
-                    Cijena tečaja: 25.000 HRK
-                  </Typography>
-                  <Typography
-                    variant={"caption"}
-                    style={{ marginTop: 15, fontSize: 15 }}
-                  >
-                    S obzirom da još nemate novca prisiljeni ste podignuti
-                    kredit. Njega otplačujete 4 godine svaki mjesec uz kamatnu
-                    stopu 4%.
-                  </Typography>
-                </div>
-              </Card>
-              <Card className={classes.selectionCard} />
+              <SelectionCard
+                onClick={this.createJob(
+                  "Graficki dizajn",
+                  5500,
+                  Math.round(25000 / 12)
+                )}
+                classes={classes}
+                image={graphicDesignImage}
+                title={"Grafički dizajn"}
+                primaryText={
+                  "Vaš poslodavac oduševljen je odlukom i vašu plaću će postaviti na 5.500 HRK"
+                }
+                secondaryText={
+                  "S obzirom da još nemate novca prisiljeni ste podignuti kredit. Njega otplačujete 4 godine svaki mjesec uz kamatnu stopu 4%."
+                }
+                priceText={"Cijena tečaja: 25.000 HRK"}
+              />
+              <SelectionCard
+                onClick={this.createJob(
+                  "Školovanje",
+                  7500,
+                  Math.round(100000 / 12)
+                )}
+                classes={classes}
+                image={schoolImage}
+                title={"Nastaviti školovanje i raditi"}
+                primaryText={
+                  "Vaš poslodavac smatra da obrazovaniji zaposlenici pridonose razvoju tvrtke. Kao poticaj vam je plaća povečana na 7500 HRK."
+                }
+                secondaryText={
+                  "S obzirom da još nemate novca prisiljeni ste podignuti kredit. Njega otplačujete 5 godine svaki mjesec uz kamatnu stopu 5%."
+                }
+                priceText={"Cijena studija: 100.000 HRK."}
+              />
             </div>
           </div>
           {/* <DialogTitle id="confirmation-dialog-title">
@@ -286,4 +333,4 @@ class finPlanChoice extends Component {
   }
 }
 
-export default withStyles(styles)(finPlanChoice);
+export default connect()(withStyles(styles)(FinPlanChoice));

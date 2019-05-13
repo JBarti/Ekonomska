@@ -51,7 +51,11 @@ class Dashboard extends Component {
 
   outcomeSliderChange = event => {
     let outcomes = [...this.state.outcomes];
-    outcomes[event.target.name].change = Number(event.target.value);
+    console.log(outcomes);
+    console.log(event.target.name);
+    outcomes.find(outcome => outcome.id == event.target.name).change = Number(
+      event.target.value
+    );
     this.setState({ outcomes });
   };
 
@@ -95,6 +99,8 @@ class Dashboard extends Component {
           <OutcomeCard
             outcomes={this.state.outcomes}
             sliderChange={this.outcomeSliderChange}
+            financialYear={this.props.financialYear}
+            studentId={this.props.studentId}
             credit={{}}
             unexpected={{}}
           />
@@ -121,6 +127,7 @@ export default connect(store => {
     notifications: store.grade.notifications || [],
     folders: store.grade.folders || [],
     studentId: store.student.id,
-    solutions: store.student.solutions || []
+    solutions: store.student.solutions || [],
+    financialYear: store.grade.financialYear || 0
   };
 })(withStyles(styles)(Dashboard));

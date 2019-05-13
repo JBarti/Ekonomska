@@ -52,10 +52,11 @@ export default function reducer(state = stateDefault, action) {
     case "ADD_PDF_FULFILLED": {
       let { folderId, file } = action.payload.data;
       let { selectedGrade } = state;
+      console.log("FOLDER AJDI ", folderId);
       let newGrade = { ...selectedGrade };
       newGrade.folders
         .find(folder => {
-          return folder.id === folderId;
+          return folder.id === Number(folderId);
         })
         .files.push(file);
       newState = { ...state, selectedGrade: newGrade };
@@ -209,6 +210,14 @@ export default function reducer(state = stateDefault, action) {
       }).locked = true;
       folder.tests = tests;
       newState = { ...state, selectGrade };
+      break;
+    }
+    case "UPDATE_FINANCIALYEAR_FULFILLED": {
+      let { gradeId, financialYear } = action.payload.data;
+      let newAll = [...state.all];
+      let grade = newAll.find(grade => grade.id === gradeId);
+      grade.financialYear = financialYear;
+      newState = { ...state, all: newAll };
       break;
     }
   }
