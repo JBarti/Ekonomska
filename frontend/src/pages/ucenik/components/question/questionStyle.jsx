@@ -53,7 +53,7 @@ export default theme => ({
     position: "relative",
     display: "flex",
     flexDirection: "column",
-    background: "linear-gradient(270deg, purple 40%, white 40%)"
+    background: "linear-gradient(270deg, rgba(143,148,251,1) 40%, white 40%)"
   },
   answerContainer: {
     width: "100%",
@@ -99,6 +99,7 @@ export default theme => ({
     height: "100%",
     marginTop: 20,
     background: "white",
+    borderRadius: 20,
     boxShadow: " 0px 0px 15px -5px rgba(0,0,0,0.75)",
     color: "black",
     "&:-moz-any(div)": answerStyle,

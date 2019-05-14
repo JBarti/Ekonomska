@@ -20,7 +20,7 @@ import { newJob } from "../actions/studentActions";
 const styles = theme => ({
   dialogfix: {
     overflowX: "hidden",
-    height: "unset"
+    height: "-webkit-fill-aveliable"
   },
   cardContainer: {
     display: "flex",
