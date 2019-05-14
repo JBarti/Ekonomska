@@ -13,7 +13,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
-import { addTest, addPdf } from "../actions/proffesorActions";
+import { addTest, addFile } from "../actions/proffesorActions";
 import { connect } from "react-redux";
 import PdfIcon from "@material-ui/icons/PictureAsPdf";
 import QuizIcon from "@material-ui/icons/School";
@@ -51,8 +51,8 @@ const styles = theme => ({
 });
 
 function Choice(props) {
-  const { whatIsChosen, handleChange } = props;
-  const testovi = ["Kviz", "Test"]
+  const { whatIsChosen, handleChange, handleFileChosen } = props;
+  const testovi = ["Kviz", "Test"];
   if (testovi.includes(whatIsChosen)) {
     return (
       <div>
@@ -71,25 +71,21 @@ function Choice(props) {
   } else if (whatIsChosen == "PDF" || whatIsChosen == "Word") {
     return (
       <div>
-        {" "}
-        <TextField
-          style={{ width: 400, marginLeft: 30 }}
-          id="text"
-          label="Naziv"
-          name="pdfName"
-          onChange={handleChange}
-          type="text"
-          value={this.state.pdfName}
+        <input
+          onChange={handleFileChosen}
+          type="file"
+          style={{ marginTop: 25, marginLeft: 25, display: "none" }}
+          id="button-file"
         />
-        <TextField
-          style={{ width: 400, marginLeft: 30 }}
-          id="text"
-          label="Link"
-          name={"url"}
-          onChange={handleChange}
-          value={this.state.url}
-          type="text"
-        />
+        <label htmlFor="button-file">
+          <Button
+            variant="contained"
+            component="span"
+            style={{ marginTop: 25, marginLeft: 25 }}
+          >
+            Upload
+          </Button>
+        </label>
       </div>
     );
   }
@@ -115,6 +111,12 @@ class addNewDialog extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleFileChosen = event => {
+    let file = event.target.files[0];
+    this.setState({ file: file });
+    console.log(file);
+  };
+
   addNew = () => {
     let { value } = this.state;
     let { folderId } = this.props;
@@ -126,12 +128,15 @@ class addNewDialog extends Component {
         break;
       case "Kviz":
         var { testName } = this.state;
-        dispatch(addTest(folderId, { name: testName, active: true, isQuiz: true }));
+        dispatch(
+          addTest(folderId, { name: testName, active: true, isQuiz: true })
+        );
         break;
       case "PDF":
-        let { pdfName, url } = this.state;
-        console.log(pdfName, url);
-        dispatch(addPdf(folderId, { name: pdfName, url }));
+        let { file } = this.state;
+        console.log("FAJL", file);
+        console.log(folderId);
+        dispatch(addFile(folderId, file));
         break;
     }
     this.handleClose();
@@ -197,7 +202,8 @@ class addNewDialog extends Component {
             </FormControl>
             {this.Choice({
               whatIsChosen: this.state.value,
-              handleChange: this.handleChange
+              handleChange: this.handleChange,
+              handleFileChosen: this.handleFileChosen
             })}
           </DialogContent>
           <DialogActions>

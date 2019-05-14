@@ -193,7 +193,7 @@ class LekcijaCard extends Component {
   };
 
   showFile = file => () => {
-    this.setState({ content: <External url={file.url} /> });
+    window.open(file.url, "_blank");
   };
 
   showTest = test => () => {
@@ -206,6 +206,14 @@ class LekcijaCard extends Component {
         />
       )
     });
+  };
+
+  nameShortener = fileName => {
+    let newName = fileName.split(".")[0];
+    if (newName.length > 14) {
+      newName = newName.slice(0, 10) + "...";
+    }
+    return newName;
   };
 
   showQuiz = quiz => () => {
@@ -294,7 +302,7 @@ class LekcijaCard extends Component {
                 <Collapse in={drawer.file}>
                   {files.map(file => (
                     <ListButtom
-                      primary={file.name}
+                      primary={this.nameShortener(file.name)}
                       classes={{ text: classes.buttonText }}
                       onClick={this.showFile(file)}
                       tabbed={true}
@@ -315,7 +323,7 @@ class LekcijaCard extends Component {
                     .map(test => (
                       <ListButtom
                         disabled={solvedTests.includes(test.id) || !test.locked}
-                        primary={test.name}
+                        primary={this.nameShortener(test.name)}
                         classes={{ text: classes.buttonText }}
                         iconColor="white"
                         icon={<div />}
@@ -337,7 +345,7 @@ class LekcijaCard extends Component {
                     .map(test => (
                       <ListButtom
                         disabled={solvedTests.includes(test.id) || !test.locked}
-                        primary={test.name}
+                        primary={this.nameShortener(test.name)}
                         classes={{ text: classes.buttonText }}
                         iconColor="white"
                         icon={<div />}

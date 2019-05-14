@@ -52,10 +52,11 @@ export default function reducer(state = stateDefault, action) {
     case "ADD_PDF_FULFILLED": {
       let { folderId, file } = action.payload.data;
       let { selectedGrade } = state;
+      console.log("FOLDER AJDI ", folderId);
       let newGrade = { ...selectedGrade };
       newGrade.folders
         .find(folder => {
-          return folder.id === folderId;
+          return folder.id === Number(folderId);
         })
         .files.push(file);
       newState = { ...state, selectedGrade: newGrade };

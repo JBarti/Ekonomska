@@ -12,8 +12,11 @@ export default function reducer(state = stateDefault, action) {
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
       console.log("PLZ RADIIIII");
-      console.log(action.payload.data);
-      let user = action.payload.data ? action.payload.data : action.payload;
+
+      let user = action.payload.data;
+      if (action.payload.data == undefined) {
+        user = action.payload;
+      }
       let {
         id,
         name,

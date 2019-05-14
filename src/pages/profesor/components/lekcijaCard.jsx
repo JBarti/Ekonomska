@@ -172,6 +172,14 @@ class LekcijaCard extends Component {
     this.setState({ open: true });
   };
 
+  nameShortener = fileName => {
+    let newName = fileName.split(".")[0];
+    if (newName.length > 10) {
+      newName = newName.slice(0, 10) + "...";
+    }
+    return newName;
+  };
+
   handleClose = () => {
     this.setState({ open: false });
     this.setState({
@@ -196,11 +204,7 @@ class LekcijaCard extends Component {
   };
 
   showFile = file => () => {
-    this.handleClose();
-    setTimeout(this.handleClickOpen, 350);
-    setTimeout(() => {
-      this.setState({ content: <External url={file.url} /> });
-    }, 10);
+    window.open(file.url, "_blank");
   };
 
   showTest = test => () => {
@@ -319,7 +323,7 @@ class LekcijaCard extends Component {
               <List>
                 {files.map(file => (
                   <ListButtom
-                    primary={file.name}
+                    primary={this.nameShortener(file.name)}
                     classes={{ text: classes.buttonText }}
                     iconColor="white"
                     icon={<IconBook />}
@@ -338,7 +342,7 @@ class LekcijaCard extends Component {
                   .filter(test => !test.isQuiz)
                   .map(test => (
                     <ListButtom
-                      primary={test.name}
+                      primary={this.nameShortener(test.name)}
                       classes={{ text: classes.buttonText }}
                       iconColor="white"
                       icon={<IconQA />}
@@ -367,7 +371,7 @@ class LekcijaCard extends Component {
                   .filter(test => test.isQuiz)
                   .map(test => (
                     <ListButtom
-                      primary={test.name}
+                      primary={this.nameShortener(test.name)}
                       classes={{ text: classes.buttonText }}
                       iconColor="white"
                       icon={<IconQuiz />}

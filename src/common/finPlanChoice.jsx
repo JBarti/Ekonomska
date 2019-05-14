@@ -20,7 +20,7 @@ import { newJob } from "../actions/studentActions";
 const styles = theme => ({
   dialogfix: {
     overflowX: "hidden",
-    overflowY: "hidden"
+    height: "-webkit-fill-aveliable"
   },
   cardContainer: {
     display: "flex",
@@ -54,7 +54,7 @@ const styles = theme => ({
     marginRight: 5
   },
   background: {
-    position: "absolute",
+    position: "fixed",
     top: 0,
     left: 0,
     width: "100vw",
@@ -78,7 +78,8 @@ const styles = theme => ({
   },
   card: {
     width: "60%",
-    paddingTop: 15
+    paddingTop: 15,
+    overflow: "unset"
   },
   dotContainer: {
     marginTop: 10,
@@ -137,7 +138,8 @@ class FinPlanChoice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
+      open: true
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -145,10 +147,6 @@ class FinPlanChoice extends Component {
       this.setState({ value: nextProps.value });
     }
   }
-
-  // handleEntering = () => {
-  //   this.radioGroupRef.focus();
-  // };
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -164,12 +162,11 @@ class FinPlanChoice extends Component {
   createJob = (jobName, jobPayment, jobCredit) => () => {
     let studentId = this.props.studentId;
     this.props.dispatch(newJob(jobName, jobPayment, jobCredit, studentId));
-    window.location.reload();
+    this.handleClose();
   };
 
   render() {
     const { classes } = this.props;
-    const { value, ...other } = this.props;
     return (
       <div>
         <IconButton
@@ -197,7 +194,7 @@ class FinPlanChoice extends Component {
             <div className={classes.backgroundLight} />
           </div>
           <div className={classes.cardContainer}>
-            <Card className={classes.card}>
+            <Card classes={{ root: classes.card }} className={classes.card}>
               <CardHeader
                 title={
                   <div>
