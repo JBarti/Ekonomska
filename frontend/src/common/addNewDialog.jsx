@@ -74,8 +74,18 @@ function Choice(props) {
         <input
           onChange={handleFileChosen}
           type="file"
-          style={{ marginTop: 25, marginLeft: 25 }}
+          style={{ marginTop: 25, marginLeft: 25, display: "none" }}
+          id="button-file"
         />
+        <label htmlFor="button-file">
+          <Button
+            variant="contained"
+            component="span"
+            style={{ marginTop: 25, marginLeft: 25 }}
+          >
+            Upload
+          </Button>
+        </label>
       </div>
     );
   }
