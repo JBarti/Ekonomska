@@ -20,7 +20,7 @@ import { newJob } from "../actions/studentActions";
 const styles = theme => ({
   dialogfix: {
     overflowX: "hidden",
-    overflowY: "hidden"
+    height: "unset"
   },
   cardContainer: {
     display: "flex",
@@ -54,7 +54,7 @@ const styles = theme => ({
     marginRight: 5
   },
   background: {
-    position: "absolute",
+    position: "fixed",
     top: 0,
     left: 0,
     width: "100vw",
@@ -78,7 +78,8 @@ const styles = theme => ({
   },
   card: {
     width: "60%",
-    paddingTop: 15
+    paddingTop: 15,
+    overflow: "unset"
   },
   dotContainer: {
     marginTop: 10,
@@ -196,7 +197,7 @@ class FinPlanChoice extends Component {
             <div className={classes.backgroundLight} />
           </div>
           <div className={classes.cardContainer}>
-            <Card className={classes.card}>
+            <Card classes={{ root: classes.card }} className={classes.card}>
               <CardHeader
                 title={
                   <div>
