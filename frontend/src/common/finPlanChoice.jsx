@@ -137,7 +137,8 @@ class FinPlanChoice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
+      open: true
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -145,10 +146,6 @@ class FinPlanChoice extends Component {
       this.setState({ value: nextProps.value });
     }
   }
-
-  // handleEntering = () => {
-  //   this.radioGroupRef.focus();
-  // };
 
   handleChange = (event, value) => {
     this.setState({ value });

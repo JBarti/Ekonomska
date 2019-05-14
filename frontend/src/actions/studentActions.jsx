@@ -70,3 +70,13 @@ export function newJob(jobName, jobPayment, jobCredit, studentId) {
     })
   };
 }
+
+export function unexpectedOutcome(studentId) {
+  console.log({ studentId });
+  return {
+    type: "SECOND_CHOICE",
+    payload: axios.post(API_ENDPOINT + "/students/year/2", {
+      studentId
+    })
+  };
+}
