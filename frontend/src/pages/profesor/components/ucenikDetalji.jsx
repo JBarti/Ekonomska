@@ -7,6 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
@@ -222,7 +223,7 @@ class LekcijaCard extends Component {
               >
                 Financijska Razina: {Number(financialYear)}
               </Typography>
-              <IconButton
+              <Button
                 disabled={financialYear >= 1}
                 onCLick={() => {
                   console.log("ASPDJAS");
@@ -237,7 +238,7 @@ class LekcijaCard extends Component {
                         }
                   }
                 />
-              </IconButton>
+              </Button>
             </div>
             <IconButton onClick={this.handleClickOpen} aria-label="Delete">
               <Visibility />
