@@ -66,14 +66,13 @@ class editLekcija extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <IconButton
-          variant="outlined"
+        <Button
           className={classes.deleteBtn}
           onClick={this.handleClickOpen}
           aria-label="Edit"
         >
           <EditIcon />
-        </IconButton>
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

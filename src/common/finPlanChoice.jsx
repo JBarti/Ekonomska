@@ -169,14 +169,14 @@ class FinPlanChoice extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <IconButton
+        <Button
           onClick={this.handleClickListItem}
           className={classes.iconButton}
           color={"secondary"}
           ripp
         >
           <Error />
-        </IconButton>
+        </Button>
         <Dialog
           disableBackdropClick
           disableEscapeKeyDown
