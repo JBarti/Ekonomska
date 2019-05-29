@@ -286,7 +286,7 @@ class Forms extends Component {
             disabled={test.locked}
           >
             <IconDone style={{ marginRight: 8 }} />
-            Submit
+            SPREMI
           </Button>
 
           <Button
@@ -302,7 +302,7 @@ class Forms extends Component {
             ) : (
               <UnlockedIcon style={{ marginRight: 8 }} />
             )}
-            {locked ? "Locked" : "Lock"}
+            {locked ? "ZAKLJUČANO" : "ZAKLJUČAJ"}
           </Button>
         </div>
       </div>

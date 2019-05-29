@@ -41,7 +41,8 @@ class MonthlyCard extends Component {
       let displayedOutcomes = outcomes.filter(outcome => {
         return (
           outcome.duration === null ||
-          outcome.duration + outcome.year >= displayedYear ||
+          (outcome.duration + outcome.year > displayedYear &&
+            outcome.year <= displayedYear) ||
           outcome.year === displayedYear
         );
       });
@@ -81,7 +82,7 @@ class MonthlyCard extends Component {
 
     return (
       <Card elevation={5} className={classes.root}>
-        <CardHeader title={"Mjesecni doprinos"} />
+        <CardHeader title={"Financijska projekcija"} />
         <Divider />
         <CardContent
           className={classes.cardContent}

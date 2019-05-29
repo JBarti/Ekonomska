@@ -13,7 +13,8 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   IconButton,
-  Typography
+  Typography,
+  Button
 } from "@material-ui/core";
 import { grey, red, blue, green } from "@material-ui/core/colors";
 import {
@@ -29,6 +30,7 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight
 } from "@material-ui/icons";
+import { updateOutcomes } from "../actions/studentActions";
 import { connect } from "react-redux";
 
 const styles = theme => ({
@@ -183,7 +185,12 @@ class OutcomeCard extends Component {
   }
 
   yearIsEmpty = (year, outcomes) => {
-    return !Boolean(outcomes.find(outcome => outcome.year === year));
+    return !Boolean(outcomes.find(outcome => outcome.type === year));
+  };
+
+  updateOutcomes = () => {
+    let { outcomes, studentId, dispatch } = this.props;
+    dispatch(updateOutcomes(studentId, outcomes));
   };
 
   render() {
@@ -193,16 +200,17 @@ class OutcomeCard extends Component {
     let displayedOutcomes = outcomes.filter(outcome => {
       return (
         outcome.duration === null ||
-        outcome.duration + outcome.year >= displayedYear ||
+        (outcome.duration + outcome.year > displayedYear &&
+          outcome.year <= displayedYear) ||
         outcome.year === displayedYear
       );
     });
 
     let choices = [];
-    if (financialYear === 1 && this.yearIsEmpty(1, outcomes)) {
+    if (financialYear === 1 && this.yearIsEmpty("Kredit", outcomes)) {
       choices.push(<FinPlanChoice studentId={this.props.studentId} />);
     }
-    if (financialYear === 2 && this.yearIsEmpty(2, outcomes)) {
+    if (financialYear === 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
       choices.push(<UnexpectedOutcome studentId={this.props.studentId} />);
     }
     return (
@@ -211,6 +219,9 @@ class OutcomeCard extends Component {
           title={"Rashodi"}
           action={
             <div style={{ height: 20 }}>
+              <Button variant="outlined" onClick={this.updateOutcomes}>
+                Pohrani
+              </Button>
               <IconButton
                 disabled={displayedYear === 1}
                 onCLick={() => {
@@ -233,7 +244,7 @@ class OutcomeCard extends Component {
                 variant={"subheading"}
                 style={{ display: "inline", marginRight: 20 }}
               >
-                Financijska Razina: {Number(displayedYear)}
+                Godina: {Number(displayedYear)}
               </Typography>
               <IconButton
                 disabled={displayedYear >= 7}
@@ -282,4 +293,4 @@ class OutcomeCard extends Component {
   }
 }
 
-export default withStyles(styles)(OutcomeCard);
+export default connect()(withStyles(styles)(OutcomeCard));

@@ -194,7 +194,7 @@ class Quiz extends Component {
             disabled={this.nextQuestionDisabled() || locked}
             onClick={this.submit}
           >
-            Submit
+            SPREMI
           </Button>
           <Button
             variant="raised"
@@ -202,7 +202,7 @@ class Quiz extends Component {
             disabled={this.nextQuestionDisabled() || locked}
             onClick={this.lockTest}
           >
-            Lock
+            ZAKLJUČAJ
           </Button>
           <Button
             className={classes.navButton}
@@ -227,7 +227,7 @@ class Quiz extends Component {
               color="primary"
               onClick={this.removeQuestion}
             >
-              Trash
+              IZBRIŠI
             </Button>
           ) : (
             undefined
