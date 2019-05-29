@@ -31,7 +31,11 @@ export default function reducer(state = stateDefault, action) {
     case "FIRST_CHOICE_FULFILLED": {
       let finance = action.payload.data;
       let { outcomes, job } = finance;
-      newState = { ...state, outcomes, job };
+      let oldOutcomes = [...state.outcomes];
+      let oldFees = [...state.fees] || [];
+      oldOutcomes.push(outcomes);
+      oldFees.push(job);
+      newState = { ...state, outcomes: oldOutcomes, fees: oldFees };
       break;
     }
     case "SECOND_CHOICE_FULFILLED": {

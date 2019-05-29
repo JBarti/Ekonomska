@@ -48,7 +48,8 @@ class TotalCard extends Component {
     let displayedOutcomes = outcomes.filter(outcome => {
       return (
         outcome.duration === null ||
-        outcome.duration + outcome.year >= displayedYear ||
+        (outcome.duration + outcome.year > displayedYear &&
+          outcome.year <= displayedYear) ||
         outcome.year === displayedYear
       );
     });
@@ -92,7 +93,7 @@ class TotalCard extends Component {
                 variant={"subheading"}
                 style={{ display: "inline", marginRight: 20 }}
               >
-                Financijska Razina: {Number(displayedYear)}
+                Godina: {Number(displayedYear)}
               </Typography>
               <IconButton
                 disabled={displayedYear >= 7}

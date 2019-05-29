@@ -82,35 +82,29 @@ class Dashboard extends Component {
             <div />
           )}
         </Row>
-        {this.props.financialYear ? (
-          <Row>
-            <IncomeCard payment={this.state.job} fees={this.state.fees} />
-            <OutcomeCard
-              outcomes={this.state.outcomes}
-              sliderChange={this.outcomeSliderChange}
-              financialYear={this.props.financialYear}
-              studentId={this.props.studentId}
-              credit={{}}
-              unexpected={{}}
-            />
-            <TotalCard
-              outcomes={this.state.outcomes}
-              incomes={this.state.fees.concat([this.state.job])}
-            />
-          </Row>
-        ) : (
-          <div />
-        )}
-        {this.props.financialYear ? (
-          <Row>
-            <MonthlyCard
-              outcomes={this.state.outcomes}
-              incomes={this.state.fees.concat([this.state.job])}
-            />
-          </Row>
-        ) : (
-          <div />
-        )}
+
+        <Row>
+          <IncomeCard payment={this.state.job} fees={this.state.fees} />
+          <OutcomeCard
+            outcomes={this.state.outcomes}
+            sliderChange={this.outcomeSliderChange}
+            financialYear={this.props.financialYear}
+            studentId={this.props.studentId}
+            credit={{}}
+            unexpected={{}}
+          />
+          <TotalCard
+            outcomes={this.state.outcomes}
+            incomes={this.state.fees.concat([this.state.job])}
+          />
+        </Row>
+
+        <Row>
+          <MonthlyCard
+            outcomes={this.state.outcomes}
+            incomes={this.state.fees.concat([this.state.job])}
+          />
+        </Row>
       </div>
     );
   }
