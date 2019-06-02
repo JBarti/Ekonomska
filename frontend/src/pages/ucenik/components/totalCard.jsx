@@ -41,30 +41,45 @@ class TotalCard extends Component {
     this.state = { displayedYear: 1 };
   }
 
-  render() {
-    let { classes, outcomes, incomes } = this.props;
-    let { displayedYear } = this.state;
-
-    let displayedOutcomes = outcomes.filter(outcome => {
-      return (
-        outcome.duration === null ||
-        (outcome.duration + outcome.year > displayedYear &&
-          outcome.year <= displayedYear) ||
-        outcome.year === displayedYear
-      );
-    });
-
-    let totalOutcome = displayedOutcomes
+  totalOutcome = (outcomes, year) => {
+    return outcomes
+      .filter(outcome => {
+        return (
+          outcome.duration === null ||
+          (outcome.duration + outcome.year > year && outcome.year <= year) ||
+          outcome.year === year
+        );
+      })
       .map(
         outcome =>
           outcome.amount + (outcome.change === undefined ? 0 : outcome.change)
       )
       .reduce((prev, next) => prev + next, 0);
+  };
+
+  render() {
+    let { classes, outcomes, incomes } = this.props;
+    let { displayedYear } = this.state;
+
+    let totalOutcome = this.totalOutcome(outcomes, displayedYear);
+    console.log({ totalOutcome });
+
     let totalIncome = incomes
       .map(income => income.amount)
       .reduce((prev, next) => prev + next, 0);
+
     let difference = totalIncome - totalOutcome;
-    console.log(totalIncome, totalOutcome);
+
+    let savings =
+      totalIncome * displayedYear -
+      [...Array(displayedYear).keys()]
+        .map(year => {
+          return this.totalOutcome(outcomes, year + 1);
+        })
+        .reduce((prev, next) => {
+          return prev + next;
+        }, 0);
+
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader
@@ -211,6 +226,10 @@ class TotalCard extends Component {
                 <br />
                 <div style={{ fontSize: 20, color: grey[700] }}>
                   Rashodi: {totalOutcome} kn/mj
+                </div>
+                <br />
+                <div style={{ fontSize: 20, color: grey[700] }}>
+                  Ušteđevina: {savings} kn/mj
                 </div>
               </div>
             </div>

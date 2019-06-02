@@ -30,7 +30,12 @@ const styles = theme => ({
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { job: { name: "", amount: 0 }, outcomes: [], fees: [] };
+    this.state = {
+      job: { name: "", amount: 0 },
+      outcomes: [],
+      fees: [],
+      financeVariant: 0
+    };
   }
 
   componentWillReceiveProps(newProp) {
@@ -59,6 +64,18 @@ class Dashboard extends Component {
     let solvedTests = solutions
       .filter(solution => !!solution)
       .map(solution => solution.testId);
+
+    let financeVariant = this.props.fees.find(fee => {
+      return fee.name == "Grafiči dizajn";
+    })
+      ? 1
+      : 0;
+    financeVariant = this.props.fees.find(fee => {
+      return fee.name == "Školovanje";
+    })
+      ? 2
+      : 0;
+
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         <GridList className={classes.gridList} rows={2.5}>
@@ -92,6 +109,7 @@ class Dashboard extends Component {
             studentId={this.props.studentId}
             credit={{}}
             unexpected={{}}
+            variant={financeVariant}
           />
           <TotalCard
             outcomes={this.state.outcomes}

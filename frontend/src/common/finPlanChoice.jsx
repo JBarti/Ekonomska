@@ -230,7 +230,7 @@ class FinPlanChoice extends Component {
             </Card>
             <div className={classes.selectionContainer}>
               <SelectionCard
-                onClick={this.createJob("Graficki dizajn", 5500, 604)}
+                onClick={this.createJob("Grafički dizajn", 5500, 640)}
                 classes={classes}
                 image={graphicDesignImage}
                 title={"Grafički dizajn"}
@@ -243,7 +243,7 @@ class FinPlanChoice extends Component {
                 priceText={"Cijena tečaja: 25.000 HRK"}
               />
               <SelectionCard
-                onClick={this.createJob("Školovanje", 7350, 2348)}
+                onClick={this.createJob("Školovanje", 7500, 2348)}
                 classes={classes}
                 image={schoolImage}
                 title={"Nastaviti školovanje i raditi"}
