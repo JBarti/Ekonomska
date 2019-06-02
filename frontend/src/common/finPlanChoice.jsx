@@ -19,16 +19,12 @@ import { newJob } from "../actions/studentActions";
 
 const styles = theme => ({
   dialogfix: {
-    overflowX: "hidden",
-    height: "-webkit-fill-aveliable"
+    overflowX: "hidden"
   },
   cardContainer: {
-    display: "flex",
-    flexDirection: "column",
+    marginLeft: "20%",
+    marginRight: "20%",
     width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
     zIndex: 1
   },
   selectionContainer: {
@@ -40,7 +36,7 @@ const styles = theme => ({
   },
   selectionCard: {
     marginRight: 15,
-    width: "40%",
+    width: "52%",
     display: "flex",
     flexDirection: "column",
     height: "100%"
