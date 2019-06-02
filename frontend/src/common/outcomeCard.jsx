@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import FinPlanChoice from "./finPlanChoice";
+import UnexpectedOutcome from "./unexpectedOutcome";
 import {
   Card,
   CardContent,
@@ -10,29 +11,34 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
+  IconButton,
+  Typography,
+  Button
 } from "@material-ui/core";
 import { grey, red, blue, green } from "@material-ui/core/colors";
 import {
   HomeOutlined,
   CakeOutlined,
   RestaurantOutlined,
-  LocalLaundryServiceOutlined,
   LocalCafeOutlined,
   LocalTaxiOutlined,
   CreditCardOutlined,
   ShoppingCartOutlined,
   LocalCarWashOutlined,
-  WarningOutlined
+  WarningOutlined,
+  KeyboardArrowLeft,
+  KeyboardArrowRight
 } from "@material-ui/icons";
+import { updateOutcomes } from "../actions/studentActions";
 import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
     width: "40%",
     marginLeft: 10,
-    overflowY: "hidden",
-    overflowX: "auto"
+    overflowY: "auto",
+    overflowX: "hidden"
   },
   cardContent: {
     paddingTop: 0
@@ -175,29 +181,97 @@ const OutcomeListItem = props => {
 class OutcomeCard extends Component {
   constructor(props) {
     super(props);
+    this.state = { displayedYear: 1 };
   }
+
+  yearIsEmpty = (year, outcomes) => {
+    return !Boolean(outcomes.find(outcome => outcome.type === year));
+  };
+
+  updateOutcomes = () => {
+    let { outcomes, studentId, dispatch } = this.props;
+    dispatch(updateOutcomes(studentId, outcomes));
+  };
+
   render() {
     let { classes, outcomes, sliderChange, financialYear } = this.props;
-    let isNewYear =
-      financialYear !== 0 &&
-      !Boolean(outcomes.find(outcome => outcome.year === financialYear));
+    let { displayedYear } = this.state;
 
+    let displayedOutcomes = outcomes.filter(outcome => {
+      return (
+        outcome.duration === null ||
+        (outcome.duration + outcome.year > displayedYear &&
+          outcome.year <= displayedYear) ||
+        outcome.year === displayedYear
+      );
+    });
+
+    let choices = [];
+    if (financialYear === 1 && this.yearIsEmpty("Kredit", outcomes)) {
+      choices.push(<FinPlanChoice studentId={this.props.studentId} />);
+    }
+    if (financialYear === 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
+      choices.push(<UnexpectedOutcome studentId={this.props.studentId} />);
+    }
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader
           title={"Rashodi"}
           action={
-            isNewYear ? (
-              <FinPlanChoice studentId={this.props.studentId} />
-            ) : (
-              <div />
-            )
+            <div style={{ height: 20 }}>
+              <Button variant="outlined" onClick={this.updateOutcomes}>
+                Pohrani
+              </Button>
+              <IconButton
+                disabled={displayedYear === 1}
+                onCLick={() => {
+                  console.log("ASPDJAS");
+                }}
+              >
+                <KeyboardArrowLeft
+                  onClick={
+                    displayedYear > 1
+                      ? () => {
+                          this.setState({ displayedYear: displayedYear - 1 });
+                        }
+                      : () => {
+                          console.log("NON");
+                        }
+                  }
+                />
+              </IconButton>
+              <Typography
+                variant={"subheading"}
+                style={{ display: "inline", marginRight: 20 }}
+              >
+                Godina: {Number(displayedYear)}
+              </Typography>
+              <IconButton
+                disabled={displayedYear >= 7}
+                onCLick={() => {
+                  console.log("ASPDJAS");
+                }}
+              >
+                <KeyboardArrowRight
+                  onClick={
+                    displayedYear < 7
+                      ? () => {
+                          this.setState({ displayedYear: displayedYear + 1 });
+                        }
+                      : () => {
+                          console.log("NON");
+                        }
+                  }
+                />
+              </IconButton>
+            </div>
           }
         />
         <Divider />
         <CardContent className={classes.cardContent}>
+          {choices.pop()}
           <List>
-            {outcomes.map((outcome, index) => {
+            {displayedOutcomes.map((outcome, index) => {
               let { type, amount, change } = outcome;
               return (
                 <div>
@@ -219,4 +293,4 @@ class OutcomeCard extends Component {
   }
 }
 
-export default withStyles(styles)(OutcomeCard);
+export default connect()(withStyles(styles)(OutcomeCard));

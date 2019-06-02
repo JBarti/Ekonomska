@@ -6,25 +6,25 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Typography,
-  CardMedia,
-  CardActions
+  Typography
 } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import { Error } from "@material-ui/icons/";
-import graphicDesignImage from "../images/grafickiDesign.png";
-import schoolImage from "../images/collage.png";
 import { connect } from "react-redux";
-import { newJob } from "../actions/studentActions";
+import { unexpectedOutcome } from "../actions/studentActions";
 
 const styles = theme => ({
   dialogfix: {
-    overflowX: "hidden"
+    overflowX: "hidden",
+    overflowY: "hidden"
   },
   cardContainer: {
-    marginLeft: "20%",
-    marginRight: "20%",
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     zIndex: 1
   },
   selectionContainer: {
@@ -36,7 +36,7 @@ const styles = theme => ({
   },
   selectionCard: {
     marginRight: 15,
-    width: "52%",
+    width: "40%",
     display: "flex",
     flexDirection: "column",
     height: "100%"
@@ -50,7 +50,7 @@ const styles = theme => ({
     marginRight: 5
   },
   background: {
-    position: "fixed",
+    position: "absolute",
     top: 0,
     left: 0,
     width: "100vw",
@@ -74,8 +74,7 @@ const styles = theme => ({
   },
   card: {
     width: "60%",
-    paddingTop: 15,
-    overflow: "unset"
+    paddingTop: 15
   },
   dotContainer: {
     marginTop: 10,
@@ -90,45 +89,6 @@ const styles = theme => ({
     marginRight: 10
   }
 });
-
-const SelectionCard = props => {
-  let {
-    image,
-    title,
-    primaryText,
-    priceText,
-    secondaryText,
-    onSelect,
-    classes,
-    onClick
-  } = props;
-  return (
-    <Card className={classes.selectionCard}>
-      <CardMedia style={{ height: 200 }} image={image} />
-      <CardContent>
-        <Typography variant={"headline"}>{title}</Typography>
-        <Typography variant={"subheading"} style={{ marginTop: 8 }}>
-          {primaryText}
-        </Typography>
-        <Typography variant={"subheading"}>{priceText}</Typography>
-        <Typography variant={"caption"} style={{ marginTop: 8, fontSize: 15 }}>
-          {secondaryText}
-        </Typography>
-      </CardContent>
-
-      <CardActions style={{ position: "relative", height: "15%" }}>
-        <Button
-          onClick={onClick}
-          style={{ position: "absolute", bottom: 0 }}
-          variant={"contained"}
-          color={"secondary"}
-        >
-          Odaberi
-        </Button>
-      </CardActions>
-    </Card>
-  );
-};
 
 class FinPlanChoice extends Component {
   constructor(props) {
@@ -155,9 +115,9 @@ class FinPlanChoice extends Component {
     this.setState({ value, open: false });
   };
 
-  createJob = (jobName, jobPayment, jobCredit) => () => {
+  progress = () => {
     let studentId = this.props.studentId;
-    this.props.dispatch(newJob(jobName, jobPayment, jobCredit, studentId));
+    this.props.dispatch(unexpectedOutcome(studentId));
     this.handleClose();
   };
 
@@ -165,14 +125,14 @@ class FinPlanChoice extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button
+        <IconButton
           onClick={this.handleClickListItem}
           className={classes.iconButton}
           color={"secondary"}
           ripp
         >
           <Error />
-        </Button>
+        </IconButton>
         <Dialog
           disableBackdropClick
           disableEscapeKeyDown
@@ -190,13 +150,12 @@ class FinPlanChoice extends Component {
             <div className={classes.backgroundLight} />
           </div>
           <div className={classes.cardContainer}>
-            <Card classes={{ root: classes.card }} className={classes.card}>
+            <Card className={classes.card}>
               <CardHeader
                 title={
                   <div>
                     <div style={{ fontSize: 30 }}>
-                      Nakon završenog školovanja dobili ste svoj prvi posao.
-                      Čestitamo!
+                      Došlo je do neplaniranog jednokratnog rashoda !
                     </div>
                     <div className={classes.dotContainer}>
                       <div className={classes.dot} />
@@ -208,50 +167,30 @@ class FinPlanChoice extends Component {
               />
               <CardContent>
                 <Typography style={{ fontSize: 20 }} variant={"body1"}>
-                  To znači da sada imate svoje vlastite prihode s kojima možete
-                  upravljati! Na zaslonu prikazani su vaši mjesečni prihodi i
-                  rashodi. Vaš cilj je nakon 5 godina ostvariti dovoljnu uštedu
-                  da si priuštite kupnju kvalitetnog laptopa. Na tom putu
-                  očekuju vas financijski usponi i padovi. Stoga upravljajte
-                  mudro svojim novcem! Sretno!
+                  Morate otići zubaru i svog kućnog ljubimca odvesti veterinaru
+                  što zajedno košta 5.760,00 HRK. Taj iznos možete otplaćivati u
+                  mjesečnim ratama sljedeće 4 godine bez kamata. Mjesečni iznos
+                  rate iznosi 120 HRK. Vaša tablica prihoda i rashoda se mijenja
+                  i prikazana je gore. Vaš saldo mjesečnih prihoda i rashoda je
+                  sada u još većem minusu i morate poduzeti daljnje korake kako
+                  biste pokrili svoje mjesečne izdatke. Istovremeno se mijenja i
+                  projekcija vašeg financijskog stanja nakon 1 godine. Uz
+                  kredit, morate vratiti i troškove neplaniranih rashoda. Dio
+                  neplaniranog rashoda u iznosu od 1.440,00 HRK bit će do kraja
+                  1. godine otplaćen, a kroz sljedeće 3 godine potrebno je
+                  otplatiti još 4.320,00 HRK u mjesečnim obrocima.
                   <br />
                   <br />
-                  <div
-                    style={{ borderTop: "2px #4e54c8 solid", paddingTop: 5 }}
-                  >
-                    Prvi zadatak vam je odabrati glavni glavni životni put:
-                  </div>
                 </Typography>
+                <Button
+                  onClick={this.progress}
+                  variant={"contained"}
+                  color="secondary"
+                >
+                  Prihvati
+                </Button>
               </CardContent>
             </Card>
-            <div className={classes.selectionContainer}>
-              <SelectionCard
-                onClick={this.createJob("Graficki dizajn", 5500, 604)}
-                classes={classes}
-                image={graphicDesignImage}
-                title={"Grafički dizajn"}
-                primaryText={
-                  "Vaš poslodavac oduševljen je odlukom i vašu plaću će postaviti na 5.500 HRK"
-                }
-                secondaryText={
-                  "S obzirom da još nemate novca prisiljeni ste podignuti kredit. Njega otplačujete 4 godine svaki mjesec uz kamatnu stopu 4%."
-                }
-                priceText={"Cijena tečaja: 25.000 HRK"}
-              />
-              <SelectionCard
-                onClick={this.createJob("Školovanje", 7350, 2348)}
-                classes={classes}
-                image={schoolImage}
-                title={"Nastaviti školovanje i raditi"}
-                primaryText={
-                  "Vaš poslodavac smatra da obrazovaniji zaposlenici pridonose razvoju tvrtke. Kao poticaj vam je plaća povečana na 7500 HRK."
-                }
-                secondaryText={
-                  "S obzirom da još nemate novca prisiljeni ste podignuti kredit. Njega otplačujete 5 godine svaki mjesec uz kamatnu stopu 5%."
-                }
-                priceText={"Cijena studija: 100.000 HRK."}
-              />
-            </div>
           </div>
         </Dialog>
       </div>

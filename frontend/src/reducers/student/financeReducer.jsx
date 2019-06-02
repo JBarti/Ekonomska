@@ -10,6 +10,9 @@ export default function reducer(state = stateDefault, action) {
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
       let user = action.payload.data;
+      if (action.payload.data == undefined) {
+        user = action.payload;
+      }
       console.log("DEJTA", user);
       let { incomes, outcomes } = user;
       let fees = incomes.filter(income => income.type === "fee");
@@ -28,7 +31,18 @@ export default function reducer(state = stateDefault, action) {
     case "FIRST_CHOICE_FULFILLED": {
       let finance = action.payload.data;
       let { outcomes, job } = finance;
-      newState = { ...state, outcomes, job };
+      let oldOutcomes = [...state.outcomes];
+      let oldFees = [...state.fees] || [];
+      oldOutcomes.push(outcomes);
+      oldFees.push(job);
+      newState = { ...state, outcomes: oldOutcomes, fees: oldFees };
+      break;
+    }
+    case "SECOND_CHOICE_FULFILLED": {
+      let { outcome } = action.payload.data;
+      let outcomes = [...state.outcomes];
+      outcomes.push(outcome);
+      newState = { ...state, outcomes };
       break;
     }
   }

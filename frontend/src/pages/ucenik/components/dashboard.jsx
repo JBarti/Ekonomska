@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
 import OutcomeCard from "../../../common/outcomeCard";
 import TotalCard from "./totalCard";
+import MonthlyCard from "../../../common/monthlyCard";
 
 const styles = theme => ({
   fix: {
@@ -29,19 +30,6 @@ const styles = theme => ({
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    let payment = { name: "Web dev", amount: 2000 };
-    let fees = [
-      { name: "f1", amount: 500 },
-      { name: "fee3", amount: 300 },
-      { name: "foo1", amount: 200 }
-    ];
-    let outcomes = [
-      { type: "Režije", amount: 200, change: -10 },
-      { type: "Zabava", amount: 400, change: 20 },
-      { type: "Kredit", amount: 650, change: undefined },
-      { type: "Neočekivano", amount: 500, change: undefined }
-    ];
-
     this.state = { job: { name: "", amount: 0 }, outcomes: [], fees: [] };
   }
 
@@ -94,6 +82,7 @@ class Dashboard extends Component {
             <div />
           )}
         </Row>
+
         <Row>
           <IncomeCard payment={this.state.job} fees={this.state.fees} />
           <OutcomeCard
@@ -105,6 +94,13 @@ class Dashboard extends Component {
             unexpected={{}}
           />
           <TotalCard
+            outcomes={this.state.outcomes}
+            incomes={this.state.fees.concat([this.state.job])}
+          />
+        </Row>
+
+        <Row>
+          <MonthlyCard
             outcomes={this.state.outcomes}
             incomes={this.state.fees.concat([this.state.job])}
           />
