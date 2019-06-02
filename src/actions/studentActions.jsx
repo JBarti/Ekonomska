@@ -71,12 +71,14 @@ export function newJob(jobName, jobPayment, jobCredit, studentId) {
   };
 }
 
-export function unexpectedOutcome(studentId) {
-  console.log({ studentId });
+export function unexpectedOutcome(studentId, outcome, duration) {
+  console.log({ studentId, outcome, duration });
   return {
     type: "SECOND_CHOICE",
     payload: axios.post(API_ENDPOINT + "/students/year/2", {
-      studentId
+      studentId,
+      outcome,
+      duration
     })
   };
 }

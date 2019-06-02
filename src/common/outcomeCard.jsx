@@ -211,7 +211,12 @@ class OutcomeCard extends Component {
       choices.push(<FinPlanChoice studentId={this.props.studentId} />);
     }
     if (financialYear === 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
-      choices.push(<UnexpectedOutcome studentId={this.props.studentId} />);
+      choices.push(
+        <UnexpectedOutcome
+          studentId={this.props.studentId}
+          variant={this.props.variant}
+        />
+      );
     }
     return (
       <Card elevation={5} className={classes.root}>
