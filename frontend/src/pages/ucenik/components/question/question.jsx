@@ -54,7 +54,10 @@ class Question extends Component {
               return (
                 <Button
                   className={classes.answer}
-                  onClick={answerQuestion(String(id) + String(index))}
+                  onClick={() => {
+                    console.log("RADI LI ");
+                    answerQuestion(String(id) + String(index));
+                  }}
                 >
                   {answer.answer}
                 </Button>
