@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Question from "./question/question";
 import { Button } from "@material-ui/core";
-import IconDone from "@material-ui/icons/Done";
 import ArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import ArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import { addTest, lockTestUp } from "../../../actions/proffesorActions";
-import LockedIcon from "@material-ui/icons/Lock";
-import UnlockedIcon from "@material-ui/icons/LockOpen";
 import { connect } from "react-redux";
 
 const styles = theme => {
@@ -31,11 +28,7 @@ const styles = theme => {
       width: "100%"
     },
     navButton: {
-      width: "40%"
-    },
-    submitButton: {
-      marginLeft: 0,
-      textAlign: "none"
+      width: "100%"
     }
   };
 };
@@ -196,26 +189,20 @@ class Quiz extends Component {
         />
         <div className={classes.navContainer}>
           <Button
-            variant="extendedFab"
+            variant="raised"
             color="primary"
             disabled={this.nextQuestionDisabled() || locked}
             onClick={this.submit}
           >
-            <IconDone style={{ marginRight: 8 }} />
-            Submit
+            SPREMI
           </Button>
           <Button
-            variant="extendedFab"
-            style={{ backgroundColor: "#ffd600", marginLeft: 10 }}
+            variant="raised"
+            color="secondary"
             disabled={this.nextQuestionDisabled() || locked}
             onClick={this.lockTest}
           >
-            {locked ? (
-              <LockedIcon style={{ marginRight: 8 }} />
-            ) : (
-              <UnlockedIcon style={{ marginRight: 8 }} />
-            )}
-            {locked ? "Locked" : "Lock"}
+            ZAKLJUČAJ
           </Button>
           <Button
             className={classes.navButton}
@@ -236,11 +223,11 @@ class Quiz extends Component {
           </Button>
           {!locked ? (
             <Button
-              variant="extendedFab"
+              variant="raised"
               color="primary"
               onClick={this.removeQuestion}
             >
-              Trash
+              IZBRIŠI
             </Button>
           ) : (
             undefined

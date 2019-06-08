@@ -62,7 +62,7 @@ const styles = theme => {
       marginLeft: "15%",
       textAlign: "left",
       marginTop: 24,
-      marginBottom: -10,
+      marginBottom: 5,
       color: theme.palette.error.main
     },
     buttonSubmit: {
@@ -97,7 +97,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
+    const API_ENDPOINTg = "https://f-pismenost.herokuapp.com";
     const API_ENDPOINT = "http://0.0.0.0:3001";
 
     axios.get(API_ENDPOINT + "/grades").then(res => {
@@ -126,8 +126,6 @@ class Login extends Component {
       })
       .catch(err => {
         dispatch({ type: "LOAD_USER_FAILED", payload: err });
-        console.error(err);
-        this.setState({ error: true });
       });
   };
   register = () => {
@@ -161,7 +159,8 @@ class Login extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, loginError } = this.props;
+    console.log("LOGIN EROR", loginError);
     if (this.state.isRegister) {
       return (
         <form className={classes.page}>
@@ -178,7 +177,7 @@ class Login extends Component {
               </Typography>
             </div>
             <Typography variant="caption" className={classes.errorCaption}>
-              {this.state.errorMessage}
+              {loginError ? "Pogrešni podatci" : ""}
             </Typography>
             <TextField
               label="Ime"
@@ -236,7 +235,7 @@ class Login extends Component {
               className={classes.buttonSubmit}
               onClick={this.register}
             >
-              SUBMIT
+              PRIJAVI
             </Button>
           </ContentCard>
           {this.state.redirect}
@@ -263,7 +262,7 @@ class Login extends Component {
             </Typography>
           </div>
           <Typography variant="caption" className={classes.errorCaption}>
-            {this.state.errorMessage}
+            {loginError ? "Pogrešni podatci" : ""}
           </Typography>
           <TextField
             label="Korisničko ime"
@@ -288,7 +287,7 @@ class Login extends Component {
             className={classes.buttonSubmit}
             onClick={this.login}
           >
-            SUBMIT
+            PRIJAVI
           </Button>
         </ContentCard>
         {this.state.redirect}
@@ -306,4 +305,8 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect()(withStyles(styles)(Login));
+export default connect(store => {
+  return {
+    loginError: store.student.fail
+  };
+})(withStyles(styles)(Login));
