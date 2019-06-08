@@ -92,14 +92,3 @@ export function updateOutcomes(studentId, outcomes) {
     })
   };
 }
-
-export function newInvestment(studentId, totalSavings, interestRate) {
-  return {
-    type: "THIRD_CHOICE",
-    payload: axios.post(API_ENDPOINT + "/students/year/3", {
-      studentId,
-      totalSavings,
-      interestRate
-    })
-  };
-}

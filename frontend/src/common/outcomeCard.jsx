@@ -3,9 +3,12 @@ import { withStyles } from "@material-ui/core/styles";
 import FinPlanChoice from "./finPlanChoice";
 <<<<<<< HEAD
 import UnexpectedOutcome from "./unexpectedOutcome";
+<<<<<<< HEAD
 import FinanceInvestment from "./financeInvestment";
 =======
 >>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
+=======
+>>>>>>> parent of 11fb1da... Created savings model
 import {
   Card,
   CardContent,
@@ -197,29 +200,17 @@ class OutcomeCard extends Component {
     });
 
     let choices = [];
-    if (financialYear >= 1 && this.yearIsEmpty("Kredit", outcomes)) {
+    if (financialYear === 1 && this.yearIsEmpty("Kredit", outcomes)) {
       choices.push(<FinPlanChoice studentId={this.props.studentId} />);
-      console.log("KREDIT");
     }
-    if (financialYear >= 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
+    if (financialYear === 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
       choices.push(
         <UnexpectedOutcome
           studentId={this.props.studentId}
           variant={this.props.variant}
         />
       );
-      console.log("NEOCEKIVANo");
-      console.log(choices);
     }
-    if (financialYear >= 3 && !this.props.saving)
-      choices.push(
-        <FinanceInvestment
-          studentId={this.props.studentId}
-          variant={this.props.variant}
-          outcomes={this.props.outcomes}
-          incomes={this.props.incomes}
-        />
-      );
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader
@@ -235,9 +226,13 @@ class OutcomeCard extends Component {
         <Divider />
         <CardContent className={classes.cardContent}>
 <<<<<<< HEAD
+<<<<<<< HEAD
           {choices.shift()}
 =======
 >>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
+=======
+          {choices.pop()}
+>>>>>>> parent of 11fb1da... Created savings model
           <List>
             {outcomes.map((outcome, index) => {
               let { type, amount, change } = outcome;

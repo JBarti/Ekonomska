@@ -97,13 +97,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-    const API_ENDPOINTg = "https://f-pismenost.herokuapp.com";
+    const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
     const API_ENDPOINT = "http://0.0.0.0:3001";
-=======
-    const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
-    const API_ENDPOINTG = "http://0.0.0.0:3001";
->>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
 
     axios.get(API_ENDPOINT + "/grades").then(res => {
       console.table(res.data);
