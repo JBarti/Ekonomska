@@ -182,6 +182,27 @@ class OutcomeCard extends Component {
       financialYear !== 0 &&
       !Boolean(outcomes.find(outcome => outcome.year === financialYear));
 
+    let displayedOutcomes = outcomes.filter(outcome => {
+      return (
+        outcome.duration === null ||
+        (outcome.duration + outcome.year > displayedYear &&
+          outcome.year <= displayedYear) ||
+        outcome.year === displayedYear
+      );
+    });
+
+    let choices = [];
+    if (financialYear === 1 && this.yearIsEmpty("Kredit", outcomes)) {
+      choices.push(<FinPlanChoice studentId={this.props.studentId} />);
+    }
+    if (financialYear === 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
+      choices.push(
+        <UnexpectedOutcome
+          studentId={this.props.studentId}
+          variant={this.props.variant}
+        />
+      );
+    }
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader

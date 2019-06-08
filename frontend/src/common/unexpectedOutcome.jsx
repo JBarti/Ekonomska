@@ -116,13 +116,16 @@ class FinPlanChoice extends Component {
   };
 
   progress = () => {
-    let studentId = this.props.studentId;
-    this.props.dispatch(unexpectedOutcome(studentId));
+    let { studentId, variant } = this.props;
+    let outcome = variant == 2 ? 7200 : 5600;
+    let duration = variant == 2 ? 5 : 4;
+
+    this.props.dispatch(unexpectedOutcome(studentId, outcome, duration));
     this.handleClose();
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, variant } = this.props;
     return (
       <div>
         <IconButton
@@ -168,17 +171,15 @@ class FinPlanChoice extends Component {
               <CardContent>
                 <Typography style={{ fontSize: 20 }} variant={"body1"}>
                   Morate otići zubaru i svog kućnog ljubimca odvesti veterinaru
-                  što zajedno košta 5.760,00 HRK. Taj iznos možete otplaćivati u
-                  mjesečnim ratama sljedeće 4 godine bez kamata. Mjesečni iznos
+                  što zajedno košta {variant == 2 ? "7.200,00" : "5.760,00"}
+                  HRK. Taj iznos možete otplaćivati u mjesečnim ratama sljedeće
+                  {variant == 2 ? "5" : "4"} godine bez kamata. Mjesečni iznos
                   rate iznosi 120 HRK. Vaša tablica prihoda i rashoda se mijenja
                   i prikazana je gore. Vaš saldo mjesečnih prihoda i rashoda je
                   sada u još većem minusu i morate poduzeti daljnje korake kako
                   biste pokrili svoje mjesečne izdatke. Istovremeno se mijenja i
                   projekcija vašeg financijskog stanja nakon 1 godine. Uz
-                  kredit, morate vratiti i troškove neplaniranih rashoda. Dio
-                  neplaniranog rashoda u iznosu od 1.440,00 HRK bit će do kraja
-                  1. godine otplaćen, a kroz sljedeće 3 godine potrebno je
-                  otplatiti još 4.320,00 HRK u mjesečnim obrocima.
+                  kredit, morate vratiti i troškove neplaniranih rashoda.
                   <br />
                   <br />
                 </Typography>
