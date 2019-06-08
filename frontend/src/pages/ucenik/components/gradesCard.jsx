@@ -68,6 +68,9 @@ const GradeDisplay = props => {
   let gradeNumStyle = {
     background: `-moz-linear-gradient(326deg, ${grade.gradient[0]} 36%, ${
       grade.gradient[1]
+    } 100%)`,
+    background: `-webkit-linear-gradient(326deg, ${grade.gradient[0]} 36%, ${
+      grade.gradient[1]
     } 100%)`
   };
   console.log(solution);
@@ -128,37 +131,35 @@ class GradesCard extends Component {
         let testPoints = test.questions.length;
         let acquiredPoints = solution.points;
         let percentage = (acquiredPoints / testPoints) * 100;
-        console.log("PERSENTAŽ", percentage);
         let grade = (() => {
-          var gradeObj = { num: 1, gradient: [red[500], red[600]] };
-          switch (true) {
+          let grade = { num: 1, gradient: [red[500], red[600]] };
+          switch (percentage) {
             case percentage <= 50: {
-              gradeObj.num = 1;
+              grade.num = 1;
               break;
             }
             case percentage <= 60: {
-              gradeObj.num = 2;
-              gradeObj.gradient = [orange[(500, orange[600])]];
+              grade.num = 2;
+              grade.gradient = [orange[(500, orange[600])]];
               break;
             }
             case percentage <= 75: {
-              gradeObj.num = 3;
-              gradeObj.gradient = [yellow[500], yellow[600]];
+              grade.num = 3;
+              grade.gradient = [yellow[500], yellow[600]];
               break;
             }
             case percentage <= 90: {
-              gradeObj.num = 4;
-              gradeObj.gradient = [(blue[500], blue[600])];
+              grade.num = 4;
+              grade.gradient = [(blue[500], blue[600])];
               break;
             }
             case percentage <= 100: {
-              gradeObj.num = 5;
-              gradeObj.gradient = [green[500], green[600]];
+              grade.num = 5;
+              grade.gradient = [green[500], green[600]];
               break;
             }
           }
-          console.log(gradeObj);
-          return gradeObj;
+          return grade;
         })();
         console.log("GRADE");
         console.log(testPoints);
