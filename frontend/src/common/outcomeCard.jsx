@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import FinPlanChoice from "./finPlanChoice";
+<<<<<<< HEAD
 import UnexpectedOutcome from "./unexpectedOutcome";
 import FinanceInvestment from "./financeInvestment";
+=======
+>>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
 import {
   Card,
   CardContent,
@@ -12,34 +15,29 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  ListItemSecondaryAction,
-  IconButton,
-  Typography,
-  Button
+  ListItemSecondaryAction
 } from "@material-ui/core";
 import { grey, red, blue, green } from "@material-ui/core/colors";
 import {
   HomeOutlined,
   CakeOutlined,
   RestaurantOutlined,
+  LocalLaundryServiceOutlined,
   LocalCafeOutlined,
   LocalTaxiOutlined,
   CreditCardOutlined,
   ShoppingCartOutlined,
   LocalCarWashOutlined,
-  WarningOutlined,
-  KeyboardArrowLeft,
-  KeyboardArrowRight
+  WarningOutlined
 } from "@material-ui/icons";
-import { updateOutcomes } from "../actions/studentActions";
 import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
     width: "40%",
     marginLeft: 10,
-    overflowY: "auto",
-    overflowX: "hidden"
+    overflowY: "hidden",
+    overflowX: "auto"
   },
   cardContent: {
     paddingTop: 0
@@ -182,21 +180,12 @@ const OutcomeListItem = props => {
 class OutcomeCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { displayedYear: 1 };
   }
-
-  yearIsEmpty = (year, outcomes) => {
-    return !Boolean(outcomes.find(outcome => outcome.type === year));
-  };
-
-  updateOutcomes = () => {
-    let { outcomes, studentId, dispatch } = this.props;
-    dispatch(updateOutcomes(studentId, outcomes));
-  };
-
   render() {
     let { classes, outcomes, sliderChange, financialYear } = this.props;
-    let { displayedYear } = this.state;
+    let isNewYear =
+      financialYear !== 0 &&
+      !Boolean(outcomes.find(outcome => outcome.year === financialYear));
 
     let displayedOutcomes = outcomes.filter(outcome => {
       return (
@@ -236,60 +225,21 @@ class OutcomeCard extends Component {
         <CardHeader
           title={"Rashodi"}
           action={
-            <div style={{ height: 20 }}>
-              <Button variant="outlined" onClick={this.updateOutcomes}>
-                Pohrani
-              </Button>
-              <IconButton
-                disabled={displayedYear === 1}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
-              >
-                <KeyboardArrowLeft
-                  onClick={
-                    displayedYear > 1
-                      ? () => {
-                          this.setState({ displayedYear: displayedYear - 1 });
-                        }
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </IconButton>
-              <Typography
-                variant={"subheading"}
-                style={{ display: "inline", marginRight: 20 }}
-              >
-                Godina: {Number(displayedYear)}
-              </Typography>
-              <IconButton
-                disabled={displayedYear >= 7}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
-              >
-                <KeyboardArrowRight
-                  onClick={
-                    displayedYear < 7
-                      ? () => {
-                          this.setState({ displayedYear: displayedYear + 1 });
-                        }
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </IconButton>
-            </div>
+            isNewYear ? (
+              <FinPlanChoice studentId={this.props.studentId} />
+            ) : (
+              <div />
+            )
           }
         />
         <Divider />
         <CardContent className={classes.cardContent}>
+<<<<<<< HEAD
           {choices.shift()}
+=======
+>>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
           <List>
-            {displayedOutcomes.map((outcome, index) => {
+            {outcomes.map((outcome, index) => {
               let { type, amount, change } = outcome;
               return (
                 <div>
@@ -311,4 +261,4 @@ class OutcomeCard extends Component {
   }
 }
 
-export default connect()(withStyles(styles)(OutcomeCard));
+export default withStyles(styles)(OutcomeCard);

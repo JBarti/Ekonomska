@@ -11,7 +11,6 @@ import IncomeCard from "../../../common/incomeCard";
 import OutcomeCard from "../../../common/outcomeCard";
 import GoalsFulfilledCard from "../../../common/goalsFulfilledCard";
 import TotalCard from "./totalCard";
-import MonthlyCard from "../../../common/monthlyCard";
 
 const styles = theme => ({
   fix: {
@@ -101,7 +100,6 @@ class Dashboard extends Component {
             <div />
           )}
         </Row>
-
         <Row>
           <IncomeCard payment={this.state.job} fees={this.state.fees} />
           <OutcomeCard
@@ -120,6 +118,7 @@ class Dashboard extends Component {
             incomes={this.state.fees.concat([this.state.job])}
           />
         </Row>
+<<<<<<< HEAD
 
         <Row>
           <MonthlyCard
@@ -138,6 +137,8 @@ class Dashboard extends Component {
         ) : (
           <div />
         )}
+=======
+>>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
       </div>
     );
   }

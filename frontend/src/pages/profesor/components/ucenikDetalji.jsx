@@ -28,7 +28,6 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import EditIcon from "@material-ui/icons/Edit";
 import EditUcenikCard from "./editUcenikCard";
 import UcenikTests from "./ucenikTests";
-import GradesCard from "../../ucenik/components/gradesCard";
 
 const drawerWidth = 240;
 
@@ -55,7 +54,7 @@ const styles = theme => ({
     maxWidth: "100%"
   },
   cardDiv: {
-    width: "90%",
+    width: "100%",
     boxSizing: "content-box",
     overflow: "hidden",
     padding: "1%",
@@ -105,10 +104,6 @@ const styles = theme => ({
   },
   homePage: {
     marginTop: 100
-  },
-  gradeCard: {
-    height: 500,
-    marginTop: 25
   }
 });
 
@@ -149,24 +144,16 @@ class LekcijaCard extends Component {
   };
 
   showStudentData = student => () => {
-    let { classes } = this.props;
     this.handleClose();
     setTimeout(this.handleClickOpen, 410);
     setTimeout(() => {
       this.setState({
         content: (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center"
-            }}
-          >
+          <div>
             <EditUcenikCard student={student} toHome={this.toHome} />
-            <GradesCard
+            <UcenikTests
               solutions={student.solutions || []}
               tests={this.getTests()}
-              classes={{ root: classes.gradeCard }}
             />
           </div>
         )
@@ -242,6 +229,7 @@ class LekcijaCard extends Component {
                   console.log("ASPDJAS");
                 }}
               >
+<<<<<<< HEAD
                 <PlusOne
                   onClick={
                     financialYear < 3
@@ -251,6 +239,9 @@ class LekcijaCard extends Component {
                         }
                   }
                 />
+=======
+                <PlusOne />
+>>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
               </Button>
             </div>
             <IconButton onClick={this.handleClickOpen} aria-label="Delete">

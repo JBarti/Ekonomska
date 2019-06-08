@@ -5,17 +5,11 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Typography,
-  IconButton
+  Typography
 } from "@material-ui/core";
 import { Bar } from "react-chartjs-2";
 import { red, green, grey } from "@material-ui/core/colors";
-import {
-  ArrowUpward,
-  ArrowDownward,
-  KeyboardArrowLeft,
-  KeyboardArrowRight
-} from "@material-ui/icons";
+import { ArrowUpward } from "@material-ui/icons";
 
 const styles = theme => ({
   root: {
@@ -29,9 +23,6 @@ const styles = theme => ({
   },
   arrowUpColor: {
     color: green[400]
-  },
-  arrowDownColor: {
-    color: red[400]
   }
 });
 
@@ -82,55 +73,7 @@ class TotalCard extends Component {
 
     return (
       <Card elevation={5} className={classes.root}>
-        <CardHeader
-          title={`Ukupno stanje`}
-          action={
-            <div style={{ height: 20 }}>
-              <IconButton
-                disabled={displayedYear === 1}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
-              >
-                <KeyboardArrowLeft
-                  onClick={
-                    displayedYear > 1
-                      ? () => {
-                          this.setState({ displayedYear: displayedYear - 1 });
-                        }
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </IconButton>
-              <Typography
-                variant={"subheading"}
-                style={{ display: "inline", marginRight: 20 }}
-              >
-                Godina: {Number(displayedYear)}
-              </Typography>
-              <IconButton
-                disabled={displayedYear >= 7}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
-              >
-                <KeyboardArrowRight
-                  onClick={
-                    displayedYear < 7
-                      ? () => {
-                          this.setState({ displayedYear: displayedYear + 1 });
-                        }
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </IconButton>
-            </div>
-          }
-        />
+        <CardHeader title={`Ukupno stanje`} />
         <Divider />
         <CardContent className={classes.cardContent}>
           <div
@@ -196,19 +139,11 @@ class TotalCard extends Component {
                 }}
               >
                 <span>
-                  {difference > 0 ? (
-                    <ArrowUpward
-                      style={{ fontSize: 60, marginRight: 10 }}
-                      color={"primary"}
-                      classes={{ colorPrimary: classes.arrowUpColor }}
-                    />
-                  ) : (
-                    <ArrowDownward
-                      style={{ fontSize: 60, marginRight: 10 }}
-                      color={"primary"}
-                      classes={{ colorPrimary: classes.arrowDownColor }}
-                    />
-                  )}
+                  <ArrowUpward
+                    style={{ fontSize: 60, marginRight: 10 }}
+                    color={"primary"}
+                    classes={{ colorPrimary: classes.arrowUpColor }}
+                  />
                 </span>
                 <span
                   style={{

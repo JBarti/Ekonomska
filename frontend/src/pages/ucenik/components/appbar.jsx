@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, Icon, Button, Chip, Avatar } from "@material-ui/core";
 import Appbar from "../../../common/appbar/appbar";
-import FinPlanChoice from "../../../common/finPlanChoice";
 import { Redirect } from "react-router";
 import { logOut } from "../../../actions/studentActions";
 import { connect } from "react-redux";
@@ -43,7 +42,7 @@ class UcenikAppBar extends Component {
                 beforeTitle={<IconButton style={{ color: 'white' }}
                     onClick={this.props.onMenu}>
                     <MenuIcon />
-                    </IconButton>}*/
+                </IconButton>}*/
       >
         <div id="nameTag">
           <div>
@@ -52,11 +51,7 @@ class UcenikAppBar extends Component {
             </Typography>
           </div>
         </div>
-        <Button
-          onClick={this.logOut}
-          variant="outlined"
-          style={{ color: "white" }}
-        >
+        <Button onClick={this.logOut} variant="outlined" style={{ color: "white" }}>
           {" "}
           Odjava{" "}
         </Button>

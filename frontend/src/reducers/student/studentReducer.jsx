@@ -13,12 +13,8 @@ export default function reducer(state = stateDefault, action) {
   switch (action.type) {
     case "LOAD_STUDENT_FULFILLED": {
       console.log("OVO JE PAYLOAD");
-      console.log(action.payload);
-      let user = action.payload.data;
-      if (action.payload.data == undefined) {
-        user = action.payload;
-      }
-      console.log(user);
+      console.log(action.payload.data);
+      let user = action.payload.data ? action.payload.data : action.payload;
       let {
         id,
         gradeId,
@@ -65,10 +61,6 @@ export default function reducer(state = stateDefault, action) {
       break;
     }
     case "LOAD_STUDENT_REJECTED": {
-      newState = { ...state, fail: true };
-      break;
-    }
-    case "LOAD_USER_FAILED": {
       newState = { ...state, fail: true };
       break;
     }
