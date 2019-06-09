@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
 import OutcomeCard from "../../../common/outcomeCard";
 import TotalCard from "./totalCard";
+import MonthlyCard from "../../../common/monthlyCard";
 
 const styles = theme => ({
   fix: {
@@ -94,6 +95,7 @@ class Dashboard extends Component {
             <div />
           )}
         </Row>
+
         <Row>
           <IncomeCard payment={this.state.job} fees={this.state.fees} />
           <OutcomeCard
@@ -109,6 +111,24 @@ class Dashboard extends Component {
             incomes={this.state.fees.concat([this.state.job])}
           />
         </Row>
+
+        <Row>
+          <MonthlyCard
+            outcomes={this.state.outcomes}
+            incomes={this.state.fees.concat([this.state.job])}
+          />
+        </Row>
+        {saving ? (
+          <Row>
+            <GoalsFulfilledCard
+              saving={saving}
+              outcomes={this.state.outcomes}
+              incomes={this.state.fees.concat([this.state.job])}
+            />
+          </Row>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }

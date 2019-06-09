@@ -10,6 +10,8 @@ import LockedIcon from "@material-ui/icons/Lock";
 import UnlockedIcon from "@material-ui/icons/LockOpen";
 import { connect } from "react-redux";
 import { addTest, lockTestUp } from "../../../actions/proffesorActions";
+import { IconButton } from "@material-ui/core";
+import { Delete, Clear } from "@material-ui/icons";
 
 const styles = theme => ({
   root: {
@@ -112,7 +114,11 @@ class Forms extends Component {
   addNewAnswer = qIndex => () => {
     let test = { ...this.state.test };
     let answer = { answer: "", isCorrect: false };
-    test.questions[qIndex].answers.push(answer);
+    try {
+      test.questions[qIndex].answers.push(answer);
+    } catch (error) {
+      test.questions[qIndex].answers = [answer];
+    }
     this.setState({ test: test });
   };
 
@@ -138,22 +144,59 @@ class Forms extends Component {
     this.props.reload();
   };
 
-  genQuestion = (question, qIndex, classes, locked) => {
+  deleteQuestion = qIndex => () => {
+    let test = { ...this.state.test };
+    let questions = test.questions;
+    questions =
+      questions.filter((q, index) => {
+        return index !== qIndex;
+      }) || [];
+    test.questions = questions;
+    console.log(questions, qIndex);
+    this.setState({ test });
+  };
+
+  deleteAnswer = (qIndex, aIndex) => () => {
+    let test = { ...this.state.test };
+    let question = test.questions.find((question, index) => index === qIndex);
+    let answers =
+      question.answers.filter((answer, index) => index !== aIndex) || [];
+    question.answers = answers;
+    this.setState(test);
+  };
+
+  genQuestion = (
+    question,
+    qIndex,
+    classes,
+    locked,
+    deleteQuestion,
+    deleteAnswer
+  ) => {
     let answers = question.answers || [];
     return (
       <div className={classes.question}>
-        <TextField
-          align="left"
-          variant="title"
-          InputProps={{
-            classes: {
-              input: classes.questionTitleInput
-            }
-          }}
-          onChange={this.handleQuestionChange(qIndex)}
-          className={classes.questionTitle}
-          value={question.text}
-        />
+        <div>
+          <TextField
+            align="left"
+            variant="title"
+            InputProps={{
+              classes: {
+                input: classes.questionTitleInput
+              }
+            }}
+            onChange={this.handleQuestionChange(qIndex)}
+            className={classes.questionTitle}
+            value={question.text}
+          />
+          <IconButton
+            onClick={deleteQuestion(qIndex)}
+            disabled={locked}
+            style={{ marginBottom: 25, marginLeft: 10 }}
+          >
+            <Delete />
+          </IconButton>
+        </div>
         <RadioGroup name={qIndex.toString()}>
           {answers.map((answer, aIndex) => {
             return (
@@ -173,6 +216,17 @@ class Forms extends Component {
                     this.state.test.questions[qIndex].answers[aIndex].answer
                   }
                 />
+                <IconButton
+                  onClick={deleteAnswer(qIndex, aIndex)}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    fontSize: 10,
+                    marginLeft: 25
+                  }}
+                >
+                  <Clear style={{ fontSize: 15 }} />
+                </IconButton>
               </div>
             );
           })}
@@ -201,7 +255,14 @@ class Forms extends Component {
     return (
       <div className={classes.root}>
         {questions.map((question, index) => {
-          return this.genQuestion(question, index, classes, locked);
+          return this.genQuestion(
+            question,
+            index,
+            classes,
+            locked,
+            this.deleteQuestion,
+            this.deleteAnswer
+          );
         })}
         <div className={classes.btnalign}>
           {!locked ? (
@@ -225,7 +286,7 @@ class Forms extends Component {
             disabled={test.locked}
           >
             <IconDone style={{ marginRight: 8 }} />
-            Submit
+            SPREMI
           </Button>
 
           <Button
@@ -241,7 +302,7 @@ class Forms extends Component {
             ) : (
               <UnlockedIcon style={{ marginRight: 8 }} />
             )}
-            {locked ? "Locked" : "Lock"}
+            {locked ? "ZAKLJUČANO" : "ZAKLJUČAJ"}
           </Button>
         </div>
       </div>

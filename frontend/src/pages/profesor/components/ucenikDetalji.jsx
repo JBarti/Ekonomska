@@ -28,6 +28,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import EditIcon from "@material-ui/icons/Edit";
 import EditUcenikCard from "./editUcenikCard";
 import UcenikTests from "./ucenikTests";
+import GradesCard from "../../ucenik/components/gradesCard";
 
 const drawerWidth = 240;
 
@@ -54,7 +55,7 @@ const styles = theme => ({
     maxWidth: "100%"
   },
   cardDiv: {
-    width: "100%",
+    width: "90%",
     boxSizing: "content-box",
     overflow: "hidden",
     padding: "1%",
@@ -104,6 +105,10 @@ const styles = theme => ({
   },
   homePage: {
     marginTop: 100
+  },
+  gradeCard: {
+    height: 500,
+    marginTop: 25
   }
 });
 
@@ -144,16 +149,24 @@ class LekcijaCard extends Component {
   };
 
   showStudentData = student => () => {
+    let { classes } = this.props;
     this.handleClose();
     setTimeout(this.handleClickOpen, 410);
     setTimeout(() => {
       this.setState({
         content: (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
             <EditUcenikCard student={student} toHome={this.toHome} />
-            <UcenikTests
+            <GradesCard
               solutions={student.solutions || []}
               tests={this.getTests()}
+              classes={{ root: classes.gradeCard }}
             />
           </div>
         )
@@ -224,9 +237,9 @@ class LekcijaCard extends Component {
                 Financijska Razina: {Number(financialYear)}
               </Typography>
               <Button
-                disabled={financialYear >= 1}
+                disabled={financialYear >= 3}
                 onClick={
-                  financialYear < 1
+                  financialYear < 3
                     ? this.incrementFinancialYear
                     : () => {
                         console.log("NON");
