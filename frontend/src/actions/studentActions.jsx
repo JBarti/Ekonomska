@@ -70,3 +70,28 @@ export function newJob(jobName, jobPayment, jobCredit, studentId) {
     })
   };
 }
+<<<<<<< HEAD
+=======
+
+export function unexpectedOutcome(studentId, outcome, duration) {
+  console.log({ studentId, outcome, duration });
+  return {
+    type: "SECOND_CHOICE",
+    payload: axios.post(API_ENDPOINT + "/students/year/2", {
+      studentId,
+      outcome,
+      duration
+    })
+  };
+}
+
+export function updateOutcomes(studentId, outcomes) {
+  return {
+    type: "UPDATE_OUTCOMES",
+    payload: axios.post(API_ENDPOINT + "/students/outcomes", {
+      studentId,
+      outcomes
+    })
+  };
+}
+>>>>>>> parent of 9767e6a... Revert "Created savings model"
