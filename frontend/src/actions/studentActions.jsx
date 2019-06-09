@@ -70,36 +70,3 @@ export function newJob(jobName, jobPayment, jobCredit, studentId) {
     })
   };
 }
-
-export function unexpectedOutcome(studentId, outcome, duration) {
-  console.log({ studentId, outcome, duration });
-  return {
-    type: "SECOND_CHOICE",
-    payload: axios.post(API_ENDPOINT + "/students/year/2", {
-      studentId,
-      outcome,
-      duration
-    })
-  };
-}
-
-export function updateOutcomes(studentId, outcomes) {
-  return {
-    type: "UPDATE_OUTCOMES",
-    payload: axios.post(API_ENDPOINT + "/students/outcomes", {
-      studentId,
-      outcomes
-    })
-  };
-}
-
-export function newInvestment(studentId, totalSavings, interestRate) {
-  return {
-    type: "THIRD_CHOICE",
-    payload: axios.post(API_ENDPOINT + "/students/year/3", {
-      studentId,
-      totalSavings,
-      interestRate
-    })
-  };
-}

@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
 import OutcomeCard from "../../../common/outcomeCard";
-import GoalsFulfilledCard from "../../../common/goalsFulfilledCard";
 import TotalCard from "./totalCard";
 
 const styles = theme => ({
@@ -30,12 +29,20 @@ const styles = theme => ({
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      job: { name: "", amount: 0 },
-      outcomes: [],
-      fees: [],
-      financeVariant: 0
-    };
+    let payment = { name: "Web dev", amount: 2000 };
+    let fees = [
+      { name: "f1", amount: 500 },
+      { name: "fee3", amount: 300 },
+      { name: "foo1", amount: 200 }
+    ];
+    let outcomes = [
+      { type: "Režije", amount: 200, change: -10 },
+      { type: "Zabava", amount: 400, change: 20 },
+      { type: "Kredit", amount: 650, change: undefined },
+      { type: "Neočekivano", amount: 500, change: undefined }
+    ];
+
+    this.state = { job: { name: "", amount: 0 }, outcomes: [], fees: [] };
   }
 
   componentWillReceiveProps(newProp) {
@@ -58,25 +65,12 @@ class Dashboard extends Component {
       folders,
       notifications,
       studentId,
-      solutions,
-      saving
+      solutions
     } = this.props;
     let tests = folders.map(folder => folder.tests).flat();
     let solvedTests = solutions
       .filter(solution => !!solution)
       .map(solution => solution.testId);
-
-    let financeVariant = this.props.fees.find(fee => {
-      return fee.name == "Grafiči dizajn";
-    })
-      ? 1
-      : 0;
-    financeVariant = this.props.fees.find(fee => {
-      return fee.name == "Školovanje";
-    })
-      ? 2
-      : 0;
-
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
         <GridList className={classes.gridList} rows={2.5}>
@@ -104,41 +98,17 @@ class Dashboard extends Component {
           <IncomeCard payment={this.state.job} fees={this.state.fees} />
           <OutcomeCard
             outcomes={this.state.outcomes}
-            incomes={this.state.fees.concat([this.state.job])}
             sliderChange={this.outcomeSliderChange}
             financialYear={this.props.financialYear}
             studentId={this.props.studentId}
             credit={{}}
             unexpected={{}}
-            variant={financeVariant}
-            saving={this.props.saving}
           />
           <TotalCard
             outcomes={this.state.outcomes}
             incomes={this.state.fees.concat([this.state.job])}
           />
         </Row>
-<<<<<<< HEAD
-
-        <Row>
-          <MonthlyCard
-            outcomes={this.state.outcomes}
-            incomes={this.state.fees.concat([this.state.job])}
-          />
-        </Row>
-        {saving ? (
-          <Row>
-            <GoalsFulfilledCard
-              saving={saving}
-              outcomes={this.state.outcomes}
-              incomes={this.state.fees.concat([this.state.job])}
-            />
-          </Row>
-        ) : (
-          <div />
-        )}
-=======
->>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
       </div>
     );
   }
@@ -153,7 +123,6 @@ export default connect(store => {
   return {
     job: store.finance.job || { amount: 0 },
     fees: store.finance.fees || [],
-    saving: store.finance.saving || false,
     outcomes: store.finance.outcomes || [],
     notifications: store.grade.notifications || [],
     folders: store.grade.folders || [],

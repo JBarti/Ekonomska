@@ -224,14 +224,14 @@ class LekcijaCard extends Component {
                 Financijska Razina: {Number(financialYear)}
               </Typography>
               <Button
-                disabled={financialYear >= 3}
-                onCLick={() => {
-                  financialYear < 3
+                disabled={financialYear >= 1}
+                onClick={
+                  financialYear < 1
                     ? this.incrementFinancialYear
                     : () => {
                         console.log("NON");
-                      };
-                }}
+                      }
+                }
               >
                 <PlusOne />
               </Button>

@@ -27,50 +27,19 @@ const styles = theme => ({
 });
 
 class TotalCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { displayedYear: 1 };
-  }
-
-  totalOutcome = (outcomes, year) => {
-    return outcomes
-      .filter(outcome => {
-        return (
-          outcome.duration === null ||
-          (outcome.duration + outcome.year > year && outcome.year <= year) ||
-          outcome.year === year
-        );
-      })
+  render() {
+    let { classes, outcomes, incomes } = this.props;
+    let totalOutcome = outcomes
       .map(
         outcome =>
           outcome.amount + (outcome.change === undefined ? 0 : outcome.change)
       )
       .reduce((prev, next) => prev + next, 0);
-  };
-
-  render() {
-    let { classes, outcomes, incomes } = this.props;
-    let { displayedYear } = this.state;
-
-    let totalOutcome = this.totalOutcome(outcomes, displayedYear);
-    console.log({ totalOutcome });
-
     let totalIncome = incomes
       .map(income => income.amount)
       .reduce((prev, next) => prev + next, 0);
-
     let difference = totalIncome - totalOutcome;
-
-    let savings =
-      totalIncome * displayedYear -
-      [...Array(displayedYear).keys()]
-        .map(year => {
-          return this.totalOutcome(outcomes, year + 1);
-        })
-        .reduce((prev, next) => {
-          return prev + next;
-        }, 0);
-
+    console.log(totalIncome, totalOutcome);
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader title={`Ukupno stanje`} />
@@ -161,10 +130,6 @@ class TotalCard extends Component {
                 <br />
                 <div style={{ fontSize: 20, color: grey[700] }}>
                   Rashodi: {totalOutcome} kn/mj
-                </div>
-                <br />
-                <div style={{ fontSize: 20, color: grey[700] }}>
-                  Ušteđevina: {savings} kn/mj
                 </div>
               </div>
             </div>

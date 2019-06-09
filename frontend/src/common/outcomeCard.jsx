@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import FinPlanChoice from "./finPlanChoice";
-<<<<<<< HEAD
-import UnexpectedOutcome from "./unexpectedOutcome";
-import FinanceInvestment from "./financeInvestment";
-=======
->>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
 import {
   Card,
   CardContent,
@@ -187,39 +182,6 @@ class OutcomeCard extends Component {
       financialYear !== 0 &&
       !Boolean(outcomes.find(outcome => outcome.year === financialYear));
 
-    let displayedOutcomes = outcomes.filter(outcome => {
-      return (
-        outcome.duration === null ||
-        (outcome.duration + outcome.year > displayedYear &&
-          outcome.year <= displayedYear) ||
-        outcome.year === displayedYear
-      );
-    });
-
-    let choices = [];
-    if (financialYear >= 1 && this.yearIsEmpty("Kredit", outcomes)) {
-      choices.push(<FinPlanChoice studentId={this.props.studentId} />);
-      console.log("KREDIT");
-    }
-    if (financialYear >= 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
-      choices.push(
-        <UnexpectedOutcome
-          studentId={this.props.studentId}
-          variant={this.props.variant}
-        />
-      );
-      console.log("NEOCEKIVANo");
-      console.log(choices);
-    }
-    if (financialYear >= 3 && !this.props.saving)
-      choices.push(
-        <FinanceInvestment
-          studentId={this.props.studentId}
-          variant={this.props.variant}
-          outcomes={this.props.outcomes}
-          incomes={this.props.incomes}
-        />
-      );
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader
@@ -234,10 +196,6 @@ class OutcomeCard extends Component {
         />
         <Divider />
         <CardContent className={classes.cardContent}>
-<<<<<<< HEAD
-          {choices.shift()}
-=======
->>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
           <List>
             {outcomes.map((outcome, index) => {
               let { type, amount, change } = outcome;
