@@ -2,8 +2,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_ENDPOINTG = "https://f-pismenost.herokuapp.com";
-const API_ENDPOINT = "http://0.0.0.0:3001";
+const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
+const API_ENDPOINTG = "http://0.0.0.0:3001";
 
 export function loadStudent(email, password) {
   return {
