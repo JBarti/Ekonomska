@@ -198,39 +198,6 @@ class OutcomeCard extends Component {
     let { classes, outcomes, sliderChange, financialYear } = this.props;
     let { displayedYear } = this.state;
 
-    let displayedOutcomes = outcomes.filter(outcome => {
-      return (
-        outcome.duration === null ||
-        (outcome.duration + outcome.year > displayedYear &&
-          outcome.year <= displayedYear) ||
-        outcome.year === displayedYear
-      );
-    });
-
-    let choices = [];
-    if (financialYear >= 1 && this.yearIsEmpty("Kredit", outcomes)) {
-      choices.push(<FinPlanChoice studentId={this.props.studentId} />);
-      console.log("KREDIT");
-    }
-    if (financialYear >= 2 && this.yearIsEmpty("Neočekivano", outcomes)) {
-      choices.push(
-        <UnexpectedOutcome
-          studentId={this.props.studentId}
-          variant={this.props.variant}
-        />
-      );
-      console.log("NEOCEKIVANo");
-      console.log(choices);
-    }
-    if (financialYear >= 3 && !this.props.saving)
-      choices.push(
-        <FinanceInvestment
-          studentId={this.props.studentId}
-          variant={this.props.variant}
-          outcomes={this.props.outcomes}
-          incomes={this.props.incomes}
-        />
-      );
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader

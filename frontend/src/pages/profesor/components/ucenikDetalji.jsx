@@ -238,19 +238,15 @@ class LekcijaCard extends Component {
               </Typography>
               <Button
                 disabled={financialYear >= 3}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
+                onClick={
+                  financialYear < 3
+                    ? this.incrementFinancialYear
+                    : () => {
+                        console.log("NON");
+                      }
+                }
               >
-                <PlusOne
-                  onClick={
-                    financialYear < 3
-                      ? this.incrementFinancialYear
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
+                <PlusOne />
               </Button>
             </div>
             <IconButton onClick={this.handleClickOpen} aria-label="Delete">

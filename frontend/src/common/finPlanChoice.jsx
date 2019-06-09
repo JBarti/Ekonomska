@@ -70,8 +70,7 @@ const styles = theme => ({
     "box-shadow": "2px 10px 5px 0px rgba(0,0,0,0.45)"
   },
   dialog: {
-    display: "flex",
-    marginTop: 100
+    display: "flex"
   },
   card: {
     width: "60%",
@@ -105,24 +104,25 @@ const SelectionCard = props => {
   } = props;
   return (
     <Card className={classes.selectionCard}>
-      <CardMedia style={{ height: 500 }} image={image} />
-      <CardContent style={{ paddingTop: 20 }}>
-        <Typography style={{ paddingTop: 5 }} variant={"headline"}>
-          {title}
-        </Typography>
-        <Typography style={{ paddingTop: 5 }} variant={"subheading"}>
+      <CardMedia style={{ height: 200 }} image={image} />
+      <CardContent>
+        <Typography variant={"headline"}>{title}</Typography>
+        <Typography variant={"subheading"} style={{ marginTop: 8 }}>
           {primaryText}
         </Typography>
-        <Typography style={{ paddingTop: 5 }} variant={"subheading"}>
-          {priceText}
-        </Typography>
-        <Typography style={{ paddingTop: 5 }} variant={"caption"}>
+        <Typography variant={"subheading"}>{priceText}</Typography>
+        <Typography variant={"caption"} style={{ marginTop: 8, fontSize: 15 }}>
           {secondaryText}
         </Typography>
       </CardContent>
 
-      <CardActions>
-        <Button onClick={onClick} variant={"contained"} color={"secondary"}>
+      <CardActions style={{ position: "relative", height: "15%" }}>
+        <Button
+          onClick={onClick}
+          style={{ position: "absolute", bottom: 0 }}
+          variant={"contained"}
+          color={"secondary"}
+        >
           Odaberi
         </Button>
       </CardActions>
@@ -226,7 +226,11 @@ class FinPlanChoice extends Component {
             </Card>
             <div className={classes.selectionContainer}>
               <SelectionCard
-                onClick={this.createJob("Grafički dizajn", 5500, 640)}
+                onClick={this.createJob(
+                  "Graficki dizajn",
+                  5500,
+                  Math.round(25000 / 12)
+                )}
                 classes={classes}
                 image={graphicDesignImage}
                 title={"Grafički dizajn"}
@@ -239,7 +243,11 @@ class FinPlanChoice extends Component {
                 priceText={"Cijena tečaja: 25.000 HRK"}
               />
               <SelectionCard
-                onClick={this.createJob("Školovanje", 7500, 2348)}
+                onClick={this.createJob(
+                  "Školovanje",
+                  7500,
+                  Math.round(100000 / 12)
+                )}
                 classes={classes}
                 image={schoolImage}
                 title={"Nastaviti školovanje i raditi"}
