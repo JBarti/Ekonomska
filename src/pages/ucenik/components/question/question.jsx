@@ -11,14 +11,14 @@ import styles from "./questionStyle";
 class Question extends Component {
   constructor(props) {
     super(props);
-    this.state = { time: 20 };
+    this.state = { time: 10 };
     setTimeout(this.timer, 1000);
   }
 
   timer = () => {
     let time = this.state.time - 1;
     if (time === 0) {
-      this.props.answerQuestion(String(this.props.question.id) + "5");
+      this.props.answerQuestion(String(this.props.question.id) + "5")();
       return;
     }
     this.setState({ time: time });
@@ -37,14 +37,6 @@ class Question extends Component {
               {questionNumbers.questionNumber}/{questionNumbers.questionsLength}
             </Typography>
             <div className={classes.timer}>
-              <CircularProgress
-                color="secondary"
-                thickness={1}
-                size={175}
-                variant="static"
-                value={100 - 20}
-                className={classes.circle}
-              />
               <div className={classes.time}>{this.state.time}</div>
             </div>
             <Typography variant="headline">{text}</Typography>
@@ -54,7 +46,10 @@ class Question extends Component {
               return (
                 <Button
                   className={classes.answer}
-                  onClick={answerQuestion(String(id) + String(index))}
+                  onClick={() => {
+                    console.log("RADI LI ");
+                    answerQuestion(String(id) + String(index))();
+                  }}
                 >
                   {answer.answer}
                 </Button>

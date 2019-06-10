@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import IncomeCard from "../../../common/incomeCard";
 import OutcomeCard from "../../../common/outcomeCard";
+import GoalsFulfilledCard from "../../../common/goalsFulfilledCard";
 import TotalCard from "./totalCard";
 import MonthlyCard from "../../../common/monthlyCard";
 
@@ -58,7 +59,8 @@ class Dashboard extends Component {
       folders,
       notifications,
       studentId,
-      solutions
+      solutions,
+      saving
     } = this.props;
     let tests = folders.map(folder => folder.tests).flat();
     let solvedTests = solutions
@@ -78,15 +80,20 @@ class Dashboard extends Component {
 
     return (
       <div style={{ height: "calc(100% - 65px)" }}>
-        <GridList className={classes.gridList} rows={2.5}>
-          {folders.map(folder => (
-            <LekcijaCard
-              folder={folder}
-              studentId={studentId}
-              solvedTests={solvedTests}
-            />
-          ))}
-        </GridList>
+        {folders.length ? (
+          <GridList className={classes.gridList} rows={2.5}>
+            {folders.map(folder => (
+              <LekcijaCard
+                folder={folder}
+                studentId={studentId}
+                solvedTests={solvedTests}
+              />
+            ))}
+          </GridList>
+        ) : (
+          <div />
+        )}
+
         <Row>
           {notifications.length ? (
             <NotificationCard notifications={notifications} />
@@ -104,12 +111,14 @@ class Dashboard extends Component {
           <IncomeCard payment={this.state.job} fees={this.state.fees} />
           <OutcomeCard
             outcomes={this.state.outcomes}
+            incomes={this.state.fees.concat([this.state.job])}
             sliderChange={this.outcomeSliderChange}
             financialYear={this.props.financialYear}
             studentId={this.props.studentId}
             credit={{}}
             unexpected={{}}
             variant={financeVariant}
+            saving={this.props.saving}
           />
           <TotalCard
             outcomes={this.state.outcomes}
@@ -123,6 +132,17 @@ class Dashboard extends Component {
             incomes={this.state.fees.concat([this.state.job])}
           />
         </Row>
+        {saving ? (
+          <Row>
+            <GoalsFulfilledCard
+              saving={saving}
+              outcomes={this.state.outcomes}
+              incomes={this.state.fees.concat([this.state.job])}
+            />
+          </Row>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
@@ -137,6 +157,7 @@ export default connect(store => {
   return {
     job: store.finance.job || { amount: 0 },
     fees: store.finance.fees || [],
+    saving: store.finance.saving || false,
     outcomes: store.finance.outcomes || [],
     notifications: store.grade.notifications || [],
     folders: store.grade.folders || [],

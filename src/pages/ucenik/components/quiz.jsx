@@ -56,19 +56,19 @@ class Quiz extends Component {
   answerQuestion = answer => () => {
     let { currentQuestion, test } = this.state;
 
+    let answers = [...this.state.answers];
+    answers.push(answer);
+
     if (currentQuestion !== test.questions.length - 1) {
       currentQuestion += 1;
     } else {
-      let answers = this.state.answers;
       let { dispatch, studentId, test, handleClose } = this.props;
       dispatch(solveTest(test.id, answers, studentId));
       handleClose();
     }
 
-    let answers = [...this.state.answers];
-    answers.push(answer);
-
-    this.setState({ currentQuestion: currentQuestion, answers: answers });
+    this.setState({ answers: answers });
+    this.setState({ currentQuestion: currentQuestion });
   };
 
   render() {

@@ -27,8 +27,9 @@ import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import EditIcon from "@material-ui/icons/Edit";
 import EditUcenikCard from "./editUcenikCard";
-import UcenikTests from "./ucenikTests";
+import TotalCard from "../../ucenik/components/totalCard";
 import GradesCard from "../../ucenik/components/gradesCard";
+import Row from "../../../common/content/row/row";
 
 const drawerWidth = 240;
 
@@ -150,6 +151,9 @@ class LekcijaCard extends Component {
 
   showStudentData = student => () => {
     let { classes } = this.props;
+    let tests = this.getTests();
+    let solutions = student.solutions || [];
+    console.log("TESTOVI", tests.length);
     this.handleClose();
     setTimeout(this.handleClickOpen, 410);
     setTimeout(() => {
@@ -162,12 +166,26 @@ class LekcijaCard extends Component {
               alignItems: "center"
             }}
           >
-            <EditUcenikCard student={student} toHome={this.toHome} />
-            <GradesCard
-              solutions={student.solutions || []}
-              tests={this.getTests()}
-              classes={{ root: classes.gradeCard }}
-            />
+            <Row>
+              <EditUcenikCard student={student} toHome={this.toHome} />
+            </Row>
+            {solutions.length ? (
+              <Row>
+                <GradesCard
+                  solutions={student.solutions || []}
+                  tests={tests}
+                  classes={{ root: classes.gradeCard }}
+                />
+              </Row>
+            ) : (
+              <div />
+            )}
+            <Row>
+              <TotalCard
+                outcomes={student.outcomes || []}
+                incomes={student.incomes || []}
+              />
+            </Row>
           </div>
         )
       });
@@ -236,22 +254,19 @@ class LekcijaCard extends Component {
               >
                 Financijska Razina: {Number(financialYear)}
               </Typography>
-              <Button
-                disabled={financialYear >= 2}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
+              <span
+                onClick={
+                  financialYear < 3
+                    ? this.incrementFinancialYear
+                    : () => {
+                        console.log("NON");
+                      }
+                }
               >
-                <PlusOne
-                  onClick={
-                    financialYear < 2
-                      ? this.incrementFinancialYear
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </Button>
+                <IconButton disabled={financialYear >= 3}>
+                  <PlusOne />
+                </IconButton>
+              </span>
             </div>
             <IconButton onClick={this.handleClickOpen} aria-label="Delete">
               <Visibility />

@@ -68,6 +68,9 @@ const GradeDisplay = props => {
   let gradeNumStyle = {
     background: `-moz-linear-gradient(326deg, ${grade.gradient[0]} 36%, ${
       grade.gradient[1]
+    } 100%)`,
+    background: `-webkit-linear-gradient(326deg, ${grade.gradient[0]} 36%, ${
+      grade.gradient[1]
     } 100%)`
   };
   console.log(solution);
@@ -96,7 +99,8 @@ const GradeDisplay = props => {
         <div
           className={classes.bar}
           style={{
-            background: `-moz-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`
+            background: `-moz-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`,
+            background: `-webkit-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`
           }}
         />
       </ListItemSecondaryAction>

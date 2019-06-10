@@ -70,7 +70,8 @@ const styles = theme => ({
     "box-shadow": "2px 10px 5px 0px rgba(0,0,0,0.45)"
   },
   dialog: {
-    display: "flex"
+    display: "flex",
+    marginTop: 100
   },
   card: {
     width: "60%",
@@ -104,25 +105,24 @@ const SelectionCard = props => {
   } = props;
   return (
     <Card className={classes.selectionCard}>
-      <CardMedia style={{ height: 200 }} image={image} />
-      <CardContent>
-        <Typography variant={"headline"}>{title}</Typography>
-        <Typography variant={"subheading"} style={{ marginTop: 8 }}>
+      <CardMedia style={{ height: 500 }} image={image} />
+      <CardContent style={{ paddingTop: 20 }}>
+        <Typography style={{ paddingTop: 5 }} variant={"headline"}>
+          {title}
+        </Typography>
+        <Typography style={{ paddingTop: 5 }} variant={"subheading"}>
           {primaryText}
         </Typography>
-        <Typography variant={"subheading"}>{priceText}</Typography>
-        <Typography variant={"caption"} style={{ marginTop: 8, fontSize: 15 }}>
+        <Typography style={{ paddingTop: 5 }} variant={"subheading"}>
+          {priceText}
+        </Typography>
+        <Typography style={{ paddingTop: 5 }} variant={"caption"}>
           {secondaryText}
         </Typography>
       </CardContent>
 
-      <CardActions style={{ position: "relative", height: "15%" }}>
-        <Button
-          onClick={onClick}
-          style={{ position: "absolute", bottom: 0 }}
-          variant={"contained"}
-          color={"secondary"}
-        >
+      <CardActions>
+        <Button onClick={onClick} variant={"contained"} color={"secondary"}>
           Odaberi
         </Button>
       </CardActions>

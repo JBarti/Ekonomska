@@ -94,10 +94,6 @@ class editLekcija extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <IconButton className={classes.deleteBtn} aria-label="Delete">
-              <DeleteIcon />
-            </IconButton>
-
             <Button
               onClick={this.handleClose}
               variant="contained"

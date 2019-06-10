@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const API_ENDPOINT = "https://f-pismenost.herokuapp.com";
-const API_ENDPOINTL = "http://0.0.0.0:3001";
+const API_ENDPOINTG = "http://0.0.0.0:3001";
 
 export function loadStudent(email, password) {
   return {
@@ -89,6 +89,17 @@ export function updateOutcomes(studentId, outcomes) {
     payload: axios.post(API_ENDPOINT + "/students/outcomes", {
       studentId,
       outcomes
+    })
+  };
+}
+
+export function newInvestment(studentId, totalSavings, interestRate) {
+  return {
+    type: "THIRD_CHOICE",
+    payload: axios.post(API_ENDPOINT + "/students/year/3", {
+      studentId,
+      totalSavings,
+      interestRate
     })
   };
 }

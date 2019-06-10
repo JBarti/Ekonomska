@@ -86,48 +86,52 @@ class TotalCard extends Component {
           title={`Ukupno stanje`}
           action={
             <div style={{ height: 20 }}>
-              <IconButton
-                disabled={displayedYear === 1}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
+              <span
+                onClick={
+                  displayedYear > 1
+                    ? () => {
+                        this.setState({ displayedYear: displayedYear - 1 });
+                      }
+                    : () => {
+                        console.log("NON");
+                      }
+                }
               >
-                <KeyboardArrowLeft
-                  onClick={
-                    displayedYear > 1
-                      ? () => {
-                          this.setState({ displayedYear: displayedYear - 1 });
-                        }
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </IconButton>
+                <IconButton
+                  disabled={displayedYear === 1}
+                  onCLick={() => {
+                    console.log("ASPDJAS");
+                  }}
+                >
+                  <KeyboardArrowLeft />
+                </IconButton>
+              </span>
               <Typography
                 variant={"subheading"}
                 style={{ display: "inline", marginRight: 20 }}
               >
                 Godina: {Number(displayedYear)}
               </Typography>
-              <IconButton
-                disabled={displayedYear >= 7}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
+              <span
+                onClick={
+                  displayedYear < 7
+                    ? () => {
+                        this.setState({ displayedYear: displayedYear + 1 });
+                      }
+                    : () => {
+                        console.log("NON");
+                      }
+                }
               >
-                <KeyboardArrowRight
-                  onClick={
-                    displayedYear < 7
-                      ? () => {
-                          this.setState({ displayedYear: displayedYear + 1 });
-                        }
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-              </IconButton>
+                <IconButton
+                  disabled={displayedYear >= 7}
+                  onCLick={() => {
+                    console.log("ASPDJAS");
+                  }}
+                >
+                  <KeyboardArrowRight />
+                </IconButton>
+              </span>
             </div>
           }
         />

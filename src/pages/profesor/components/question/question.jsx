@@ -31,14 +31,6 @@ class Question extends Component {
               {questionNumbers.questionNumber}/{questionNumbers.questionsLength}
             </Typography>
             <div className={classes.timer}>
-              <CircularProgress
-                color="secondary"
-                thickness={1}
-                size={175}
-                variant="static"
-                value={100 - 20}
-                className={classes.circle}
-              />
               <div className={classes.time}>{10}</div>
             </div>
             <TextField
