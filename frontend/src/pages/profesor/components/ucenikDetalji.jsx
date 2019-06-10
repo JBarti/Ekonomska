@@ -27,7 +27,9 @@ import AddNewUcenik from "./addNewUcenik";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import EditIcon from "@material-ui/icons/Edit";
 import EditUcenikCard from "./editUcenikCard";
-import UcenikTests from "./ucenikTests";
+import TotalCard from "../../ucenik/components/totalCard";
+import GradesCard from "../../ucenik/components/gradesCard";
+import Row from "../../../common/content/row/row";
 
 const drawerWidth = 240;
 
@@ -54,7 +56,7 @@ const styles = theme => ({
     maxWidth: "100%"
   },
   cardDiv: {
-    width: "100%",
+    width: "90%",
     boxSizing: "content-box",
     overflow: "hidden",
     padding: "1%",
@@ -104,6 +106,10 @@ const styles = theme => ({
   },
   homePage: {
     marginTop: 100
+  },
+  gradeCard: {
+    height: 500,
+    marginTop: 25
   }
 });
 
@@ -144,17 +150,42 @@ class LekcijaCard extends Component {
   };
 
   showStudentData = student => () => {
+    let { classes } = this.props;
+    let tests = this.getTests();
+    let solutions = student.solutions || [];
+    console.log("TESTOVI", tests.length);
     this.handleClose();
     setTimeout(this.handleClickOpen, 410);
     setTimeout(() => {
       this.setState({
         content: (
-          <div>
-            <EditUcenikCard student={student} toHome={this.toHome} />
-            <UcenikTests
-              solutions={student.solutions || []}
-              tests={this.getTests()}
-            />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
+            <Row>
+              <EditUcenikCard student={student} toHome={this.toHome} />
+            </Row>
+            {solutions.length ? (
+              <Row>
+                <GradesCard
+                  solutions={student.solutions || []}
+                  tests={tests}
+                  classes={{ root: classes.gradeCard }}
+                />
+              </Row>
+            ) : (
+              <div />
+            )}
+            <Row>
+              <TotalCard
+                outcomes={student.outcomes || []}
+                incomes={student.incomes || []}
+              />
+            </Row>
           </div>
         )
       });
@@ -223,9 +254,7 @@ class LekcijaCard extends Component {
               >
                 Financijska Razina: {Number(financialYear)}
               </Typography>
-              <Button
-<<<<<<< HEAD
-                disabled={financialYear >= 3}
+              <span
                 onClick={
                   financialYear < 3
                     ? this.incrementFinancialYear
@@ -234,28 +263,10 @@ class LekcijaCard extends Component {
                       }
                 }
               >
-                <PlusOne />
-=======
-                disabled={financialYear >= 2}
-                onCLick={() => {
-                  console.log("ASPDJAS");
-                }}
-              >
-<<<<<<< HEAD
-                <PlusOne
-                  onClick={
-                    financialYear < 2
-                      ? this.incrementFinancialYear
-                      : () => {
-                          console.log("NON");
-                        }
-                  }
-                />
-=======
-                <PlusOne />
->>>>>>> 36d915a53d6a3631900eae5b1d52316952712c45
->>>>>>> parent of 9767e6a... Revert "Created savings model"
-              </Button>
+                <IconButton disabled={financialYear >= 3}>
+                  <PlusOne />
+                </IconButton>
+              </span>
             </div>
             <IconButton onClick={this.handleClickOpen} aria-label="Delete">
               <Visibility />

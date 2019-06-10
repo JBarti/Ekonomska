@@ -70,8 +70,6 @@ export function newJob(jobName, jobPayment, jobCredit, studentId) {
     })
   };
 }
-<<<<<<< HEAD
-=======
 
 export function unexpectedOutcome(studentId, outcome, duration) {
   console.log({ studentId, outcome, duration });
@@ -94,4 +92,14 @@ export function updateOutcomes(studentId, outcomes) {
     })
   };
 }
->>>>>>> parent of 9767e6a... Revert "Created savings model"
+
+export function newInvestment(studentId, totalSavings, interestRate) {
+  return {
+    type: "THIRD_CHOICE",
+    payload: axios.post(API_ENDPOINT + "/students/year/3", {
+      studentId,
+      totalSavings,
+      interestRate
+    })
+  };
+}

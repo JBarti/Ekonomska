@@ -99,7 +99,8 @@ const GradeDisplay = props => {
         <div
           className={classes.bar}
           style={{
-            background: `-moz-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`
+            background: `-moz-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`,
+            background: `-webkit-linear-gradient(left, rgba(78,84,200,1) 0%, rgba(143,148,251,1) ${percentage}%, rgba(232,232,232,1) ${percentage}%, rgba(232,232,232,1) 100%)`
           }}
         />
       </ListItemSecondaryAction>
@@ -131,35 +132,37 @@ class GradesCard extends Component {
         let testPoints = test.questions.length;
         let acquiredPoints = solution.points;
         let percentage = (acquiredPoints / testPoints) * 100;
+        console.log("PERSENTAŽ", percentage);
         let grade = (() => {
-          let grade = { num: 1, gradient: [red[500], red[600]] };
-          switch (percentage) {
+          var gradeObj = { num: 1, gradient: [red[500], red[600]] };
+          switch (true) {
             case percentage <= 50: {
-              grade.num = 1;
+              gradeObj.num = 1;
               break;
             }
             case percentage <= 60: {
-              grade.num = 2;
-              grade.gradient = [orange[(500, orange[600])]];
+              gradeObj.num = 2;
+              gradeObj.gradient = [orange[(500, orange[600])]];
               break;
             }
             case percentage <= 75: {
-              grade.num = 3;
-              grade.gradient = [yellow[500], yellow[600]];
+              gradeObj.num = 3;
+              gradeObj.gradient = [yellow[500], yellow[600]];
               break;
             }
             case percentage <= 90: {
-              grade.num = 4;
-              grade.gradient = [(blue[500], blue[600])];
+              gradeObj.num = 4;
+              gradeObj.gradient = [(blue[500], blue[600])];
               break;
             }
             case percentage <= 100: {
-              grade.num = 5;
-              grade.gradient = [green[500], green[600]];
+              gradeObj.num = 5;
+              gradeObj.gradient = [green[500], green[600]];
               break;
             }
           }
-          return grade;
+          console.log(gradeObj);
+          return gradeObj;
         })();
         console.log("GRADE");
         console.log(testPoints);
