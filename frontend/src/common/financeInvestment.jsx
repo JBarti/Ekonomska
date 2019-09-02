@@ -175,7 +175,7 @@ class FinanceInvestment extends Component {
         .reduce((prev, next) => prev + next, 0);
     };
 
-    let years = 7;
+    let years = 6;
 
     let savings =
       totalIncome * years -
@@ -187,6 +187,8 @@ class FinanceInvestment extends Component {
           return prev + next;
         }, 0);
 
+    savings *= 12;
+    console.log("SEJVINGS", savings);
     return savings;
   };
 
@@ -232,6 +234,7 @@ class FinanceInvestment extends Component {
           return prev + next;
         }, 0);
 
+    savings *= 12;
     return savings > 0;
   };
 
@@ -335,7 +338,7 @@ class FinanceInvestment extends Component {
                   classes={classes}
                   image={schoolImage}
                   title={"Ulaganje u investicijski fond"}
-                  onClick={this.selectInvestment(8)}
+                  onClick={this.selectInvestment(4)}
                   primaryText={
                     "Svoju ušteđevinu odlučili ste uložiti u investicijski fond. To je jako rizično ulaganje i očekivan povrat nemora se uvijek ostvariti."
                   }

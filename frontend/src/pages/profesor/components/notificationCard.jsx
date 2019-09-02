@@ -59,9 +59,6 @@ const Notification = props => {
         primary={
           <div>
             <span className={classes.title}>{title}</span>
-            <span variant="caption" className={classes.date}>
-              {date}
-            </span>
           </div>
         }
         secondary={description}

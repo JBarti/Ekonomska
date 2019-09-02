@@ -171,7 +171,7 @@ class FinPlanChoice extends Component {
               <CardContent>
                 <Typography style={{ fontSize: 20 }} variant={"body1"}>
                   Morate otići zubaru i svog kućnog ljubimca odvesti veterinaru
-                  što zajedno košta {variant == 2 ? "7.200,00" : "5.760,00"}
+                  što zajedno košta oko {variant == 2 ? "7.200,00" : "5.760,00"}
                   HRK. Taj iznos možete otplaćivati u mjesečnim ratama sljedeće
                   {variant == 2 ? "5" : "4"} godine bez kamata. Mjesečni iznos
                   rate iznosi 120 HRK. Vaša tablica prihoda i rashoda se mijenja

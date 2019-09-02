@@ -80,6 +80,8 @@ class TotalCard extends Component {
           return prev + next;
         }, 0);
 
+    savings *= 12;
+
     return (
       <Card elevation={5} className={classes.root}>
         <CardHeader
@@ -123,12 +125,7 @@ class TotalCard extends Component {
                       }
                 }
               >
-                <IconButton
-                  disabled={displayedYear >= 7}
-                  onCLick={() => {
-                    console.log("ASPDJAS");
-                  }}
-                >
+                <IconButton disabled={displayedYear >= 7}>
                   <KeyboardArrowRight />
                 </IconButton>
               </span>
@@ -233,7 +230,7 @@ class TotalCard extends Component {
                 </div>
                 <br />
                 <div style={{ fontSize: 20, color: grey[700] }}>
-                  Ušteđevina: {savings} kn/mj
+                  Stanje: {savings} kn
                 </div>
               </div>
             </div>

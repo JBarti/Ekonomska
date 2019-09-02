@@ -229,12 +229,12 @@ class FinPlanChoice extends Component {
                 onClick={this.createJob("Grafički dizajn", 5500, 640)}
                 classes={classes}
                 image={graphicDesignImage}
-                title={"Grafički dizajn"}
+                title={"Upis tečaj grafičkog dizajna"}
                 primaryText={
                   "Vaš poslodavac oduševljen je odlukom i vašu plaću će postaviti na 5.500 HRK"
                 }
                 secondaryText={
-                  "S obzirom da još nemate novca prisiljeni ste podignuti kredit. Njega otplačujete 4 godine svaki mjesec uz kamatnu stopu 4%."
+                  "S obzirom da još nemate novca prisiljeni ste podignuti kredit za tečaj. Njega otplačujete 4 godine svaki mjesec uz kamatnu stopu 4%."
                 }
                 priceText={"Cijena tečaja: 25.000 HRK"}
               />
@@ -242,7 +242,7 @@ class FinPlanChoice extends Component {
                 onClick={this.createJob("Školovanje", 7500, 2348)}
                 classes={classes}
                 image={schoolImage}
-                title={"Nastaviti školovanje i raditi"}
+                title={"Nastavak školovanja uz rad"}
                 primaryText={
                   "Vaš poslodavac smatra da obrazovaniji zaposlenici pridonose razvoju tvrtke. Kao poticaj vam je plaća povečana na 7500 HRK."
                 }

@@ -109,15 +109,15 @@ const GoalsFulfilledCard = props => {
           />
           <div className={classes.cardText}>
             <div style={{ fontSize: 20, color: grey[700] }}>
-              Uložili ste: {savings}kn
+              Uložili ste: {savings * 12}kn
             </div>
             <br />
             <div style={{ fontSize: 20, color: grey[700] }}>
-              Ostvareni dobitak: {saving.amount - savings}kn
+              Ostvareni dobitak: {savings + stabileDifference * 2}kn
             </div>
             <br />
             <div style={{ fontSize: 20, color: grey[700] }}>
-              Ukupno novca: {savings + stabileDifference * 2}kn
+              Ukupan iznos: {saving.amount - savings}kn
             </div>
             <br />
             {didBuyLaptop(savings + stabileDifference * 2)}
